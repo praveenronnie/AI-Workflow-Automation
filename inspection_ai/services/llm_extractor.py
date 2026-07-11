@@ -6,9 +6,19 @@ import json
 import os
 
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
+try:
+    # Running in Google Colab
+    from google.colab import userdata
+
+    os.environ["LLM_API_KEY"] = userdata.get("LLM_API_KEY")
+    os.environ["LLM_URL"] = userdata.get("LLM_URL")
+    os.environ["LLM_MODEL"] = userdata.get("LLM_MODEL")
+except ModuleNotFoundError:
+    # Running locally
+    from dotenv import load_dotenv
+
+    load_dotenv()
 
 
 class LLMExtractor:
