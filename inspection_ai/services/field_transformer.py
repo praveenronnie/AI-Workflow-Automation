@@ -1,6 +1,5 @@
 """
-Field Transformer - Transforms extracted data from PDFs and images into a flat dictionary
-suitable for mapping to Quire form fields.
+Field Transformer - Transforms extracted data from PDFs and images into a flat dictionary.
 """
 
 from typing import Dict, Any, List
@@ -10,31 +9,18 @@ def transform_extracted_data(
     pdf_results: dict,
     image_results: list,
 ) -> Dict[str, Any]:
-    """
-    Transform PDF and image extraction results into a flat dictionary.
-
-    Args:
-        pdf_results: Output from PDFProcessor.process_pdfs()
-        image_results: Output from ImageProcessor.process_images()
-
-    Returns:
-        Dictionary with canonical field names as keys
-    """
     extracted = {}
 
-    # Process handwritten PDF fields
     handwritten = pdf_results.get("handwritten", {})
     if handwritten and "fields" in handwritten:
         for field in handwritten.get("fields", []):
             extracted.update(_extract_field_values(field))
 
-    # Process scanned PDF fields
     scanned = pdf_results.get("scanned", {})
     if scanned and "fields" in scanned:
         for field in scanned.get("fields", []):
             extracted.update(_extract_field_values(field))
 
-    # Process image results
     for img_result in image_results:
         extracted.update(_extract_image_values(img_result))
 
@@ -42,7 +28,6 @@ def transform_extracted_data(
 
 
 def _extract_field_values(field: dict) -> Dict[str, Any]:
-    """Extract relevant values from a PDF field result."""
     result = {}
 
     if "owner_name" in field:
@@ -58,7 +43,6 @@ def _extract_field_values(field: dict) -> Dict[str, Any]:
 
 
 def _extract_image_values(img_result: dict) -> Dict[str, Any]:
-    """Extract relevant values from an image analysis result."""
     result = {}
 
     if "room" in img_result:
@@ -88,13 +72,4 @@ def _extract_image_values(img_result: dict) -> Dict[str, Any]:
 
 
 def get_quire_fields_from_extraction(extraction_result: dict) -> List[dict]:
-    """
-    Extract the flat list of Quire fields from the async extraction result.
-
-    Args:
-        extraction_result: Output from AsyncExtractService.extract()
-
-    Returns:
-        List of field dictionaries suitable for MappingService
-    """
     return extraction_result.get("all_fields_flat", [])

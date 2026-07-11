@@ -1,6 +1,5 @@
 """
 Data Transfer Objects for consistent field mapping across projects.
-All extractions return data in this standardized format.
 """
 
 from dataclasses import dataclass, field, asdict

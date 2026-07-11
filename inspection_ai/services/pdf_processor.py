@@ -1,7 +1,5 @@
 """
 PDF Processor - Converts PDF pages to images and extracts data using QwenVL.
-Supports retry mechanism for robust processing.
-Uses LLM extraction for scanned PDFs via docling.
 """
 
 import asyncio

@@ -8,14 +8,12 @@ import os
 import requests
 
 try:
-    # Running in Google Colab
     from google.colab import userdata
 
     os.environ["LLM_API_KEY"] = userdata.get("LLM_API_KEY")
     os.environ["LLM_URL"] = userdata.get("LLM_URL")
     os.environ["LLM_MODEL"] = userdata.get("LLM_MODEL")
 except ModuleNotFoundError:
-    # Running locally
     from dotenv import load_dotenv
 
     load_dotenv()
@@ -31,10 +29,6 @@ class LLMExtractor:
             raise ValueError("LLM_API_KEY not found in environment variables")
 
     def extract_key_value_pairs(self, text: str) -> dict:
-        """
-        Extract all key-value pairs from text using LLM.
-        Returns a dict with extracted fields.
-        """
         prompt = self._build_prompt(text)
         response = self._call_llm(prompt)
         return self._parse_response(response)
@@ -66,7 +60,7 @@ class LLMExtractor:
         Status:
 
         Output:
-        {
+        {{
         "Name": "John Doe",
         "Employee ID": "EMP-1024",
         "Department": "Engineering",
@@ -77,7 +71,7 @@ class LLMExtractor:
             "Beta"
         ],
         "Status": null
-        }
+        }}
 
         Now extract the key-value pairs from the following text.
 

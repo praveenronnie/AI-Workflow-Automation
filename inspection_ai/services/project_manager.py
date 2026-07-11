@@ -1,6 +1,5 @@
 """
 Project Manager - Single source of truth for project data.
-Handles all file I/O and project state management.
 """
 
 import json

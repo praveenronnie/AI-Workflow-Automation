@@ -24,13 +24,8 @@ class DoclingProcessor:
         )
 
     def export_to_text(self, pdf_path: str) -> str:
-        """
-        Convert a PDF to text using docling Python API.
-        Returns the extracted text content.
-        """
         result_doc = self.converter.convert(pdf_path)
         return result_doc.document.export_to_text()
 
     def convert_pdf_to_text(self, pdf_path: str) -> str:
-        """Alias for export_to_text for compatibility."""
         return self.export_to_text(pdf_path)

@@ -1,6 +1,5 @@
 """
 Mapping Service - Maps extracted values to Quire fields using aliases.
-Supports field name variations across different projects.
 """
 
 from typing import Optional

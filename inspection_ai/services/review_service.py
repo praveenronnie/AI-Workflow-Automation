@@ -1,6 +1,5 @@
 """
 Review Service - Handles manual review and correction of extracted data.
-Provides approval workflow before auto-fill.
 """
 
 
