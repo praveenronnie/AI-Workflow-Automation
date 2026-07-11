@@ -22,7 +22,7 @@ except ModuleNotFoundError:
 class LLMExtractor:
     def __init__(self):
         self.api_key = os.getenv("LLM_API_KEY")
-        self.api_url = os.getenv("LLM_URL", "https://api.openrouter.ai/v1")
+        self.api_url = os.getenv("LLM_URL", "https://openrouter.ai/api/v1")
         self.model = os.getenv("LLM_MODEL", "openai/gpt-oss-20b")
 
         if not self.api_key:
