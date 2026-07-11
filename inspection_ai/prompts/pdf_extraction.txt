@@ -1,0 +1,40 @@
+Extract all explicit key-value pairs from the following text.
+
+        Instructions:
+        - Return ONLY a valid JSON object.
+        - Do not include markdown, code fences, explanations, or any additional text.
+        - Use the field names exactly as they appear in the text whenever possible.
+        - Preserve values exactly as written.
+        - If a field appears multiple times, return its values as an array.
+        - If a field exists but has no value, use null.
+        - Ignore text that is not associated with a key.
+        - If no key-value pairs are found, return empty dict.
+        - Ensure the output is valid JSON.
+
+        Example
+
+        Input:
+        Name: John Doe
+        Employee ID: EMP-1024
+        Department: Engineering
+        Email: john.doe@example.com
+        Skills: Python, Java, SQL
+        Project: Alpha
+        Project: Beta
+        Status:
+
+        Output:
+        {
+        "Name": "John Doe",
+        "Employee ID": "EMP-1024",
+        "Department": "Engineering",
+        "Email": "john.doe@example.com",
+        "Skills": "Python, Java, SQL",
+        "Project": [
+            "Alpha",
+            "Beta"
+        ],
+        "Status": null
+        }
+
+        Now extract the key-value pairs from the following text.

@@ -1,0 +1,15 @@
+data/
+.venv/
+venv/
+storage/
+
+__pycache__/
+__pytest__/
+output.json/
+report_tags_summary.json/
+
+.env
+.env.example
+
+/output.json
+/report_tags_summary.json

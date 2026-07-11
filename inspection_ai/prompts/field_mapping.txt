@@ -1,0 +1,7 @@
+Map extracted values to Quire form fields:
+- Match field names using aliases
+- Preserve confidence scores
+- Include evidence for each mapping
+- Flag unmapped fields for manual review
+
+Return JSON with field_mappings and unmapped_fields arrays.
