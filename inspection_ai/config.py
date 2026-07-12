@@ -34,6 +34,6 @@ MAX_PIXELS = int(os.getenv("MAX_PIXELS", str(512 * 28 * 28)))
 JPEG_QUALITY = int(os.getenv("JPEG_QUALITY", "90"))
 OOM_RETRY_LEVELS = [512, 384, 256]  # pixel counts for adaptive OOM recovery
 MAX_CONCURRENT_INFERENCES = int(os.getenv("MAX_CONCURRENT_INFERENCES", "2"))
-USE_FLASH_ATTENTION = os.getenv("USE_FLASH_ATTENTION", "true").lower() == "true"
+USE_FLASH_ATTENTION = os.getenv("USE_FLASH_ATTENTION", "false").lower() == "true"
 MAX_NEW_TOKENS = int(os.getenv("MAX_NEW_TOKENS", "256"))
 GPU_MEMORY_FRACTION = float(os.getenv("GPU_MEMORY_FRACTION", "0.8"))
