@@ -19,48 +19,64 @@ Two main components:
 ## Architecture
 
 ```
-Chrome Extension (MV3)
-├── Side Panel UI (ui/ — React + Zustand)
+Chrome Extension (extension/)
+├── Side Panel UI (React + Zustand)
 ├── Background Service Worker (all backend API calls, JWT)
-└── Content Script (DOM + adapter registry)
+└── Content Scripts (scanner, fillers, adapter registry, extractors)
       └── adapters/*.adapter.json  → declarative platform config
-          extraction strategies (api + dom), fillers, parsers
                 │ REST + JWT
                 v
-FastAPI (inspection_ai/api)
-├── /auth (JWT)  /reports (upload, schema, map)  /domains (manifests, prompts)
-└── universal_service/  ← core (platform & domain agnostic)
-      ├── extractors/  pdf (Docling/Modal) · handwritten (VLM) · image · zip
-      ├── indexer/     Qdrant vectors + BM25 + cross-encoder reranker
-      ├── mapper/      alias → retrieval → rule → LLM, concurrent per section
-      └── storage/     evidence store · report registry · Redis cache
+FastAPI backend (backend/inspection_ai — package: inspection_ai)
+├── app.py                  composition root (lifespan, routers, exception handlers)
+├── features/               business features: reports/documents/mapping/domains/auth
+│   └── each owns routes → payloads → service → repository
+├── workflows/              cross-feature orchestration (report processing)
+├── ai/                     RAG capability layer (domain-agnostic)
+│   ├── extraction/         pdf (Docling/Modal) · handwritten (VLM) · image · zip
+│   ├── retrieval/          Qdrant vectors + BM25 + cross-encoder reranker
+│   ├── mapping/            alias → retrieval → rule → LLM
+│   ├── providers/          LLM client, Modal inference, Docling, intent detection
+│   └── storage/models/prompts
+├── core/                   config, logging, exceptions, DI container, paths, constants
+├── database/               ORM models + shared session (repositories inside features)
+├── tasks/ worker/          Celery + Modal workers
+└── domain_catalog/ prompts/
 
-Celery worker: pdf/image/intent/embed tasks
+frontend/web/               React + Vite dashboard (src/features/...)
+json_extraction/            extraction output artifacts
+migrations/ scripts/ docs/  Alembic, seed tooling, documentation
+
 Infra: PostgreSQL · Redis · Qdrant · Modal (GPU inference)
+Celery worker: pdf/image/intent/embed/embed tasks
 ```
+
+Import rule: `api → features/workflows → ai/database`. The `ai/` package never
+imports `features`, `api`, or `tasks` — it stays swappable and testable in
+isolation.
 
 ## Project Structure
 
 ```
 ai-report-automation/
-├── inspection_ai/
-│   ├── api/                  # FastAPI app, auth, report & domain routes
-│   ├── database/             # SQLAlchemy models + repositories (Postgres)
-│   ├── universal_service/    # CORE: extraction, indexing, mapping (agnostic)
-│   ├── services/             # LLM client, Docling, intent detection, Modal executor
-│   ├── tasks/                # Celery tasks (pdf, image, embed, intent)
-│   ├── worker/               # Modal app definitions (docling, embeddings)
-│   └── config.py             # Pydantic settings (.env)
-├── openquire-ai-extension/   # Chrome extension
-│   ├── adapters/             # Declarative platform adapter configs (+ index.json)
-│   ├── content/              # Scanner, fillers, adapter registry, extractors
-│   ├── background/           # Service worker (backend API + state)
-│   ├── domains/manifests/    # Domain manifest JSONs
-│   └── shared/               # Constants + schemas
-├── ui/                       # Side panel (React + TS + Vite)
-├── scripts/                  # Domain manifest seeding / payload generation
-├── testing/                  # Manual test fixtures (JSON results)
-└── docker-compose.yml        # Redis, Qdrant, Postgres, Celery worker
+├── backend/inspection_ai/
+│   ├── app.py                  # FastAPI composition root (lifespan, routers, handlers)
+│   ├── core/                   # config, logging, DI container, exceptions, paths, constants
+│   ├── features/               # business features (routes, payloads, services, repos)
+│   ├── workflows/              # cross-feature orchestration
+│   ├── ai/                     # RAG capability layer (extraction, retrieval, mapping, providers)
+│   ├── database/               # SQLAlchemy models + shared session (Postgres)
+│   ├── tasks/ worker/          # Celery + Modal workers
+│   └── domain_catalog/ prompts/
+├── frontend/web/               # React + Vite dashboard (src/features/...)
+├── extension/                  # Chrome MV3 extension
+│   ├── adapters/               # Declarative platform adapter configs (+ index.json)
+│   ├── content/                # Scanner, fillers, adapter registry, extractors
+│   ├── background/             # Service worker (backend API + state)
+│   ├── domains/manifests/      # Domain manifest JSONs
+│   └── shared/                 # Constants + schemas
+├── json_extraction/            # Extraction output artifacts
+├── migrations/ scripts/ docs/  # Alembic, seed tooling, documentation
+└── docker-compose.yml          # Redis, Qdrant, Postgres, Celery worker, API
 ```
 
 ## Quick Start
