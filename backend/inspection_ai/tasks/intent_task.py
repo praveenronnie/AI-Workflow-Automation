@@ -13,13 +13,13 @@ import logging
 
 
 from inspection_ai.celery_app import celery_app
-from inspection_ai.config import get_settings
+from inspection_ai.core.config import get_settings
 from inspection_ai.database.base import get_db_session as get_db
 from inspection_ai.database.repositories.report_repository import ReportRepository
-from inspection_ai.universal_service.mapper.form_schema_adapter import (
+from inspection_ai.ai.mapping.form_schema_adapter import (
     normalize_form_schema,
 )
-from inspection_ai.universal_service.mapper.universal_mapper import UniversalMapper
+from inspection_ai.ai.mapping.universal_mapper import UniversalMapper
 
 logger = logging.getLogger(__name__)
 

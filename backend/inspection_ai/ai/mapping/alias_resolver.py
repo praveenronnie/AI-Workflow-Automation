@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from inspection_ai.database.models.domain_manifest import DomainField, DomainSection
 from inspection_ai.database.models.domain import Domain
-from inspection_ai.universal_service.indexer.vector_store import SearchQuery
+from inspection_ai.ai.retrieval.vector_store import SearchQuery
 
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload

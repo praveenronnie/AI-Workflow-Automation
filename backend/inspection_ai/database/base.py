@@ -8,7 +8,7 @@ from sqlalchemy.pool import NullPool
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
-from inspection_ai.config import get_settings
+from inspection_ai.core.config import get_settings
 
 settings = get_settings()
 

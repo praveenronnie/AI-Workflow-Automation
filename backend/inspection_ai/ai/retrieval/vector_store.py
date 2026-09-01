@@ -4,7 +4,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from inspection_ai.config import get_settings
+from inspection_ai.ai.config import get_rag_config
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import (
     PointStruct,
@@ -111,7 +111,7 @@ class UniversalVectorStore:
         # on the host machines it is localhost, inside the Docker containers it is
         # the service name (VECTOR_DB_URL env, set in docker-compose).  Defaults
         # fall back to localhost for local development.
-        settings = get_settings()
+        settings = get_rag_config()
         url = (
             getattr(settings, "vector_db_url", "http://localhost:6333")
             or "http://localhost:6333"
@@ -361,7 +361,7 @@ class UniversalVectorStore:
         ``SearchQuery`` objects are supplied the returned structure is keyed by
         ``definition_id`` (under ``by_field``) and by section id (under
         ``by_section``), which is exactly what the
-        :class:`~inspection_ai.universal_service.mapper.universal_mapper.UniversalMapper`
+        :class:`~inspection_ai.ai.mapping.universal_mapper.UniversalMapper`
         consumes for section-grouped retrieval.
         """
         if not queries:

@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from inspection_ai.services.inference.base_executor import InferenceExecutor
+from inspection_ai.ai.providers.inference.base_executor import InferenceExecutor
 import modal
 
 logger = logging.getLogger(__name__)

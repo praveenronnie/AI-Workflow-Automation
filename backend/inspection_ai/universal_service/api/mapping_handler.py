@@ -1,10 +1,10 @@
 import logging
 from typing import Dict, Any, List
 
-from ..mapper.universal_mapper import UniversalMapper
-from ..mapper.form_schema_adapter import normalize_form_schema, resolve_option_id
-from ..storage.evidence_store import EvidenceStore
-from ..storage.report_registry import ReportRegistry
+from inspection_ai.ai.mapping.universal_mapper import UniversalMapper
+from inspection_ai.ai.mapping.form_schema_adapter import normalize_form_schema, resolve_option_id
+from inspection_ai.ai.storage.evidence_store import EvidenceStore
+from inspection_ai.ai.storage.report_registry import ReportRegistry
 
 logger = logging.getLogger(__name__)
 

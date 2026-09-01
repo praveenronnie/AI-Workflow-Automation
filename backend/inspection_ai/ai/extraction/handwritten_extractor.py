@@ -12,13 +12,13 @@ from typing import List
 import fitz
 from PIL import Image
 
-from inspection_ai.config import get_report_storage_path, get_settings
+from inspection_ai.core.config import get_report_storage_path, get_settings
 from inspection_ai.prompts.image_inspection.image_inspect_prompt import (
     handwritten_pdf_extraction_prompt,
 )
-from inspection_ai.services.aggregators.pdf_aggregator import aggregate_pdf_data
-from inspection_ai.services.llm_client import LLMClient
-from inspection_ai.universal_service.models.evidence import Evidence
+from inspection_ai.ai.extraction.aggregators.pdf_aggregator import aggregate_pdf_data
+from inspection_ai.ai.providers.llm_client import LLMClient
+from inspection_ai.ai.models.evidence import Evidence
 
 from .base_extractor import BaseExtractor
 

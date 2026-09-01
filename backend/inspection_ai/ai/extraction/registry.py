@@ -4,10 +4,10 @@ from .pdf_extractor import PDFExtractor
 from .image_extractor import ImageExtractor
 from .handwritten_extractor import HandwrittenExtractor
 from .zip_extractor import ZipExtractor
-from inspection_ai.services.llm_client import LLMClient
-from inspection_ai.config import Settings
-from inspection_ai.services.docling_processor import DoclingProcessor
-from inspection_ai.services.inference.modal_executor import ModalExecutor
+from inspection_ai.ai.providers.llm_client import LLMClient
+from inspection_ai.core.config import Settings
+from inspection_ai.ai.providers.docling_processor import DoclingProcessor
+from inspection_ai.ai.providers.inference.modal_executor import ModalExecutor
 
 settings = Settings()
 

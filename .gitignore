@@ -25,9 +25,9 @@ env/
 .env.example
 
 # Project data
-storage/
-uploads/
-data/
+/storage/
+/uploads/
+/data/
 
 # Backups and temp files
 backup_providers/

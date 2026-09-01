@@ -51,7 +51,7 @@ async def store_embeddings(report_id: str, user_id: str, chunks: List[dict]) -> 
     if not chunks:
         return
     try:
-        from inspection_ai.universal_service.indexer.vector_store import (
+        from inspection_ai.ai.retrieval.vector_store import (
             UniversalVectorStore,
         )
 

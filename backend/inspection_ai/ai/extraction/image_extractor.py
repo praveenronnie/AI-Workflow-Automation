@@ -8,8 +8,8 @@ from uuid import uuid4
 from inspection_ai.prompts.image_inspection.image_inspect_prompt import (
     visual_updated_prompt,
 )
-from inspection_ai.services.llm_client import LLMClient
-from inspection_ai.universal_service.models.evidence import Evidence
+from inspection_ai.ai.providers.llm_client import LLMClient
+from inspection_ai.ai.models.evidence import Evidence
 from PIL import Image
 
 from .base_extractor import BaseExtractor, categorize_field

@@ -13,7 +13,7 @@ from ..prompts import render_mapping_prompt
 from inspection_ai.prompts.image_inspection.image_inspect_prompt import (
     intent_detection_prompt,
 )
-from inspection_ai.services.intent_detector import detect_section_intent
+from inspection_ai.ai.providers.intent_detector import detect_section_intent
 
 logger = logging.getLogger(__name__)
 

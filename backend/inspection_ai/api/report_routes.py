@@ -38,22 +38,22 @@ from inspection_ai.universal_service.api.upload_handler import (
     UniversalUploadHandler,
     UploadedFile,
 )
-from inspection_ai.universal_service.extractors.handwritten_extractor import (
+from inspection_ai.ai.extraction.handwritten_extractor import (
     HandwrittenExtractor,
 )
-from inspection_ai.universal_service.extractors.image_extractor import ImageExtractor
-from inspection_ai.universal_service.extractors.pdf_extractor import PDFExtractor
-from inspection_ai.universal_service.mapper.alias_resolver import (
+from inspection_ai.ai.extraction.image_extractor import ImageExtractor
+from inspection_ai.ai.extraction.pdf_extractor import PDFExtractor
+from inspection_ai.ai.mapping.alias_resolver import (
     AliasResolver,
     load_alias_resolver,
 )
-from inspection_ai.universal_service.mapper.form_schema_adapter import (
+from inspection_ai.ai.mapping.form_schema_adapter import (
     normalize_form_schema,
 )
-from inspection_ai.universal_service.mapper.universal_mapper import (
+from inspection_ai.ai.mapping.universal_mapper import (
     UniversalMapper,
 )
-from inspection_ai.universal_service.models.evidence import (
+from inspection_ai.ai.models.evidence import (
     Evidence as UniversalEvidence,
 )
 

@@ -1,4 +1,4 @@
-﻿"""Image processing task for Celery.
+"""Image processing task for Celery.
 
 This is a real Celery task.  It receives a ``job_id`` and a list of local image
 file paths, runs the VLM extractor over the images (batching + parallel batch
@@ -17,10 +17,11 @@ from typing import List
 from pathlib import Path
 
 from inspection_ai.celery_app import celery_app
-from inspection_ai.config import get_settings
+from inspection_ai.core.config import get_settings
+from inspection_ai.ai.config import get_rag_config
 from inspection_ai.database.base import get_db_session as get_db
 from inspection_ai.database.repositories.report_repository import ReportRepository
-from inspection_ai.universal_service.extractors.image_extractor import ImageExtractor
+from inspection_ai.ai.extraction.image_extractor import ImageExtractor
 from inspection_ai.tasks.embed_worker import run_embed_pipeline
 
 logger = logging.getLogger(__name__)
@@ -34,6 +35,7 @@ async def run_image_pipeline(
 ) -> None:
     # Async pipeline shared by the Celery task (usable for inline fallback).
     settings = get_settings()
+    rag = get_rag_config()
     async with get_db() as db:
         repo: ReportRepository = ReportRepository(db)  # type: ignore
         try:
@@ -41,7 +43,7 @@ async def run_image_pipeline(
             logger.info("[IMAGE] job %s started (%d files)", job_id, len(image_entries))
 
             extractor = ImageExtractor()  # vector_store=None -> embeds via embed worker
-            batch_size = settings.llm_image_batch_size or 10
+            batch_size = rag.llm_image_batch_size or 10
             semaphore = asyncio.Semaphore(settings.max_concurrent_llm_calls)
 
             batches: List[List[tuple]] = []

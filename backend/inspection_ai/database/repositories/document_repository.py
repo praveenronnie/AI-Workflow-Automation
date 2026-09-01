@@ -23,7 +23,7 @@ from inspection_ai.database.models.documents import (
     ShareLink,
 )
 from inspection_ai.database.models.evidence import Evidence
-from inspection_ai.config import get_settings
+from inspection_ai.core.config import get_settings
 
 logger = logging.getLogger(__name__)
 

@@ -11,7 +11,7 @@ try:
 except ImportError:
     magic = None
 
-from ..models.extraction_config import ExtractionConfig
+from inspection_ai.ai.models.extraction_config import ExtractionConfig
 
 
 class InputType(str, Enum):

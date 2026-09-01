@@ -15,7 +15,8 @@ from inspection_ai.universal_service.api.dependencies import (
     UniversalServices,
 )
 
-from inspection_ai.config import get_settings
+from inspection_ai.core.config import get_settings
+from inspection_ai.ai.config import get_rag_config
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +63,8 @@ async def lifespan(app: FastAPI):
             f"(current: %r) — set JWT_SECRET_KEY in .env before production.",
             settings.jwt_secret_key,
         )
-    if not settings.llm_api_key and not settings.openai_base_url:
+    rag = get_rag_config()
+    if not rag.llm_api_key and not rag.openai_base_url:
         logger.warning(
             "[SECURITY] No LLM API key configured — LLM calls will fail until "
             "LLM_API_KEY / LLM_URL or OPENAI_* are set."

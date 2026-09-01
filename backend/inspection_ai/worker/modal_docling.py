@@ -28,12 +28,12 @@ image = (
         "easyocr",
     )
     .add_local_file(
-        local_path="inspection_ai/services/inference/modal_executor.py",
-        remote_path="/root/inspection_ai/services/inference/modal_executor.py",
+        local_path="inspection_ai/ai/providers/inference/modal_executor.py",
+        remote_path="/root/inspection_ai/ai/providers/inference/modal_executor.py",
     )
     .add_local_file(
-        local_path="inspection_ai/services/docling_processor.py",
-        remote_path="/root/inspection_ai/services/docling_processor.py",
+        local_path="inspection_ai/ai/providers/docling_processor.py",
+        remote_path="/root/inspection_ai/ai/providers/docling_processor.py",
     )
 )
 
@@ -53,7 +53,7 @@ class DoclingInference:
 
     @modal.enter()
     def __enter__(self):
-        from inspection_ai.services.docling_processor import (
+        from inspection_ai.ai.providers.docling_processor import (
             DoclingProcessor,
         )
 
@@ -160,7 +160,7 @@ def test_run(
     pdf_path: str,
     report_id: str = "local-test",
 ):
-    from inspection_ai.services.docling_processor import (
+    from inspection_ai.ai.providers.docling_processor import (
         DoclingProcessor,
     )
 

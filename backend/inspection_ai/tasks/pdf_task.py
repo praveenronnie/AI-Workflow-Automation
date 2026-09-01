@@ -19,10 +19,10 @@ from typing import List
 from inspection_ai.celery_app import celery_app
 from inspection_ai.database.base import get_db_session as get_db
 from inspection_ai.database.repositories.report_repository import ReportRepository
-from inspection_ai.universal_service.extractors.handwritten_extractor import (
+from inspection_ai.ai.extraction.handwritten_extractor import (
     HandwrittenExtractor,
 )
-from inspection_ai.universal_service.extractors.pdf_extractor import PDFExtractor
+from inspection_ai.ai.extraction.pdf_extractor import PDFExtractor
 
 logger = logging.getLogger(__name__)
 

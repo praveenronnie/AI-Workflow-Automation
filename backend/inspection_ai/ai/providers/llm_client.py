@@ -6,7 +6,7 @@ from typing import Optional, Dict, Any, List
 
 from openai import OpenAI
 
-from inspection_ai.config import get_settings
+from inspection_ai.ai.config import get_rag_config
 from inspection_ai.utils.token_tracker import (
     increment_tokens,
     get_token_stats,
@@ -14,7 +14,7 @@ from inspection_ai.utils.token_tracker import (
     save_token_stats,
 )
 
-settings = get_settings()
+settings = get_rag_config()
 
 
 class CircuitBreaker:
@@ -67,7 +67,7 @@ class ModelRouter:
         self.circuit_breaker = circuit_breaker or CircuitBreaker()
 
     def _model_for(self, key: str) -> str:
-        return getattr(settings, key, None) or settings.openai_model
+        return getattr(settings, key, None) or settings.openai_base_model
 
     def prime(self, flow_type: str = None) -> str:
         keys = self.FLOWS.get(
@@ -201,7 +201,7 @@ class LLMClient:
             except Exception:
                 self.circuit_breaker.record_failure(fallback)
 
-        default = settings.openai_model
+        default = settings.openai_base_model
         if default not in (target, fallback) and not self.circuit_breaker.is_open(
             default
         ):

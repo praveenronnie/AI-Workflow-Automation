@@ -2,10 +2,10 @@ import hashlib
 import logging
 from typing import List
 
-from inspection_ai.services.llm_client import LLMClient
-from inspection_ai.universal_service.models.evidence import Evidence
-from inspection_ai.services.docling_processor import DoclingProcessor
-from inspection_ai.services.inference.modal_executor import ModalExecutor
+from inspection_ai.ai.providers.llm_client import LLMClient
+from inspection_ai.ai.models.evidence import Evidence
+from inspection_ai.ai.providers.docling_processor import DoclingProcessor
+from inspection_ai.ai.providers.inference.modal_executor import ModalExecutor
 
 from .base_extractor import BaseExtractor
 

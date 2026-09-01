@@ -14,13 +14,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from ..models.evidence import Evidence
 from ..models.form_schema import FormField, FormSection, UniversalFormSchema
-from ..indexer.vector_store import SearchQuery
+from ..retrieval.vector_store import SearchQuery
 from ..prompts import render_mapping_prompt
 from .alias_resolver import AliasResolver
 from .evidence_pack_builder import EvidencePackBuilder
 from .field_matcher import FieldMatcher
 from .form_schema_adapter import resolve_option_id
-from inspection_ai.config import Settings, get_settings
+from inspection_ai.core.config import Settings, get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -604,7 +604,7 @@ class MappingPipeline:
     ) -> Dict:
         """LLM intent detection for fallback semantic queries (no caching)."""
         try:
-            from inspection_ai.services.intent_detector import detect_section_intent
+            from inspection_ai.ai.providers.intent_detector import detect_section_intent
 
             intent = await detect_section_intent(
                 section_id=section_id,

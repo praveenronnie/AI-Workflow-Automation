@@ -3,7 +3,7 @@
 This module exposes a ready‑to‑use :data:`celery_app` instance that can
 be imported by both the FastAPI application and the worker executable.
 
-The configuration values are read from :class:`inspection_ai.config.Settings`.
+The configuration values are read from :class:`inspection_ai.core.config.Settings`.
 Only the minimal set required for the demo is defined – in a real
 installation you would likely move these values into environment
 variables or a dedicated configuration file.
@@ -12,7 +12,7 @@ variables or a dedicated configuration file.
 from __future__ import annotations
 
 from celery import Celery
-from inspection_ai.config import Settings
+from inspection_ai.core.config import Settings
 
 settings = Settings()
 

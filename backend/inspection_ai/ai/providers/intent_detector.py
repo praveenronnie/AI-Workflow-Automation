@@ -1,8 +1,7 @@
-from inspection_ai.services.llm_client import LLMClient
-from inspection_ai.config import get_settings
+from inspection_ai.ai.providers.llm_client import LLMClient
 import logging
 
-settings = get_settings()
+
 logger = logging.getLogger(__name__)
 
 

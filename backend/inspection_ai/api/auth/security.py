@@ -6,7 +6,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from inspection_ai.config import get_settings
+from inspection_ai.core.config import get_settings
 from inspection_ai.database.base import get_db
 from inspection_ai.database.models.user import User
 from inspection_ai.database.repositories.user_repository import UserRepository
