@@ -5,39 +5,34 @@ from .image_extractor import ImageExtractor
 from .handwritten_extractor import HandwrittenExtractor
 from .zip_extractor import ZipExtractor
 from inspection_ai.ai.providers.llm_client import LLMClient
-from inspection_ai.core.config import Settings
-from inspection_ai.ai.providers.docling_processor import DoclingProcessor
-from inspection_ai.ai.providers.inference.modal_executor import ModalExecutor
-
-settings = Settings()
 
 
 class ExtractorRegistry:
-    def __init__(self, config=None, vector_store=None):
+    def __init__(
+        self,
+        config=None,
+        vector_store=None,
+        llm: LLMClient = None,
+        modal_executor=None,
+    ):
         self.vector_store = vector_store
+        self.llm = llm
+        self.modal_executor = modal_executor
         self.pdf = PDFExtractor(
             config=config,
             vector_store=vector_store,
-            docling=DoclingProcessor(),
-            modal_executor=ModalExecutor(),
+            llm_client=llm,
+            modal_executor=modal_executor,
         )
-
         self.image = ImageExtractor(
             config=config,
             vector_store=vector_store,
-            llm_client=LLMClient(
-                primary_model=settings.llm_image_primary,
-                fallback_model=settings.llm_image_fallback,
-            ),
+            llm_client=llm,
         )
-
         self.handwritten = HandwrittenExtractor(
             config=config,
             vector_store=vector_store,
-            llm_client=LLMClient(
-                primary_model=settings.llm_pdf_primary,
-                fallback_model=settings.llm_pdf_fallback,
-            ),
+            llm_client=llm,
         )
         self.zip = ZipExtractor(self.pdf, self.image)
         self.extractors = {

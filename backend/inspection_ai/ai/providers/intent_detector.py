@@ -1,13 +1,15 @@
-from inspection_ai.ai.providers.llm_client import LLMClient
 import logging
 
+from inspection_ai.ai.providers.llm_client import LLMClient
 
 logger = logging.getLogger(__name__)
 
 
 async def detect_section_intent(section_id, section_name, fields, llm_client=None):
     if llm_client is None:
-        llm_client = LLMClient()
+        from inspection_ai.core.container import get_universal_services
+
+        llm_client = get_universal_services().llm or LLMClient()
 
     field_names = [f.label for f in fields if f]
     field_list = "\n".join(f"- {name}" for name in field_names)

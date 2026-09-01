@@ -66,7 +66,7 @@ async def lifespan(app: FastAPI):
     if settings.jwt_secret_key in ("", "change-me-in-production"):
         logger.warning(
             "[SECURITY] JWT_SECRET_KEY is not set to a strong value "
-            f"(current: %r) — set JWT_SECRET_KEY in .env before production.",
+            "(current: %r) — set JWT_SECRET_KEY in .env before production.",
             settings.jwt_secret_key,
         )
     rag = get_rag_config()

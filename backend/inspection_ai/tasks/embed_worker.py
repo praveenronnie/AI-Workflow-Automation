@@ -51,11 +51,14 @@ async def store_embeddings(report_id: str, user_id: str, chunks: List[dict]) -> 
     if not chunks:
         return
     try:
-        from inspection_ai.ai.retrieval.vector_store import (
-            UniversalVectorStore,
-        )
+        from inspection_ai.core.container import get_universal_services
 
-        store = UniversalVectorStore()
+        store = get_universal_services().vector_store
+        if store is None:
+            logger.warning(
+                "[embed] vector store unavailable, skipping (%d chunks)", len(chunks)
+            )
+            return
         # encode_and_store is async -> await it directly.
         await store.encode_and_store(report_id, user_id, chunks)
     except Exception as exc:  # noqa: BLE001

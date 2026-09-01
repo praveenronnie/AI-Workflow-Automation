@@ -15,9 +15,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
 from sqlalchemy import select
 
-from inspection_ai.database.base import AsyncSessionLocal
-from inspection_ai.database.models.domain import Domain
-from inspection_ai.database.models.domain_manifest import (
+from backend.inspection_ai.database.base import AsyncSessionLocal
+from backend.inspection_ai.database.models.domain import Domain
+from backend.inspection_ai.database.models.domain_manifest import (
     DomainManifest,
     DomainSection,
     DomainField,

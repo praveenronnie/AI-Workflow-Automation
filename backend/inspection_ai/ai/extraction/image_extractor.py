@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 class ImageExtractor(BaseExtractor):
 
     def __init__(self, llm_client: LLMClient = None, config=None, vector_store=None):
-        super().__init__(llm_client or LLMClient(), config)
+        super().__init__(llm_client, config)
         self.batch_size = (config.image_batch_size if config else None) or 10
         self.max_dim = (config.max_image_dim if config else None) or 768
         self.vector_store = vector_store

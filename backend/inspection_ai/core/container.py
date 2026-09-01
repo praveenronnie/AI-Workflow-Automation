@@ -4,6 +4,7 @@ Replaces ad-hoc module singletons; the instance lives on ``app.state`` and is
 accessed through :func:`get_universal_services` until callers migrate.
 """
 
+import asyncio
 import logging
 from pathlib import Path
 
@@ -119,45 +120,43 @@ class UniversalServices:
             self.store = None
             self.registry = None
 
-        # 6. Extractor Registry
+        # 6. Modal Inference (created before extractors so they can share it)
+        try:
+            logger.info("[START] Modal Inference initialization")
+            self.modal_executor = ModalExecutor()
+        except Exception as e:
+            logger.error("[FAIL] Modal Inference startup failed: %s", e)
+            self.modal_executor = None
+
+        # 7. Extractor Registry (reuses container llm + modal_executor)
         try:
             logger.info("[START] Extractor Registry initialization")
             self.extractor_registry = ExtractorRegistry(
                 config=self.config,
                 vector_store=self.vector_store if self.retrieval_enabled else None,
+                llm=self.llm,
+                modal_executor=self.modal_executor,
             )
-            logger.info("[OK]    Extractor Registry ready (pdf, image, zip)")
+            logger.info(
+                "[OK]    Extractor Registry ready (pdf, image, handwritten, zip)"
+            )
         except Exception as e:
             logger.error("[FAIL] Extractor Registry init failed: %s", e)
             self.extractor_registry = None
 
-        # 7. Universal Mapper
+        # 8. Universal Mapper
         try:
             logger.info("[START] Universal Mapper initialization")
-            self.mapper = UniversalMapper(
-                llm_client=self.llm,
-                vector_store=self.vector_store if self.retrieval_enabled else None,
-                reranker=self.reranker,
-                redis_client=self.redis_cache,
+            self.mapper = self.build_mapper(
                 domain=getattr(self.config, "domain", "property_inspection"),
                 min_confidence=float(
                     getattr(self.config, "min_confidence_threshold", 0.6)
                 ),
             )
-            if self.indexer is not None:
-                self.mapper.indexer = self.indexer
             logger.info("[OK]    Universal Mapper ready")
         except Exception as e:
             logger.error("[FAIL] Universal Mapper init failed: %s", e)
             self.mapper = None
-
-        # 8. Modal Inference
-        try:
-            logger.info("[START] Modal Inference Intialization")
-            self.modal_executor = ModalExecutor()
-        except Exception as e:
-            logger.error("[FAIL] Modal Inference startup failed: %s", e)
-            self.modal_executor = None
 
         self._started = True
         logger.info("=" * 50)
@@ -193,12 +192,61 @@ class UniversalServices:
         """Whether dense vector retrieval is available."""
         return self.use_vector and self.vector_store is not None
 
-    def build_mapper(self) -> UniversalMapper:
-        """Build a fresh mapper instance (legacy method for compatibility)."""
-        return self.mapper
+    def get_extractor(self, input_type: str):
+        """Return the shared extractor singleton for a file type."""
+        if self.extractor_registry is None:
+            self.extractor_registry = ExtractorRegistry(
+                config=self.config,
+                vector_store=self.vector_store if self.retrieval_enabled else None,
+                llm=self.llm,
+                modal_executor=self.modal_executor,
+            )
+        return self.extractor_registry.get(input_type)
+
+    def build_mapper(
+        self,
+        domain: str = None,
+        min_confidence: float = 0.6,
+        form_type: str = None,
+    ) -> UniversalMapper:
+        """Build a lightweight per-report mapper from the shared dependencies.
+
+        The mapper itself is cheap and holds per-report state (domain, evidence,
+        section-intent cache), so it must be fresh per report — but its heavy
+        dependencies (LLM, Qdrant, reranker, Redis) are the container singletons.
+        """
+        mapper = UniversalMapper(
+            llm_client=self.llm,
+            vector_store=self.vector_store if self.retrieval_enabled else None,
+            reranker=self.reranker,
+            redis_client=self.redis_cache,
+            domain=domain or getattr(self.config, "domain", "property_inspection"),
+            form_type=form_type,
+            min_confidence=min_confidence,
+        )
+        if self.indexer is not None:
+            mapper.indexer = self.indexer
+            mapper.bm25_index = self.indexer.bm25_index
+        return mapper
 
 
 _global_services: UniversalServices = None
+
+
+def warmup_services(config: ExtractionConfig = None) -> UniversalServices:
+    """Build and start the process-wide container once (blocking).
+
+    Used by the Celery worker bootstrap (``worker_process_init``) so every task
+    in a worker process reuses the same warmed services instead of re-initializing
+    per job.
+    """
+    global _global_services
+    if _global_services is None:
+        _global_services = UniversalServices(config)
+        asyncio.run(_global_services.startup())
+    elif not _global_services._started:
+        asyncio.run(_global_services.startup())
+    return _global_services
 
 
 async def startup_services(config: ExtractionConfig = None) -> UniversalServices:
@@ -211,22 +259,14 @@ async def startup_services(config: ExtractionConfig = None) -> UniversalServices
 
 
 def get_universal_services() -> UniversalServices:
-    """Return the global services instance (lazy init fallback)."""
-    global _global_services
-    if _global_services is None:
-        _global_services = UniversalServices()
-        # Synchronous init for backward compatibility with non-async contexts
-        import asyncio
+    """Return the process-wide container (warmed by lifespan or worker bootstrap).
 
-        try:
-            loop = asyncio.get_running_loop()
-        except RuntimeError:
-            loop = None
-        if loop and loop.is_running():
-            # Called from async context, services need explicit startup
-            pass
-        else:
-            asyncio.run(_global_services.startup())
+    Falls back to lazy seeding for scripts/tests; runtime paths (API lifespan,
+    Celery ``worker_process_init``) warm the container first.
+    """
+    global _global_services
+    if _global_services is None or not _global_services._started:
+        warmup_services()
     return _global_services
 
 

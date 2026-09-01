@@ -19,9 +19,9 @@ from pathlib import Path
 from inspection_ai.celery_app import celery_app
 from inspection_ai.core.config import get_settings
 from inspection_ai.ai.config import get_rag_config
+from inspection_ai.core.container import get_universal_services
 from inspection_ai.database.base import get_db_session as get_db
 from inspection_ai.database.repositories.report_repository import ReportRepository
-from inspection_ai.ai.extraction.image_extractor import ImageExtractor
 from inspection_ai.tasks.embed_worker import run_embed_pipeline
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,8 @@ async def run_image_pipeline(
             await repo.update_job_status(job_id, "processing")
             logger.info("[IMAGE] job %s started (%d files)", job_id, len(image_entries))
 
-            extractor = ImageExtractor()  # vector_store=None -> embeds via embed worker
+            services = get_universal_services()
+            extractor = services.get_extractor("image")
             batch_size = rag.llm_image_batch_size or 10
             semaphore = asyncio.Semaphore(settings.max_concurrent_llm_calls)
 

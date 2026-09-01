@@ -17,12 +17,9 @@ from pathlib import Path
 from typing import List
 
 from inspection_ai.celery_app import celery_app
+from inspection_ai.core.container import get_universal_services
 from inspection_ai.database.base import get_db_session as get_db
 from inspection_ai.database.repositories.report_repository import ReportRepository
-from inspection_ai.ai.extraction.handwritten_extractor import (
-    HandwrittenExtractor,
-)
-from inspection_ai.ai.extraction.pdf_extractor import PDFExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -40,8 +37,9 @@ async def run_pdf_pipeline(
             await repo.update_job_status(job_id, "processing")
             logger.info("[PDF] job %s started (%d files)", job_id, len(pdf_entries))
 
-            scanned = PDFExtractor()  # vector_store=None -> embeds rely on embed worker
-            handwritten = HandwrittenExtractor()
+            services = get_universal_services()
+            scanned = services.get_extractor("pdf")
+            handwritten = services.get_extractor("handwritten")
 
             # 2️⃣ Create a batch and bulk-insert evidence in one commit
             # Evidence instances from the extractors already have evidence_batch_id set

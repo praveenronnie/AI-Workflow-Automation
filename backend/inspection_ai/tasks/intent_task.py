@@ -19,7 +19,6 @@ from inspection_ai.database.repositories.report_repository import ReportReposito
 from inspection_ai.ai.mapping.form_schema_adapter import (
     normalize_form_schema,
 )
-from inspection_ai.ai.mapping.universal_mapper import UniversalMapper
 
 logger = logging.getLogger(__name__)
 
@@ -56,14 +55,9 @@ async def ensure_report_intents(report_id: str, repo: ReportRepository) -> int:
     if not domain_name:
         domain_name = "pca_site_assessment"  # last-resort fallback
 
-    mapper = UniversalMapper(
-        llm_client=services.llm,
-        vector_store=None,
-        reranker=None,
-        redis_client=services.redis_cache,
-        domain=domain_name,
-        min_confidence=0.6,
-    )
+    mapper = services.build_mapper(domain=domain_name, min_confidence=0.6)
+    mapper.vector_store = None
+    mapper.reranker = None
     settings = get_settings()
     semaphore = asyncio.Semaphore(getattr(settings, "max_concurrent_llm_calls", 3))
 

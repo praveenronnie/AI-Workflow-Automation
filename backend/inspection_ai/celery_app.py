@@ -12,6 +12,7 @@ variables or a dedicated configuration file.
 from __future__ import annotations
 
 from celery import Celery
+from celery.signals import worker_process_init
 from inspection_ai.core.config import Settings
 
 settings = Settings()
@@ -39,3 +40,17 @@ celery_app.conf.imports = (
     "inspection_ai.tasks.embed_worker",
     "inspection_ai.tasks.intent_task",
 )
+
+
+@worker_process_init.connect
+def _warm_services(**kwargs):
+    """Build and start the shared service container once per worker process.
+
+    Ensures every task in this worker reuses the same warmed LLM, Qdrant,
+    Redis, extractor registry, and mapper rather than re-initializing them
+    on each job. Runs synchronously because the signal fires outside a running
+    event loop.
+    """
+    from inspection_ai.core.container import warmup_services
+
+    warmup_services()

@@ -12,12 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 class RedisCache:
-    """Redis-backed fast cache for section intents and derived artifacts.
-
-    Degrades gracefully: with no reachable Redis, ``client`` is ``None`` and
-    every operation is a no-op so callers never need to branch.
-    """
-
     def __init__(self) -> None:
         settings = get_settings()
         self.client: Optional[redis.Redis] = None

@@ -15,7 +15,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from inspection_ai.ai.mapping.alias_resolver import AliasResolver, load_alias_resolver
 from inspection_ai.ai.mapping.form_schema_adapter import normalize_form_schema
-from inspection_ai.ai.mapping.universal_mapper import UniversalMapper
 from inspection_ai.ai.models.evidence import Evidence as UniversalEvidence
 from inspection_ai.core.paths import UPLOAD_DIR
 from inspection_ai.database.models.user import OrganizationMember, User, UserRole
@@ -117,17 +116,7 @@ async def run_mapping(
     schema, field_meta = normalize_form_schema(form_schema, domain=report_domain)
 
     services = get_services()
-    mapper = UniversalMapper(
-        llm_client=services.llm,
-        vector_store=services.vector_store if services.retrieval_enabled else None,
-        reranker=services.reranker,
-        redis_client=services.redis_cache,
-        domain=report_domain,
-        min_confidence=0.6,
-    )
-    if services.indexer is not None:
-        mapper.indexer = services.indexer
-        mapper.bm25_index = services.indexer.bm25_index
+    mapper = services.build_mapper(domain=report_domain, min_confidence=0.6)
 
     # Load alias resolver from the domain manifest for canonical field matching
     try:

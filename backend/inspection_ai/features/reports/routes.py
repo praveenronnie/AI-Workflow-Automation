@@ -57,11 +57,6 @@ from inspection_ai.features.mapping.upload_handler import (
     UniversalUploadHandler,
     UploadedFile,
 )
-from inspection_ai.ai.extraction.handwritten_extractor import (
-    HandwrittenExtractor,
-)
-from inspection_ai.ai.extraction.image_extractor import ImageExtractor
-from inspection_ai.ai.extraction.pdf_extractor import PDFExtractor
 from inspection_ai.ai.mapping.alias_resolver import (
     AliasResolver,
     load_alias_resolver,
@@ -428,13 +423,8 @@ async def upload_pdf(
     batch = await repo.create_batch(report_id)
 
     services = get_services()
-    vector_store = services.vector_store
-    scanned_extractor = PDFExtractor(
-        vector_store=vector_store, modal_executor=services.modal_executor
-    )
-    handwritten_extractor = HandwrittenExtractor(
-        llm_client=services.llm, vector_store=vector_store
-    )
+    scanned_extractor = services.get_extractor("pdf")
+    handwritten_extractor = services.get_extractor("handwritten")
 
     # Partition files into handwritten and scanned collections based on the
     # caller-supplied ``doc_types`` array. Order within each list preserves the
@@ -748,11 +738,7 @@ async def upload_image(
     batch = await repo.create_batch(report_id)
 
     services = get_services()
-    extractor = ImageExtractor(
-        llm_client=services.llm,
-        config=services.config,
-        vector_store=services.vector_store,
-    )
+    extractor = services.get_extractor("image")
     logger.info(
         "[IMAGE] ImageExtractor initialized: report_id=%s batch_id=%s images=%d vector_store=%s",
         report_id,

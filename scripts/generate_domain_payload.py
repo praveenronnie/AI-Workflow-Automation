@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
-from inspection_ai.domain_catalog import build_upload_payload  # noqa: E402
+from backend.inspection_ai.domain_catalog import build_upload_payload  # noqa: E402
 
 
 def main() -> None:
@@ -25,7 +25,9 @@ def main() -> None:
     out_dir = Path(__file__).resolve().parent / "seed_data"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / f"{slug}_payload.json"
-    out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    out_path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     print(f"wrote {out_path}")
     print(
         f"sections={len(payload['sections'])} "

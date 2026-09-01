@@ -21,7 +21,7 @@ class PDFExtractor(BaseExtractor):
         vector_store=None,
         modal_executor=None,
     ):
-        super().__init__(llm_client or LLMClient(), config)
+        super().__init__(llm_client, config)
         self.docling = docling
         self.vector_store = vector_store
         self.modal_executor = modal_executor
