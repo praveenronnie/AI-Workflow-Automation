@@ -17,5 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
+# Backend package lives under backend/
+ENV PYTHONPATH=/app/backend
+
 # Expose FastAPI default port (for when API service is enabled later)
 EXPOSE 8000

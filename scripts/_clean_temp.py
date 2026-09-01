@@ -1,7 +1,7 @@
 import json, pathlib
 
 # Path to the manifest we want to clean
-MANIFEST = pathlib.Path(r"d:/Projects/ai-report-automation/inspection_ai/domain_catalog/pca_site_assessment/temp.json")
+MANIFEST = pathlib.Path(r"d:/Projects/ai-report-automation/backend/inspection_ai/domain_catalog/pca_site_assessment/temp.json")
 
 # Simple blacklist of clearly out‑of‑domain or noisy aliases (expanded as you discover more)
 BLACKLIST = {

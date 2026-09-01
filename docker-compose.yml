@@ -51,6 +51,7 @@ services:
         condition: service_started
     command: ["celery", "-A", "inspection_ai.celery_app", "worker", "--concurrency=4", "--loglevel=info"]
     environment:
+      PYTHONPATH: /app/backend
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/1
       DB_NAME: form_automation
@@ -71,6 +72,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      PYTHONPATH: /app/backend
       DB_NAME: form_automation
       DB_HOST: postgres
       DB_PORT: "5432"

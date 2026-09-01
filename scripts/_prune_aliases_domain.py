@@ -1,6 +1,6 @@
 import json, pathlib, re
 
-MANIFEST = pathlib.Path(r"d:/Projects/ai-report-automation/inspection_ai/domain_catalog/pca_site_assessment/temp.json")
+MANIFEST = pathlib.Path(r"d:/Projects/ai-report-automation/backend/inspection_ai/domain_catalog/pca_site_assessment/temp.json")
 
 # Domain‑specific keyword whitelist – terms that are relevant to building, site, construction, etc.
 DOMAIN_KEYWORDS = {
