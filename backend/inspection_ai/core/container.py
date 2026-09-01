@@ -1,18 +1,24 @@
+"""Dependency container: builds and owns every backing service at startup.
+
+Replaces ad-hoc module singletons; the instance lives on ``app.state`` and is
+accessed through :func:`get_universal_services` until callers migrate.
+"""
+
 import logging
 from pathlib import Path
 
 from inspection_ai.ai.models.extraction_config import ExtractionConfig
+from inspection_ai.ai.providers.inference.modal_executor import ModalExecutor
+from inspection_ai.ai.providers.llm_client import LLMClient
+from inspection_ai.ai.retrieval.bm25_index import BM25Index
+from inspection_ai.ai.retrieval.evidence_indexer import EvidenceIndexer
+from inspection_ai.ai.retrieval.reranker import CrossEncoderReranker
+from inspection_ai.ai.retrieval.vector_store import UniversalVectorStore
+from inspection_ai.ai.storage.cache import RedisCache
 from inspection_ai.ai.storage.evidence_store import EvidenceStore
 from inspection_ai.ai.storage.report_registry import ReportRegistry
-from inspection_ai.ai.storage.cache import RedisCache
 from inspection_ai.ai.mapping.universal_mapper import UniversalMapper
 from inspection_ai.ai.extraction.registry import ExtractorRegistry
-from inspection_ai.ai.retrieval.vector_store import UniversalVectorStore
-from inspection_ai.ai.retrieval.reranker import CrossEncoderReranker
-from inspection_ai.ai.retrieval.evidence_indexer import EvidenceIndexer
-from inspection_ai.ai.retrieval.bm25_index import BM25Index
-from inspection_ai.ai.providers.llm_client import LLMClient
-from inspection_ai.ai.providers.inference.modal_executor import ModalExecutor
 
 logger = logging.getLogger(__name__)
 

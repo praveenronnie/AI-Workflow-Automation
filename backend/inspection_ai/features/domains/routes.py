@@ -23,7 +23,7 @@ from inspection_ai.database.models.domain_manifest import (
     DomainSection,
     DomainField,
 )
-from inspection_ai.api.schemas import (
+from inspection_ai.features.schemas import (
     DomainCreate,
     DomainOut,
     DomainUpdate,

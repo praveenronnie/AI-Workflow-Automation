@@ -12,7 +12,7 @@ from inspection_ai.database.repositories.user_repository import (
     UserRepository,
     verify_password,
 )
-from inspection_ai.api.auth.security import (
+from inspection_ai.features.auth.security import (
     create_access_token,
     create_refresh_token,
     decode_token,

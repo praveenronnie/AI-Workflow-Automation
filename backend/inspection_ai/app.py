@@ -1,23 +1,29 @@
+"""Composition root: wires config, container, routers, and app lifecycle."""
+
 import logging
 import os
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 
-from inspection_ai.database import init_db
-from inspection_ai.api.auth.routers import router as auth_router
-from inspection_ai.api.report_routes import router as report_router
-from inspection_ai.api.domain_routes import router as domain_router
-from inspection_ai.universal_service.api.dependencies import (
-    startup_services,
-    UniversalServices,
-)
-
-from inspection_ai.core.config import get_settings
 from inspection_ai.ai.config import get_rag_config
+from inspection_ai.core.config import get_settings
+from inspection_ai.core.container import UniversalServices, startup_services
+from inspection_ai.core.exceptions import (
+    ConflictError,
+    NotFoundError,
+    PermissionDeniedError,
+    ValidationError,
+)
+from inspection_ai.core.logging import configure_logging
+from inspection_ai.database import init_db
+from inspection_ai.features.auth.routes import router as auth_router
+from inspection_ai.features.reports.routes import router as report_router
+from inspection_ai.features.domains.routes import router as domain_router
 
+configure_logging()
 logger = logging.getLogger(__name__)
 
 # Ensure the Qdrant vector store is enabled by default (production requirement).
@@ -144,13 +150,33 @@ def create_db_app() -> FastAPI:
     app.include_router(report_router)
     app.include_router(domain_router)
 
+    @app.exception_handler(NotFoundError)
+    async def _not_found(request, exc: NotFoundError):
+        raise HTTPException(status_code=404, detail=str(exc))
+
+    @app.exception_handler(ConflictError)
+    async def _conflict(request, exc: ConflictError):
+        raise HTTPException(status_code=409, detail=str(exc))
+
+    @app.exception_handler(PermissionDeniedError)
+    async def _forbidden(request, exc: PermissionDeniedError):
+        raise HTTPException(status_code=403, detail=str(exc))
+
+    @app.exception_handler(ValidationError)
+    async def _validation(request, exc: ValidationError):
+        raise HTTPException(status_code=400, detail=str(exc))
+
     @app.get("/health")
     async def health():
-        status = getattr(app.state, "services_status", {})
-        ready = any(v for v in status.values()) or bool(status) is False
+        return {"status": "ok"}
+
+    @app.get("/ready")
+    async def ready():
+        services = getattr(app.state, "services_status", {})
+        ready = bool(services) and any(services.values())
         return {
-            "status": "ok",
-            "services": status,
+            "status": "ok" if ready else "degraded",
+            "services": services,
             "ready": ready,
         }
 

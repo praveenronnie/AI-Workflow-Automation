@@ -40,7 +40,7 @@ async def ensure_report_intents(report_id: str, repo: ReportRepository) -> int:
         logger.info("[Intent] already ready: report_id=%s sections=%d", report_id, len(sections))
         return len(sections)
 
-    from inspection_ai.universal_service.api.dependencies import get_universal_services
+    from inspection_ai.core.container import get_universal_services
 
     services = get_universal_services()
 

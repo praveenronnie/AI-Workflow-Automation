@@ -230,7 +230,7 @@ class UniversalVectorStore:
     async def encode_batch(self, texts: List[str]) -> List[List[float]]:
         try:
             # Lazy import to avoid the circular dependency described above.
-            from inspection_ai.universal_service.api.dependencies import (
+            from inspection_ai.core.container import (
                 get_modal_executor,
             )
 
