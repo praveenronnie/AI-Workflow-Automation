@@ -1,8 +1,8 @@
 import { getPlatformAdapter } from '@/lib/platformAdapter';
-import { normalizeMappings, type BackendMapping } from "@/lib/formatters";
+import { normalizeMappings, type BackendMapping } from "@/features/shared/lib/formatters";
 import { Scan, ListChecks, FileInput } from "lucide-react";
 import { useStore } from "@/store/useStore";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/features/shared/components/ui/button";
 import {
   scanForm,
   generateMapping,

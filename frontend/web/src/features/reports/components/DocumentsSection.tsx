@@ -1,7 +1,7 @@
 ﻿import { FileText } from "lucide-react";
 import { useStore } from "@/store/useStore";
-import { Button } from "@/components/ui/button";
-import { AddDocumentButton } from "@/components/AddDocumentButton";
+import { Button } from "@/features/shared/components/ui/button";
+import { AddDocumentButton } from "@/features/reports/components/AddDocumentButton";
 
 export function DocumentsSection() {
   const { documents, setActiveDrawer, domain } = useStore();

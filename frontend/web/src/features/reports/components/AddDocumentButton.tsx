@@ -1,7 +1,7 @@
 ﻿import { useState, useRef } from "react";
 import { Plus, Upload, X, FileText } from "lucide-react";
 import { useStore, type Document } from "@/store/useStore";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/features/shared/components/ui/button";
 import { uploadMultipleFiles } from "@/lib/messaging";
 
 type DocType = "handwritten" | "scanned" | "image" | "zip";

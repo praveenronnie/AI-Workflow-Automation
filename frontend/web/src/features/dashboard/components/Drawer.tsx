@@ -1,13 +1,13 @@
 import { X, Upload, Trash2, FileText, AlertTriangle } from "lucide-react";
 import { useStore, type Document } from "@/store/useStore";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/features/shared/components/ui/button";
 import {
   uploadMultipleFiles,
   deleteDocument,
   getFormSchema,
 } from "@/lib/messaging";
-import { FormFieldsTable } from "@/components/FormFieldsTable";
-import { transformToSections } from "@/lib/formatters";
+import { FormFieldsTable } from "@/features/form-mapping/components/FormFieldsTable";
+import { transformToSections } from "@/features/shared/lib/formatters";
 import { useState, useRef, useMemo, useEffect } from "react";
 
 // Max file size: 100MB

@@ -5,7 +5,7 @@ import {
   getConfidenceColor,
   formatOptions,
   formatValue,
-} from "@/lib/formatters";
+} from "@/features/shared/lib/formatters";
 
 interface FormFieldsTableProps {
   sections: FormSection[];

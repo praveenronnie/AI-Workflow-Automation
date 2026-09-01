@@ -1,7 +1,7 @@
 import { useStore } from "@/store/useStore";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/features/shared/components/ui/button";
 import { useEffect, useState } from "react";
-import { transformToSections } from "@/lib/formatters";
+import { transformToSections } from "@/features/shared/lib/formatters";
 import { getFormSchema } from "@/lib/messaging";
 
 export function FormStatusSection() {
