@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "OpenQuire AI Form Automation",
+  "version": "1.0.1",
+  "description": "AI-powered form automation for OpenQuire reports using DOM-based form scanning and LLM mapping.",
+  "permissions": ["activeTab", "storage", "scripting", "sidePanel"],
+  "host_permissions": [
+    "https://app.openquire.com/*",
+    "http://localhost:8000/*"
+  ],
+  "side_panel": {
+    "default_path": "ui/dist/index.html"
+  },
+  "action": {
+    "default_title": "OpenQuire AI Form Automation",
+    "default_icon": {
+      "16": "assets/icon128.svg",
+      "48": "assets/icon128.svg",
+      "128": "assets/icon128.svg"
+    }
+  },
+  "background": {
+    "service_worker": "background/background.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*",
+        "adapters/*",
+        "domains/manifests/*"
+      ],
+      "matches": ["https://app.openquire.com/*"]
+    }
+  ],
+  "icons": {
+    "16": "assets/icon128.svg",
+    "48": "assets/icon128.svg",
+    "128": "assets/icon128.svg"
+  }
+}

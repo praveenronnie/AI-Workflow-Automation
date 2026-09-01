@@ -1,0 +1,1406 @@
+[
+  {
+    "image_id": 1,
+    "building_area": "exterior",
+    "view": "overhead looking down",
+    "caption": "Overhead view of exterior metal fire escape ladder attached to textured stucco wall adjacent to flat roof membrane and corrugated metal siding in good condition.",
+    "mini_caption": "Exterior fire escape: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Roofing System",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 2,
+    "building_area": "roof",
+    "view": "overhead close-up",
+    "caption": "Rooftop structural steel support post with visible rust and corrosion at base connection, adjacent to ballasted roofing membrane with gravel surfacing and metal coping at parapet edge.",
+    "mini_caption": "Exterior roof: corroded steel post",
+    "domains": [
+      "Roofing System",
+      "Structural System",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 3,
+    "building_area": "roof",
+    "view": "wide angle overhead view looking across roof surface toward perimeter edge",
+    "caption": "Commercial flat roof with TPO membrane showing ponding water stains, granular surfacing loss, and roof-mounted HVAC equipment near parapet edge.",
+    "mini_caption": "Exterior roof: water damage, ponding",
+    "domains": [
+      "Roofing System",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 4,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Commercial flat roof with TPO membrane roofing system, roof-mounted HVAC equipment, parapet walls, and visible surface staining under clear sky conditions.",
+    "mini_caption": "Exterior roof: staining visible",
+    "domains": [
+      "Roofing System",
+      "Site",
+      "Environmental Conditions"
+    ]
+  },
+  {
+    "image_id": 5,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Commercial building flat roof with multiple roof-mounted HVAC units and TPO membrane roofing system under clear sky conditions.",
+    "mini_caption": "Exterior roof: undamaged",
+    "domains": [
+      "Roofing System",
+      "Site",
+      "Security Systems"
+    ]
+  },
+  {
+    "image_id": 6,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Commercial flat roof with TPO membrane showing widespread ponding water, surface staining, and visible seam lines across multiple roof sections under clear sky conditions.",
+    "mini_caption": "Exterior roof: water ponding damage",
+    "domains": [
+      "Roofing System",
+      "Site",
+      "Environmental Conditions"
+    ]
+  },
+  {
+    "image_id": 7,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Wide angle view of a flat commercial roof with light-colored membrane roofing system showing surface weathering and staining, with rooftop HVAC equipment and safety railings visible under clear blue sky.",
+    "mini_caption": "Exterior roof: undamaged, weathered membrane",
+    "domains": [
+      "Roofing System",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 8,
+    "building_area": "roof",
+    "view": "wide angle showing rooftop-mounted equipment with background context",
+    "caption": "Carrier WeatherMaker packaged rooftop HVAC unit installed on commercial flat roof membrane with visible staining on concrete equipment pad and surrounding roof surface showing wear patterns",
+    "mini_caption": "Exterior roof: staining present, fair condition",
+    "domains": [
+      "Mechanical Systems",
+      "Roofing System",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 9,
+    "building_area": "hvac",
+    "view": "close-up",
+    "caption": "Carrier rooftop HVAC unit nameplate displaying model number 50FC-M007A26A00A0, serial number 3020C85949, electrical specifications showing 460V 3-phase 60Hz power requirements, and detailed performance data tables for installation and operation",
+    "mini_caption": "Exterior HVAC nameplate: undamaged",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 10,
+    "building_area": "roof",
+    "view": "wide angle, low perspective across roof surface",
+    "caption": "Commercial flat roof surface with visible ponding water, drainage patterns, and roof-mounted equipment in background under partly cloudy sky.",
+    "mini_caption": "Exterior roof: ponding water damage",
+    "domains": [
+      "Roofing System",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 11,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Commercial flat roof surface showing visible ponding water with dark sediment accumulation and standing water patches, white single-ply membrane roofing system with metal parapet coping and roof-mounted equipment visible in background.",
+    "mini_caption": "Exterior roof: water damaged",
+    "domains": [
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 12,
+    "building_area": "roof",
+    "view": "wide angle overhead view from roof edge looking across roof surface toward horizon",
+    "caption": "Commercial flat roof with standing water pooling, vegetation growth, TPO membrane roofing system, and metal pipe penetrations showing drainage deficiencies and lack of maintenance.",
+    "mini_caption": "Exterior roof: water pooling damaged",
+    "domains": [
+      "Roofing System",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 13,
+    "building_area": "hvac",
+    "view": "close-up",
+    "caption": "HVAC equipment nameplate displaying electrical specifications, refrigerant type R410A, voltage range 208-230V, and seismic certification compliance label for outdoor installation",
+    "mini_caption": "HVAC equipment nameplate: undamaged",
+    "domains": [
+      "Mechanical Systems",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 14,
+    "building_area": "roof",
+    "view": "wide angle, elevated perspective",
+    "caption": "Commercial flat roof with HVAC condenser unit, visible ponding water trail, membrane roofing, and perimeter parapet walls with vegetation beyond.",
+    "mini_caption": "Exterior roof: water ponding damage",
+    "domains": [
+      "Roofing System",
+      "Mechanical Systems",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 15,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Commercial flat roof with TPO membrane, roof-mounted HVAC units, and visible roof penetrations under clear sky conditions.",
+    "mini_caption": "Exterior roof: undamaged",
+    "domains": [
+      "Roofing System",
+      "Mechanical Systems",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 16,
+    "building_area": "roof",
+    "view": "close-up angled view",
+    "caption": "Roof-mounted HVAC unit with visible nameplate data and light surface soiling on metal enclosure panels, located on commercial flat roof membrane",
+    "mini_caption": "Exterior roof HVAC: undamaged",
+    "domains": [
+      "Mechanical Systems",
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 17,
+    "building_area": "roof",
+    "view": "close-up angled view",
+    "caption": "Roof-mounted HVAC curb adapter with visible nameplate and weathered painted finish on commercial flat roof membrane system.",
+    "mini_caption": "Exterior roof HVAC: undamaged",
+    "domains": [
+      "Mechanical Systems",
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 18,
+    "building_area": "roof",
+    "view": "close-up",
+    "caption": "Rooftop HVAC unit nameplate and data label affixed to painted metal equipment panel with visible surface staining and handwritten markings indicating middle unit designation",
+    "mini_caption": "Exterior roof HVAC: undamaged",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 19,
+    "building_area": "hvac",
+    "view": "close-up",
+    "caption": "Exterior HVAC equipment nameplate displaying model number ZD-05Q0R84A1AAA1A1, serial number N10873284, electrical specifications including 460-3-60 power supply and 432V/304V permissible operating voltage range, with refrigerant and safety certification details visible on painted metal enclosure",
+    "mini_caption": "Exterior HVAC unit: undamaged",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 20,
+    "building_area": "roof",
+    "view": "wide angle",
+    "caption": "Wide angle view of commercial flat roof surface with TPO membrane showing weathering patterns, roof penetrations, and perimeter site lighting visible in background under clear blue sky",
+    "mini_caption": "Exterior roof: undamaged with weathering",
+    "domains": [
+      "Roofing System",
+      "Site",
+      "Environmental Conditions"
+    ]
+  },
+  {
+    "image_id": 21,
+    "building_area": "roof",
+    "view": "close-up",
+    "caption": "Carrier rooftop HVAC unit nameplate displaying electrical data for accessory power exhaust model and combustion fan with electric heater, mounted on gray painted metal equipment panel on rooftop surface",
+    "mini_caption": "Roof HVAC nameplate: undamaged",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 22,
+    "building_area": "roof",
+    "view": "close-up",
+    "caption": "Carrier rooftop HVAC unit nameplate showing model 50HJ-004---631, serial 1808050600, 460V 3-phase, installed on commercial flat roof with TPO membrane and additional rooftop mechanical equipment visible in background",
+    "mini_caption": "Roof HVAC equipment: undamaged",
+    "domains": [
+      "Mechanical Systems",
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 23,
+    "building_area": "roof",
+    "view": "close-up",
+    "caption": "Carrier rooftop HVAC unit nameplate mounted on equipment cabinet displaying model and serial numbers, electrical specifications, refrigerant data, and compliance certifications including ASHRAE and UL labels on a commercial flat roof.",
+    "mini_caption": "Exterior roof HVAC: undamaged",
+    "domains": [
+      "Mechanical Systems",
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 24,
+    "building_area": "roof",
+    "view": "close-up",
+    "caption": "Carrier rooftop HVAC unit nameplate with equipment specifications and ASHRAE efficiency label on white single-ply membrane roof surface",
+    "mini_caption": "Roof HVAC equipment: undamaged",
+    "domains": [
+      "Roofing System",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 25,
+    "building_area": "exterior",
+    "view": "upward angle view from below",
+    "caption": "Ceiling-mounted HVAC unit with visible water staining on surrounding soffit panels and structural elements showing moisture intrusion and deterioration.",
+    "mini_caption": "Exterior soffit: water damaged HVAC",
+    "domains": [
+      "Mechanical Systems",
+      "Building Envelope",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 26,
+    "building_area": "exterior",
+    "view": "overhead, upward angle",
+    "caption": "Exterior building soffit with extensive water damage, staining, and mold growth visible on painted wood panels near roof edge.",
+    "mini_caption": "Exterior soffit: water damaged, mold",
+    "domains": [
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 27,
+    "building_area": "hvac",
+    "view": "overhead close-up",
+    "caption": "HVAC equipment nameplate and technical data label affixed to gray metal panel showing manufacturer specifications, electrical ratings, and model information in good condition.",
+    "mini_caption": "Exterior HVAC panel: undamaged",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 28,
+    "building_area": "roof",
+    "view": "close-up",
+    "caption": "Carrier HVAC equipment nameplate and electrical data label mounted on metal enclosure on commercial building roof showing model specifications, electrical ratings, and certification marks",
+    "mini_caption": "Roof HVAC equipment: undamaged",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 29,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Commercial warehouse exterior with loading dock and parked FCC semi-trailer at bay 23, showing concrete apron, metal panel facade, and roof-mounted vertical circulation equipment under clear sky",
+    "mini_caption": "Exterior loading dock: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope",
+      "Roofing System",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 30,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial industrial building with painted stucco facade, exposed aggregate concrete parapet, storefront glazing system, metal handrails, and concrete loading dock in front parking area.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 31,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of a commercial building with exposed aggregate concrete facade, metal panel cladding, storefront windows, and concrete loading dock with metal railings in parking lot area.",
+    "mini_caption": "Exterior commercial building: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 32,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior commercial property site showing concrete paved parking area with industrial buildings, utility infrastructure, and landscaping under clear sky conditions.",
+    "mini_caption": "Exterior parking lot: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope",
+      "Site Utilities",
+      "Environmental Conditions"
+    ]
+  },
+  {
+    "image_id": 33,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial/industrial building with loading dock area, showing concrete paving, metal overhead doors, painted exterior walls, and yellow storage container",
+    "mini_caption": "Exterior loading dock: undamaged",
+    "domains": [
+      "Site",
+      "Structural System",
+      "Building Envelope",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 34,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial warehouse building with metal panel facade, loading dock with roll-up door, and chain-link fencing in paved service area under clear sky.",
+    "mini_caption": "Exterior warehouse facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 35,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior loading dock area of industrial warehouse building with textured aggregate panel facade, metal roll-up doors, shipping containers, and concrete paved surface under clear sky.",
+    "mini_caption": "Exterior loading dock: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 36,
+    "building_area": "exterior",
+    "view": "wide angle ground-level view",
+    "caption": "Commercial building exterior with exposed aggregate concrete panel wall system, overhead roll-up door, upper clerestory windows, and ground-mounted HVAC condenser units on concrete pad showing visible staining and vegetation growth.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Mechanical Systems",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 37,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial warehouse building with multiple loading dock bays, exposed aggregate wall panels, roll-up doors, and deteriorated concrete slab paving with visible cracking.",
+    "mini_caption": "Exterior warehouse: pavement damaged",
+    "domains": [
+      "Building Envelope",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 38,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Exterior commercial property site showing asphalt paved parking area with painted striping, chain-link security fencing, overhead utility lines, and adjacent industrial buildings under partly cloudy sky.",
+    "mini_caption": "Exterior parking area: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope",
+      "Site Utilities",
+      "Environmental Conditions"
+    ]
+  },
+  {
+    "image_id": 39,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial warehouse building with two loading dock bays, metal roll-up doors, exterior metal staircase, concrete parking area with visible staining, and perimeter chain-link fencing.",
+    "mini_caption": "Exterior warehouse facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Roofing System"
+    ]
+  },
+  {
+    "image_id": 40,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial warehouse building with exposed aggregate panel cladding, metal roll-up loading dock doors, and loading dock equipment in fair condition.",
+    "mini_caption": "Exterior warehouse facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Vertical Transportation"
+    ]
+  },
+  {
+    "image_id": 41,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of a commercial building with exposed aggregate concrete facade, metal panel entrance canopy, and parking lot showing cracked asphalt pavement with visible deficiencies.",
+    "mini_caption": "Exterior parking lot: cracked pavement",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Site Utilities"
+    ]
+  },
+  {
+    "image_id": 42,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial building facade with textured stucco finish, aluminum storefront glazing system, and mature landscaping with established tree casting shadows on building and lawn area.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 43,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of a commercial building with textured aggregate facade, metal wall panels, glass storefront, and mature tree in maintained lawn area with clear sky.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 44,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial building with exposed aggregate concrete facade, entrance stairway with metal handrails, and mature landscaping on maintained lawn under clear sky.",
+    "mini_caption": "Exterior entrance: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope",
+      "Accessibility"
+    ]
+  },
+  {
+    "image_id": 45,
+    "building_area": "exterior",
+    "view": "wide angle ground level view",
+    "caption": "Exterior facade of commercial building with precast concrete panels, aluminum storefront glazing system, and adjacent mature tree on maintained lawn area with accessible entrance featuring metal handrails.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope",
+      "Accessibility"
+    ]
+  },
+  {
+    "image_id": 46,
+    "building_area": "exterior",
+    "view": "wide angle ground-level perspective",
+    "caption": "Commercial building exterior facade with textured stucco finish and horizontal blue band accent, adjacent to landscaped lawn area with mature trees under clear blue sky.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 47,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior commercial building facade with exposed aggregate concrete wall panels showing weathering and biological growth, surface-mounted electrical equipment and conduit, adjacent mowed grass lawn and street trees.",
+    "mini_caption": "Exterior facade: biological growth damaged",
+    "domains": [
+      "Building Envelope",
+      "Electrical Systems",
+      "Site",
+      "Site Utilities"
+    ]
+  },
+  {
+    "image_id": 48,
+    "building_area": "exterior",
+    "view": "wide angle, ground level perspective looking up at building facade",
+    "caption": "Exterior commercial building facade with exposed aggregate finish panels, metal cladding accent band, and surface-mounted electrical equipment showing signs of weathering and biological growth on lower wall sections.",
+    "mini_caption": "Exterior facade: biological growth staining",
+    "domains": [
+      "Building Envelope",
+      "Electrical Systems",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 49,
+    "building_area": "exterior",
+    "view": "wide angle upward view",
+    "caption": "Exterior view showing building facade with textured stucco finish and metal soffit, adjacent utility pole with overhead power lines, mature trees, and paved parking area under clear blue sky.",
+    "mini_caption": "Exterior facade and site: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site Utilities",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 50,
+    "building_area": "exterior",
+    "view": "wide angle oblique view",
+    "caption": "Exterior commercial building facade with exposed aggregate panel cladding, white roll-up door, and maintained grass lawn along perimeter under clear sky conditions.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 51,
+    "building_area": "exterior",
+    "view": "wide angle, low perspective",
+    "caption": "Commercial building exterior featuring aggregate panel cladding with recessed metal roll-up door and adjacent site landscaping.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 52,
+    "building_area": "exterior",
+    "view": "ground level wide angle",
+    "caption": "Exterior site showing rusted fire department connection at chain-link fence with yellow bollards and industrial building loading area in background",
+    "mini_caption": "Exterior site: rust damaged FDC",
+    "domains": [
+      "Site",
+      "Building Envelope",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 53,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of commercial warehouse building with loading dock bays, metal roof canopy, and adjacent parking area under clear sky.",
+    "mini_caption": "Exterior warehouse facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Roofing System",
+      "Site",
+      "Environmental Conditions"
+    ]
+  },
+  {
+    "image_id": 54,
+    "building_area": "kitchen",
+    "view": "wide angle view from floor level looking toward ceiling and window wall",
+    "caption": "Interior kitchen space with textured ceiling, large sliding glass doors with horizontal blinds, wall-mounted split system air conditioning unit, and open shelving with stored items visible in good condition.",
+    "mini_caption": "Interior kitchen: undamaged",
+    "domains": [
+      "Interior",
+      "Mechanical Systems",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 55,
+    "building_area": "kitchen",
+    "view": "wide angle overhead",
+    "caption": "Commercial kitchen interior showing modern cabinetry, tile flooring, corrugated metal partition, ceiling-mounted equipment, and wall-mounted whiteboard in good overall condition.",
+    "mini_caption": "Interior kitchen: undamaged",
+    "domains": [
+      "Interior",
+      "Mechanical Systems",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 56,
+    "building_area": "utility_room",
+    "view": "overhead angled view",
+    "caption": "Interior utility room with ceiling-mounted black ceiling fan, beige painted walls, tan carpeted flooring, storage shelving with supplies, and green cabinetry showing undamaged conditions throughout.",
+    "mini_caption": "Interior utility room: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 57,
+    "building_area": "hallway",
+    "view": "wide angle",
+    "caption": "Interior hallway with multiple doorways, exposed ceiling beams, porcelain tile flooring, and painted gypsum board walls in good condition",
+    "mini_caption": "Interior hallway: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 58,
+    "building_area": "bathroom",
+    "view": "wide angle from doorway",
+    "caption": "ADA-compliant commercial restroom with white porcelain toilet, stainless steel grab bars, white vinyl base trim, and speckled terrazzo flooring in good condition with no visible deficiencies.",
+    "mini_caption": "Interior bathroom: undamaged",
+    "domains": [
+      "Interior",
+      "Plumbing Systems",
+      "Accessibility"
+    ]
+  },
+  {
+    "image_id": 59,
+    "building_area": "unknown",
+    "view": "close-up",
+    "caption": "Wall-mounted red fire extinguisher with visible label and inspection tag mounted on white painted surface near exposed wood framing and ductwork.",
+    "mini_caption": "Interior utility area: undamaged extinguisher",
+    "domains": [
+      "Fire & Life Safety",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 60,
+    "building_area": "utility_room",
+    "view": "close-up",
+    "caption": "Portable fire extinguisher with inspection tag mounted on white painted wall above cardboard boxes in utility or storage area",
+    "mini_caption": "Interior utility room: undamaged extinguisher",
+    "domains": [
+      "Fire & Life Safety",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 61,
+    "building_area": "staircase",
+    "view": "overhead angled view looking down",
+    "caption": "Interior stairwell with visible water damage and staining on painted gypsum board wall adjacent to metal grate stair treads and handrails leading down to lower level storage or utility area.",
+    "mini_caption": "Interior stairwell: water damaged wall",
+    "domains": [
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 62,
+    "building_area": "utility_room",
+    "view": "wide angle overhead view",
+    "caption": "Commercial utility room ceiling with exposed concrete structure, visible cracking, suspended HVAC unit, fluorescent lighting fixtures, and storage racking below in warehouse space.",
+    "mini_caption": "Interior utility room: concrete cracking",
+    "domains": [
+      "Structural System",
+      "Mechanical Systems",
+      "Electrical Systems",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 63,
+    "building_area": "utility_room",
+    "view": "overhead",
+    "caption": "Overhead view of utility room showing electrical disconnect switches, motors, and HVAC equipment mounted on painted concrete ceiling with visible water staining and efflorescence",
+    "mini_caption": "Interior utility room: water damaged",
+    "domains": [
+      "Electrical Systems",
+      "Mechanical Systems",
+      "Structural System",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 64,
+    "building_area": "utility_room",
+    "view": "wide angle, upward perspective from floor level",
+    "caption": "Interior utility room with exposed concrete ceiling, wall-mounted electrical distribution equipment including panelboards and disconnects with metallic conduit runs, wire shelving storage visible in background.",
+    "mini_caption": "Interior utility room: undamaged",
+    "domains": [
+      "Electrical Systems",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 65,
+    "building_area": "electrical",
+    "view": "wide angle",
+    "caption": "Interior electrical room showing wall-mounted junction box and electrical panel with metallic conduit connections on painted textured wall surface",
+    "mini_caption": "Interior electrical room: undamaged",
+    "domains": [
+      "Electrical Systems",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 66,
+    "building_area": "unknown",
+    "view": "overhead wide angle",
+    "caption": "Overhead view of warehouse interior showing industrial metal shelving units with stored inventory, corrugated metal roof deck with suspended lighting fixtures, and exposed structural steel framing in good condition.",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Roofing System",
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 67,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Commercial warehouse storage area with metal pallet racking systems on concrete slab floor beneath exposed concrete ceiling with visible water staining and efflorescence.",
+    "mini_caption": "Interior warehouse: water damaged ceiling",
+    "domains": [
+      "Structural System",
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 68,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior site view showing chain-link fencing with damaged sections, overgrown vegetation on hillside slope, paved walkway, and electrical utility pole with overhead wiring.",
+    "mini_caption": "Exterior site: damaged fencing",
+    "domains": [
+      "Site",
+      "Site Utilities"
+    ]
+  },
+  {
+    "image_id": 69,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior commercial property site showing chain-link fencing, mature trees, asphalt paving, and distant single-story commercial building with metal siding under clear sky conditions.",
+    "mini_caption": "Exterior site: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 70,
+    "building_area": "exterior",
+    "view": "wide angle, exterior side elevation",
+    "caption": "Exterior concrete storage structure with red-trimmed service window opening, surrounded by vegetation and woodland site with visible biological growth on surfaces.",
+    "mini_caption": "Exterior concrete structure: biological growth",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 71,
+    "building_area": "exterior",
+    "view": "close-up",
+    "caption": "Exterior mounted digital electric utility meter installed on painted metal enclosure panel adjacent to exposed aggregate wall finish and gray structural column.",
+    "mini_caption": "Exterior utility meter: undamaged",
+    "domains": [
+      "Electrical Systems",
+      "Building Envelope",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 72,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Industrial warehouse interior with exposed metal roof structure, concrete floor with yellow striping, stacked palletized goods, and wall-mounted electrical panel",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 73,
+    "building_area": "garage",
+    "view": "overhead, upward angle showing underside of structure",
+    "caption": "Underside view of a concrete parking structure soffit showing visible cracking and spalling damage with a residential neighborhood reflected in a water surface below.",
+    "mini_caption": "Garage ceiling: cracked and spalled",
+    "domains": [
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 74,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of a commercial building facade with entry stairs, metal railings, and mature trees in the foreground, showing painted stucco exterior walls and recessed entrance.",
+    "mini_caption": "Exterior facade: undamaged",
+    "domains": [
+      "Building Envelope",
+      "Site",
+      "Accessibility"
+    ]
+  },
+  {
+    "image_id": 75,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior view of a commercial building with tan brick facade, adjacent parking area with vehicles, mature trees providing shade, and chain-link fencing with visible concrete pavement and landscaping elements.",
+    "mini_caption": "Exterior parking area: undamaged",
+    "domains": [
+      "Site",
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 76,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Utility room mechanical equipment installation showing pumping system with electrical controls mounted on concrete wall with adjacent plumbing manifolds and piping distribution network.",
+    "mini_caption": "Interior utility room: undamaged",
+    "domains": [
+      "Mechanical Systems",
+      "Electrical Systems",
+      "Plumbing Systems",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 77,
+    "building_area": "utility_room",
+    "view": "wide angle interior view along wall showing vertical piping system and ceiling structure",
+    "caption": "Interior utility room with vertical steel piping system, circulation pumps, expansion tank, and corrugated metal deck ceiling with exposed steel joists in industrial warehouse space",
+    "mini_caption": "Interior utility room: undamaged piping",
+    "domains": [
+      "Mechanical Systems",
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Electrical Systems",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 78,
+    "building_area": "utility_room",
+    "view": "close-up",
+    "caption": "Honeywell fire alarm control communicator panel with FireProTech service labels mounted on interior concrete wall with visible conduit connections",
+    "mini_caption": "Interior utility room: undamaged fire alarm",
+    "domains": [
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 79,
+    "building_area": "utility_room",
+    "view": "close-up",
+    "caption": "Red fire alarm control panel mounted on interior concrete wall with yellow deficiency tags indicating non-compliance with Texas State Fire Marshal codes and system maintenance issues.",
+    "mini_caption": "Interior fire alarm: deficiency tagged",
+    "domains": [
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 80,
+    "building_area": "hvac",
+    "view": "close-up",
+    "caption": "HVAC air handler unit with visible blue service tag and corroded metal piping on painted concrete surface in mechanical area",
+    "mini_caption": "Interior HVAC: corrosion present",
+    "domains": [
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 81,
+    "building_area": "utility_room",
+    "view": "close-up overhead",
+    "caption": "Close-up overhead view of corroded plumbing assembly with water supply valves, steel pipes, and attached blue inspection tag showing moderate to severe corrosion on metal components.",
+    "mini_caption": "Interior utility room: corroded plumbing",
+    "domains": [
+      "Plumbing Systems"
+    ]
+  },
+  {
+    "image_id": 82,
+    "building_area": "utility_room",
+    "view": "overhead close-up",
+    "caption": "Overhead view of a hydraulic brake system with attached inspection tags showing heavy rust and corrosion on metal components and surfaces.",
+    "mini_caption": "Interior utility room: rust damaged",
+    "domains": [
+      "Mechanical Systems",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 83,
+    "building_area": "utility_room",
+    "view": "overhead view looking up at ceiling-mounted equipment",
+    "caption": "Commercial fire sprinkler system with multiple red fire pumps, backflow preventers, check valves, and metal piping mounted to concrete ceiling showing rust and corrosion on components.",
+    "mini_caption": "Utility room fire system: rust damaged",
+    "domains": [
+      "Fire & Life Safety",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 84,
+    "building_area": "hallway",
+    "view": "wide angle looking up at ceiling and walls",
+    "caption": "Interior hallway with gray acoustic tile ceiling, white painted walls, wood door, and black metal trim showing moisture staining on ceiling tiles",
+    "mini_caption": "Interior hallway: water damaged ceiling",
+    "domains": [
+      "Interior",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 85,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior commercial office space with carpet flooring, suspended acoustical ceiling, glass entry door, wood-trimmed door openings, and exposed electrical wiring on wall.",
+    "mini_caption": "Interior office space: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 86,
+    "building_area": "unknown",
+    "view": "wide angle from doorway",
+    "caption": "Empty commercial office room with dark carpet flooring, white painted walls, drop ceiling, exterior window with blinds, and wall-mounted electrical outlets showing no visible damage or deficiencies.",
+    "mini_caption": "Interior office room: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 87,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior construction space showing exposed concrete ceiling with visible water staining, steel reinforcement mesh on floor, temporary white protective sheeting on walls, and wood-framed wall partitions in background.",
+    "mini_caption": "Interior construction: water damaged ceiling",
+    "domains": [
+      "Structural System",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 88,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Fire protection sprinkler system with red painted steel piping, valves, and control assembly mounted on concrete wall in utility room with electrical panel and roll-up door visible.",
+    "mini_caption": "Interior utility room: undamaged",
+    "domains": [
+      "Fire & Life Safety",
+      "Electrical Systems",
+      "Interior",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 89,
+    "building_area": "utility_room",
+    "view": "close-up",
+    "caption": "Interior utility room fire sprinkler system inspection tag attached to red painted steel pipe with visible corrosion and oxidation on metal surfaces in fair condition",
+    "mini_caption": "Interior utility: undamaged sprinkler tag",
+    "domains": [
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 90,
+    "building_area": "utility_room",
+    "view": "overhead close-up",
+    "caption": "Overhead view of fire sprinkler system backflow preventer assembly with double check valve arrangement and pressure gauges mounted to concrete ceiling in utility room, showing visible corrosion on piping and valves.",
+    "mini_caption": "Interior utility room: corroded piping",
+    "domains": [
+      "Fire & Life Safety",
+      "Plumbing Systems",
+      "Structural System"
+    ]
+  },
+  {
+    "image_id": 91,
+    "building_area": "unknown",
+    "view": "close-up",
+    "caption": "Fire sprinkler system riser with red painted piping, ball valve, and blue inspection tag indicating annual maintenance and system status verification.",
+    "mini_caption": "Interior fire system: undamaged",
+    "domains": [
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 92,
+    "building_area": "hallway",
+    "view": "wide angle",
+    "caption": "Interior hallway with suspended acoustic ceiling system, cove lighting, metal security gate at glazed opening, painted gypsum board walls, and decorative artificial plant in good condition.",
+    "mini_caption": "Interior hallway: undamaged",
+    "domains": [
+      "Interior",
+      "Fire & Life Safety",
+      "Security Systems",
+      "Building Envelope",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 93,
+    "building_area": "hallway",
+    "view": "wide angle looking down corridor",
+    "caption": "Interior commercial hallway with dark wood-tone luxury vinyl plank flooring, suspended acoustic tile ceiling with recessed lighting, painted drywall walls, decorative furnishings including console table with mirror, and office equipment visible in background.",
+    "mini_caption": "Interior hallway: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 94,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Interior utility room with office equipment including multifunction printers, storage cabinets, open shelving with cardboard boxes, and dark wood-look vinyl plank flooring in good condition",
+    "mini_caption": "Interior utility room: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 95,
+    "building_area": "hallway",
+    "view": "wide angle perspective down corridor length",
+    "caption": "Interior commercial hallway with drop ceiling, recessed lighting, painted drywall walls, dark stained wood flooring, multiple doorways with wood frames, and framed artwork displaying no visible damage or deficiencies.",
+    "mini_caption": "Interior hallway: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 96,
+    "building_area": "garage",
+    "view": "wide angle interior view looking outward through multiple overhead doors",
+    "caption": "Commercial garage or loading dock interior with multiple open overhead sectional doors, exposed structural steel columns with yellow protective bollards, concrete floor slab with visible surface wear and staining, and exterior parking area visible beyond the openings.",
+    "mini_caption": "Interior garage: undamaged, surface wear",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 97,
+    "building_area": "unknown",
+    "view": "wide angle interior view",
+    "caption": "Industrial warehouse interior with exposed corrugated metal deck ceiling, structural steel columns, concrete slab floor, multiple overhead doors, and forklift equipment with stacked building materials.",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Roofing System",
+      "Interior",
+      "Electrical Systems",
+      "Mechanical Systems",
+      "Vertical Transportation"
+    ]
+  },
+  {
+    "image_id": 98,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior warehouse space with corrugated metal deck ceiling, exposed structural steel framing, fluorescent lighting, stacked cardboard inventory, and concrete floor showing surface staining.",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 99,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior warehouse space with exposed structural steel framing, corrugated metal deck roofing, fluorescent lighting, and stacked cardboard boxes on concrete floor",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Roofing System",
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 100,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior warehouse space with corrugated metal ceiling, concrete block walls, concrete floor, fluorescent lighting, and loading dock door with stacked building materials and palletized goods.",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Roofing System",
+      "Electrical Systems",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 101,
+    "building_area": "unknown",
+    "view": "wide angle interior looking toward exterior loading dock opening",
+    "caption": "Commercial warehouse loading dock area with corrugated metal structure, concrete flooring, stored materials on pallets, waste containers, and yellow protective bollards at door opening.",
+    "mini_caption": "Interior warehouse loading dock: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Electrical Systems",
+      "Site"
+    ]
+  },
+  {
+    "image_id": 102,
+    "building_area": "utility_room",
+    "view": "wide angle interior view",
+    "caption": "Industrial warehouse interior with exposed corrugated metal roof deck supported by painted steel structural framework, concrete slab flooring with visible staining, overhead unit heaters, and fluorescent lighting fixtures, used for storage of palletized drums and containers.",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Mechanical Systems",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 103,
+    "building_area": "utility_room",
+    "view": "wide angle interior view",
+    "caption": "Industrial warehouse interior with exposed corrugated metal roof deck, structural steel framing, concrete walls, and concrete slab floor containing stored chemical containers and palletized materials",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Interior",
+      "Roofing System",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 104,
+    "building_area": "exterior",
+    "view": "wide angle",
+    "caption": "Exterior site view showing railway spur track running alongside industrial building with concrete wall and metal roll-up door, surrounded by maintained grass areas and mature trees under partly cloudy sky.",
+    "mini_caption": "Exterior site: undamaged railway track",
+    "domains": [
+      "Site",
+      "Building Envelope"
+    ]
+  },
+  {
+    "image_id": 105,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Interior warehouse utility area with two metal doors, painted gypsum board partition walls, concrete floor with visible staining, stored palletized materials, wall-mounted fire extinguisher, and emergency exit signage.",
+    "mini_caption": "Interior warehouse utility: undamaged",
+    "domains": [
+      "Interior",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 106,
+    "building_area": "hallway",
+    "view": "wide angle from corridor looking toward exterior exit door",
+    "caption": "Interior corridor with painted gypsum board walls, dark carpet flooring with visible debris, black metal security gate at exit door, and illuminated red exit sign mounted above the doorway",
+    "mini_caption": "Interior hallway: debris on floor",
+    "domains": [
+      "Interior",
+      "Building Envelope",
+      "Fire & Life Safety",
+      "Security Systems"
+    ]
+  },
+  {
+    "image_id": 107,
+    "building_area": "hallway",
+    "view": "wide angle looking up at ceiling and toward exit door",
+    "caption": "Interior hallway with drop ceiling, recessed lighting, HVAC supply grille, exit sign, and metal security gate at glass door leading to exterior",
+    "mini_caption": "Interior hallway: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Mechanical Systems",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 108,
+    "building_area": "unknown",
+    "view": "wide angle from doorway",
+    "caption": "Interior office space with L-shaped laminate desk, vertical blinds on window, and dark carpet flooring showing visible debris and staining.",
+    "mini_caption": "Interior office: debris and staining",
+    "domains": [
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 109,
+    "building_area": "unknown",
+    "view": "wide angle corner view",
+    "caption": "Interior office space with L-shaped desk, office chair, wall-mounted calendars, and commercial carpet flooring in good condition with no visible deficiencies.",
+    "mini_caption": "Interior office: undamaged",
+    "domains": [
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 110,
+    "building_area": "kitchen",
+    "view": "wide angle corner view",
+    "caption": "Interior kitchen space with dark laminate cabinetry, stainless steel sink, laminate countertop, vinyl tile flooring, painted gypsum board walls, white refrigerator, and upper wall-mounted cabinets in good overall condition with no visible deficiencies.",
+    "mini_caption": "Interior kitchen: undamaged",
+    "domains": [
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 111,
+    "building_area": "hallway",
+    "view": "wide angle perspective view along interior corridor",
+    "caption": "Interior corridor with white painted wall showing patched areas, exposed concrete floor with yellow traffic striping, exit door, fire extinguisher, electrical panel, and exposed ceiling structure with lighting.",
+    "mini_caption": "Interior corridor: undamaged with patching",
+    "domains": [
+      "Interior",
+      "Fire & Life Safety",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 112,
+    "building_area": "unknown",
+    "view": "upward angle view",
+    "caption": "Ceiling-mounted unit heater with electrical disconnect box suspended from exposed corrugated metal deck ceiling with steel bar joists in an industrial or warehouse space.",
+    "mini_caption": "Interior ceiling: undamaged unit heater",
+    "domains": [
+      "Structural System",
+      "Mechanical Systems",
+      "Electrical Systems",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 113,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Commercial warehouse interior with exposed structural roof deck, open-web steel joists, mounted fluorescent lighting fixtures, white painted demising wall, and stacked palletized goods on polished concrete floor.",
+    "mini_caption": "Interior warehouse: undamaged",
+    "domains": [
+      "Structural System",
+      "Building Envelope",
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 114,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior commercial office space with suspended acoustical ceiling system, recessed fluorescent lighting, painted gypsum board walls with dark wood trim, and commercial carpet flooring in good condition.",
+    "mini_caption": "Interior office space: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 115,
+    "building_area": "electrical",
+    "view": "wide angle",
+    "caption": "Interior electrical room showing multiple electrical panels, disconnects, and conduit with high voltage warning signage on painted drywall wall",
+    "mini_caption": "Interior electrical room: undamaged",
+    "domains": [
+      "Electrical Systems",
+      "Interior"
+    ]
+  },
+  {
+    "image_id": 116,
+    "building_area": "unknown",
+    "view": "wide angle from doorway",
+    "caption": "Interior commercial office space with suspended acoustical ceiling grid, recessed LED troffer lighting, painted gypsum board walls with missing wall plates, and commercial carpet flooring with vinyl base trim.",
+    "mini_caption": "Interior office: wall plates missing",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Mechanical Systems"
+    ]
+  },
+  {
+    "image_id": 117,
+    "building_area": "unknown",
+    "view": "wide angle",
+    "caption": "Interior commercial space with dark wood plank flooring, painted gypsum board walls in cream and gray, suspended acoustic ceiling tile system, illuminated exit sign above steel door, and black metal security gate on right wall.",
+    "mini_caption": "Interior commercial space: undamaged",
+    "domains": [
+      "Interior",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 118,
+    "building_area": "hallway",
+    "view": "wide angle perspective view down corridor",
+    "caption": "Interior office hallway with dark wood-look flooring, beige painted walls with dark trim, suspended acoustic tile ceiling with fluorescent lighting, and adjacent conference room visible through open doorway.",
+    "mini_caption": "Interior hallway: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Fire & Life Safety"
+    ]
+  },
+  {
+    "image_id": 119,
+    "building_area": "utility_room",
+    "view": "wide angle",
+    "caption": "Interior utility or break room with laminate wood flooring, painted gypsum board walls with dark trim, drop ceiling with fluorescent lighting, folding chairs, central table with area rug, wall-mounted bulletin boards and clock, and stainless steel refrigerator in good condition.",
+    "mini_caption": "Interior utility room: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems"
+    ]
+  },
+  {
+    "image_id": 120,
+    "building_area": "kitchen",
+    "view": "wide angle",
+    "caption": "Interior break room or kitchenette with laminate cabinetry, countertop appliances, refrigerator, and folding chairs in a commercial office setting with acoustic tile ceiling and recessed fluorescent lighting.",
+    "mini_caption": "Interior kitchen: undamaged",
+    "domains": [
+      "Interior",
+      "Electrical Systems",
+      "Plumbing Systems",
+      "Mechanical Systems",
+      "Fire & Life Safety"
+    ]
+  }
+]

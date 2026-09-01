@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Schema Viewer Sample</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+        background: #f6f7f9;
+        color: #1a1d21;
+      }
+      header {
+        background: #fff;
+        border-bottom: 1px solid #e2e5ea;
+        padding: 16px 24px;
+      }
+      h1 {
+        font-size: 18px;
+        margin: 0 0 12px;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-end;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 12px;
+        color: #555;
+      }
+      .field input {
+        border: 1px solid #cfd4db;
+        border-radius: 6px;
+        padding: 6px 8px;
+        font-size: 13px;
+        min-width: 220px;
+      }
+      .field input.wide {
+        min-width: 380px;
+      }
+      button {
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #loginBtn {
+        background: #eef1f6;
+        color: #1a1d21;
+      }
+      #loginBtn:hover {
+        background: #e2e6ee;
+      }
+      #mapBtn {
+        background: #1f6feb;
+        color: #fff;
+      }
+      #mapBtn:hover {
+        background: #195fd5;
+      }
+      #status {
+        margin-top: 12px;
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+      #status.error {
+        color: #d1242f;
+      }
+      #status.ok {
+        color: #1a7f37;
+      }
+      #stats {
+        display: flex;
+        gap: 24px;
+        margin-top: 12px;
+        font-size: 13px;
+        color: #333;
+      }
+      main {
+        padding: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        gap: 20px;
+      }
+      .section {
+        background: #fff;
+        border: 1px solid #e2e5ea;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .section h2 {
+        margin: 0;
+        padding: 10px 14px;
+        font-size: 14px;
+        background: #fafbfc;
+        border-bottom: 1px solid #e2e5ea;
+      }
+      .section h2 span {
+        font-weight: 400;
+        color: #777;
+        font-size: 12px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      th {
+        text-align: left;
+        padding: 6px 10px;
+        background: #f6f7f9;
+        color: #555;
+        border-bottom: 1px solid #e2e5ea;
+        font-weight: 600;
+      }
+      td {
+        padding: 6px 10px;
+        border-bottom: 1px solid #f0f2f5;
+        vertical-align: top;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      select,
+      input[type="text"] {
+        border: 1px solid #cfd4db;
+        border-radius: 5px;
+        padding: 4px 6px;
+        font-size: 12px;
+        width: 100%;
+        background: #fff;
+        color: #1a1d21;
+      }
+      .empty {
+        color: #aaa;
+        font-style: italic;
+      }
+      .conf-high {
+        color: #1a7f37;
+        font-weight: 600;
+      }
+      .conf-mid {
+        color: #b25e09;
+        font-weight: 600;
+      }
+      .conf-low {
+        color: #d1242f;
+        font-weight: 600;
+      }
+      .conf-none {
+        color: #aaa;
+      }
+      .badge {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 10px;
+        font-size: 11px;
+      }
+      .badge.yes {
+        background: #e0f3e6;
+        color: #1a7f37;
+      }
+      .badge.no {
+        background: #fdeaea;
+        color: #d1242f;
+      }
+      .muted {
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Form Schema Viewer &amp; Field Mapping</h1>
+      <div class="controls">
+        <div class="field">
+          <label for="reportId">Report ID</label>
+          <input id="reportId" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="email">Email (login)</label>
+          <input id="email" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="password">Password (login)</label>
+          <input id="password" type="password" autocomplete="off" />
+        </div>
+        <button id="loginBtn" type="button">Login &amp; Get Token</button>
+        <div class="field">
+          <label for="token">Access Token (or paste from Swagger)</label>
+          <input id="token" class="wide" autocomplete="off" />
+        </div>
+        <button id="mapBtn" type="button">Map Fields</button>
+      </div>
+      <div id="status"></div>
+      <div id="stats"></div>
+    </header>
+    <main id="tables"></main>
+
+    <script>
+      const state = { schema: null, mappings: [], token: "" };
+
+      const reportIdInput = document.getElementById("reportId");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const tokenInput = document.getElementById("token");
+      const statusEl = document.getElementById("status");
+      const statsEl = document.getElementById("stats");
+      const tablesEl = document.getElementById("tables");
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function setStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = "status " + (type || "");
+      }
+
+      function getToken() {
+        const pasted = tokenInput.value.trim();
+        return pasted || state.token;
+      }
+
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", async () => {
+          const username = emailInput.value.trim();
+          const password = passwordInput.value;
+          if (!username || !password) {
+            setStatus("Enter email and password to login.", "error");
+            return;
+          }
+          try {
+            setStatus("Logging in...", "ok");
+            const body = new URLSearchParams();
+            body.append("username", username);
+            body.append("password", password);
+            const response = await fetch(API_BASE + "/auth/token", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: body.toString(),
+            });
+            const data = await response.json();
+            if (!response.ok) {
+              setStatus(
+                "Login failed: " + (data.detail || response.status),
+                "error",
+              );
+              return;
+            }
+            state.token = data.access_token;
+            tokenInput.value = data.access_token;
+            setStatus("Login successful. Token ready.", "ok");
+          } catch (error) {
+            setStatus("Login error: " + error.message, "error");
+          }
+        });
+      const API_BASE = "http://localhost:8000";
+
+      document.getElementById("mapBtn").addEventListener("click", mapFields);
+
+      async function mapFields() {
+        if (!state.schema) return;
+        const reportId = reportIdInput.value.trim();
+        if (!reportId) {
+          setStatus("Enter a Report ID.", "error");
+          return;
+        }
+        const token = getToken();
+        try {
+          setStatus("Triggering mapping...", "ok");
+          const response = await fetch(
+            API_BASE + "/reports/" + encodeURIComponent(reportId) + "/map",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                ...(token ? { Authorization: "Bearer " + token } : {}),
+              },
+              body: JSON.stringify({
+                form_schema: state.schema,
+                domain_id: 1,
+              }),
+            },
+          );
+          const data = await response.json();
+          if (!response.ok) {
+            setStatus(
+              "Mapping failed (" +
+                response.status +
+                "): " +
+                (data.detail || response.statusText),
+              "error",
+            );
+            return;
+          }
+          state.mappings = Array.isArray(data.mappings) ? data.mappings : [];
+          setStatus(
+            "Mapping complete. Evidence count: " +
+              (data.evidence_count ?? 0) +
+              " | Fields mapped: " +
+              state.mappings.length,
+            "ok",
+          );
+          render();
+        } catch (error) {
+          setStatus("Mapping error: " + error.message, "error");
+        }
+      }
+
+      function mappingFor(tableId, fieldName) {
+        return state.mappings.find(
+          (m) => m.table_id === String(tableId) && m.field_name === fieldName,
+        );
+      }
+
+      function selectedOptionId(field, mapping) {
+        if (!mapping || !mapping.value) return "";
+        if (
+          mapping.option_id &&
+          Object.prototype.hasOwnProperty.call(field.options, mapping.option_id)
+        ) {
+          return String(mapping.option_id);
+        }
+        const entry = Object.entries(field.options).find(
+          ([id, label]) => String(label) === String(mapping.value),
+        );
+        return entry ? String(entry[0]) : "";
+      }
+
+      function confidenceClass(confidence) {
+        if (!confidence) return "conf-none";
+        if (confidence >= 0.8) return "conf-high";
+        if (confidence >= 0.5) return "conf-mid";
+        return "conf-low";
+      }
+
+      function renderFieldRow(table, field) {
+        const mapping = mappingFor(table.tableId, field.fieldName);
+        const options =
+          field.options && typeof field.options === "object"
+            ? field.options
+            : {};
+        const hasOptions = Object.keys(options).length > 0;
+
+        let control = "";
+        if (hasOptions) {
+          const selected = selectedOptionId(field, mapping);
+          let selectOptions = '<option value="">—</option>';
+          for (const [id, label] of Object.entries(options)) {
+            const sel = String(id) === selected ? " selected" : "";
+            selectOptions +=
+              '<option value="' +
+              escapeHtml(id) +
+              '"' +
+              sel +
+              ">" +
+              escapeHtml(label) +
+              "</option>";
+          }
+          control = "<select>" + selectOptions + "</select>";
+        } else {
+          const value =
+            mapping && mapping.value ? escapeHtml(mapping.value) : "";
+          control = '<input type="text" value="' + value + '" disabled />';
+        }
+
+        const mappedValue =
+          mapping && mapping.value
+            ? escapeHtml(mapping.value)
+            : '<span class="empty">—</span>';
+        const confidence =
+          mapping && mapping.confidence
+            ? (mapping.confidence * 100).toFixed(0) + "%"
+            : "—";
+        const confClass = confidenceClass(mapping && mapping.confidence);
+        const source =
+          mapping && mapping.source ? escapeHtml(mapping.source) : "—";
+        const badge = mapping
+          ? '<span class="badge ' +
+            (mapping.matched ? "yes" : "no") +
+            '">' +
+            (mapping.matched ? "Matched" : "Miss") +
+            "</span>"
+          : "";
+
+        return (
+          "<tr>" +
+          "<td><strong>" +
+          escapeHtml(field.fieldName) +
+          "</strong></td>" +
+          "<td>" +
+          control +
+          "</td>" +
+          "<td>" +
+          mappedValue +
+          "</td>" +
+          '<td class="' +
+          confClass +
+          '">' +
+          confidence +
+          "</td>" +
+          '<td class="muted">' +
+          source +
+          "</td>" +
+          "<td>" +
+          badge +
+          "</td>" +
+          "</tr>"
+        );
+      }
+
+      function renderSection(table) {
+        const fields = Array.isArray(table.fields) ? table.fields : [];
+        let rows = "";
+        if (fields.length === 0) {
+          rows =
+            '<tr><td colspan="6" class="empty">No fields in this section.</td></tr>';
+        } else {
+          rows = fields.map((f) => renderFieldRow(table, f)).join("");
+        }
+
+        const fieldCount = fields.length
+          ? "<span>(" + fields.length + " fields)</span>"
+          : "";
+
+        return (
+          '<section class="section">' +
+          "<h2>" +
+          escapeHtml(table.tableName) +
+          " " +
+          fieldCount +
+          "</h2>" +
+          "<table>" +
+          "<thead><tr>" +
+          "<th>Field Name</th><th>Control</th><th>Value</th><th>Confidence</th><th>Source</th><th>Match</th>" +
+          "</tr></thead>" +
+          "<tbody>" +
+          rows +
+          "</tbody>" +
+          "</table>" +
+          "</section>"
+        );
+      }
+
+      function render() {
+        if (!state.schema || !Array.isArray(state.schema.tables)) return;
+        tablesEl.innerHTML = state.schema.tables.map(renderSection).join("");
+
+        let totalFields = 0;
+        for (const table of state.schema.tables) {
+          totalFields += Array.isArray(table.fields) ? table.fields.length : 0;
+        }
+        const sectionCount = state.schema.tables.length;
+        const mappedCount = state.mappings.filter((m) => m.matched).length;
+        statsEl.innerHTML =
+          "<div>Sections: <strong>" +
+          sectionCount +
+          "</strong></div>" +
+          "<div>Fields: <strong>" +
+          totalFields +
+          "</strong></div>" +
+          "<div>Mapped: <strong>" +
+          mappedCount +
+          "</strong></div>";
+      }
+
+      async function loadSchema() {
+        try {
+          setStatus("Loading form schema...", "ok");
+          const response = await fetch("form_schema.json");
+          if (!response.ok) {
+            setStatus(
+              "Could not load form_schema.json (" + response.status + ").",
+              "error",
+            );
+            return;
+          }
+          state.schema = await response.json();
+          if (!reportIdInput.value && state.schema.report_id) {
+            reportIdInput.value = state.schema.report_id;
+          }
+          render();
+          setStatus(
+            "Loaded " +
+              state.schema.tables.length +
+              " sections. Enter a report ID and map fields.",
+            "ok",
+          );
+        } catch (error) {
+          setStatus(
+            "Schema load error: " +
+              error.message +
+              " (serve via http, not file://)",
+            "error",
+          );
+        }
+      }
+
+      loadSchema();
+    </script>
+  </body>
+</html>

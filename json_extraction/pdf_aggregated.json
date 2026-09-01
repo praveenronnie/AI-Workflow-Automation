@@ -1,0 +1,1268 @@
+{
+  "source_metadata": {
+    "sources": [
+      "ocr_extracted.json",
+      "pca_aggregated.json"
+    ],
+    "aggregation_timestamp": "2026-08-06T09:35:16.093050"
+  },
+  "property_information": {
+    "market_area": {
+      "value": "6022 East",
+      "source": "ocr"
+    },
+    "exemption_type": {
+      "value": "None",
+      "source": "ocr"
+    },
+    "land_details": {
+      "land_use": {
+        "value": "8001 Land Neighborhood Section 4380 Distribution Warehouse",
+        "source": "ocr"
+      },
+      "unit_type": {
+        "value": "SF",
+        "source": "ocr"
+      },
+      "units": {
+        "value": 331884,
+        "source": "ocr"
+      },
+      "size_factor": {
+        "value": 1.0,
+        "source": "ocr"
+      },
+      "site_factor": {
+        "value": 1.0,
+        "source": "ocr"
+      },
+      "appr_or_factor": {
+        "value": 1.0,
+        "source": "ocr"
+      },
+      "appr_or_reason": {
+        "value": "Corner or Alley",
+        "source": "ocr"
+      },
+      "total_adj": {
+        "value": "04",
+        "source": "ocr"
+      },
+      "unit_price": {
+        "value": 4.0,
+        "source": "ocr"
+      },
+      "adj_unit_price": {
+        "value": 4.0,
+        "source": "ocr"
+      },
+      "value": {
+        "value": 1327536,
+        "source": "ocr"
+      }
+    },
+    "total_units": {
+      "value": 4,
+      "source": [
+        "page-1"
+      ]
+    },
+    "address": {
+      "street": {
+        "value": "8000 MARKET STREET RD",
+        "source": "ocr"
+      },
+      "city": {
+        "value": "HOUSTON",
+        "source": "ocr"
+      },
+      "state": {
+        "value": "TX",
+        "source": "ocr"
+      },
+      "zip": {
+        "value": "77029",
+        "source": "ocr"
+      },
+      "value": "8000 Market St",
+      "source": [
+        "page-7"
+      ]
+    },
+    "key_map": {
+      "value": "495E",
+      "source": "ocr"
+    },
+    "units_inspected": {
+      "value": [
+        {
+          "number": "1",
+          "description": "Buffers USA Transportation Management Consultants"
+        },
+        {
+          "number": "2",
+          "description": "Metrix Vacancy"
+        }
+      ],
+      "source": [
+        "page-6"
+      ]
+    },
+    "total_buildings": {
+      "value": 1,
+      "source": [
+        "page-1"
+      ]
+    },
+    "access_notes": {
+      "value": "Ladder access through Northern most edge of the property near Buffers USA",
+      "source": [
+        "page-7"
+      ]
+    },
+    "fiduciary": {
+      "value": "WILSON & FRANCO 00491",
+      "source": "ocr"
+    },
+    "document_collection_email": {
+      "value": "duediligence@skaenvironment.com",
+      "source": [
+        "page-1"
+      ]
+    },
+    "map_facet": {
+      "value": "5558D",
+      "source": "ocr"
+    },
+    "vacancy_notes": {
+      "value": "Vacancy accessible through Metrix logistics group, three risers (red stars) shown on map",
+      "source": [
+        "page-7"
+      ]
+    },
+    "owner": {
+      "name": {
+        "value": "HOUSTON INFILL INDUSTRIAL INVESTORS II LLC",
+        "source": "ocr"
+      },
+      "mailing_address": {
+        "value": "600 UNICORN PARK DR WOBURN, MA 01801-3376",
+        "source": "ocr"
+      }
+    },
+    "site_contact": {
+      "name": {
+        "value": "James Holland",
+        "source": [
+          "page-1"
+        ]
+      },
+      "phone": {
+        "value": "8328376672",
+        "source": [
+          "page-1"
+        ]
+      }
+    },
+    "property_signage": {
+      "total": {
+        "value": 1,
+        "source": [
+          "page-1"
+        ]
+      }
+    },
+    "ownership_history": [
+      {
+        "owner": {
+          "value": "HOUSTON INFILL INDUSTRIAL INVESTORS II LLC",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "06/16/2021",
+          "source": "ocr"
+        }
+      },
+      {
+        "owner": {
+          "value": "ROX TREP MARKET LLC",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "01/31/2017",
+          "source": "ocr"
+        }
+      },
+      {
+        "owner": {
+          "value": "MARKET STREET GEREN LP",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "07/22/2013",
+          "source": "ocr"
+        }
+      },
+      {
+        "owner": {
+          "value": "TEACHERS INSURANCE &",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "12/31/2002",
+          "source": "ocr"
+        }
+      },
+      {
+        "owner": {
+          "value": "TEACHERS INSURANCE & AME",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "12/31/2002",
+          "source": "ocr"
+        }
+      },
+      {
+        "owner": {
+          "value": "AMB PROPERTY II LP",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "07/31/1998",
+          "source": "ocr"
+        }
+      },
+      {
+        "owner": {
+          "value": "AMBERJACK LTD",
+          "source": "ocr"
+        },
+        "effective_date": {
+          "value": "04/23/1988",
+          "source": "ocr"
+        }
+      }
+    ],
+    "neighborhood": {
+      "value": "5981.22",
+      "source": "ocr"
+    },
+    "parking": {
+      "total_spaces": {
+        "value": 120,
+        "source": [
+          "page-1"
+        ]
+      },
+      "general": {
+        "value": 62,
+        "source": [
+          "page-1"
+        ]
+      },
+      "loading_docks": {
+        "value": 58,
+        "source": [
+          "page-1"
+        ]
+      }
+    },
+    "account_number": {
+      "value": "0401900020035",
+      "source": "ocr"
+    },
+    "occupied_units": {
+      "value": 3,
+      "source": [
+        "page-1"
+      ]
+    },
+    "land_area": {
+      "value": {
+        "value": 331884,
+        "source": "ocr"
+      },
+      "unit": {
+        "value": "SF",
+        "source": "ocr"
+      }
+    },
+    "vacant_units": {
+      "value": 1,
+      "source": [
+        "page-1"
+      ]
+    },
+    "property_entrance": {
+      "value": "Yes",
+      "source": [
+        "page-1"
+      ]
+    },
+    "units": {
+      "value": "4 units",
+      "source": [
+        "page-7"
+      ]
+    },
+    "neighborhood_name": {
+      "value": "GLENDALE BUSINESS PARK",
+      "source": "ocr"
+    },
+    "state_class_code": {
+      "value": "F1 Real, Commercial",
+      "source": "ocr"
+    },
+    "jurisdictions": [
+      {
+        "district": {
+          "value": "001",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "HOUSTON ISD",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.8783,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "040",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "HARRIS COUNTY",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.38096,
+          "source": "ocr"
+        },
+        "rate_2026": {
+          "value": 0.0,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "041",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "HARRIS CQ FLOOD CNTRL",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.04966,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "042",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "PORT QF HOUSTON AUTHY",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.0059,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "043",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "HARRIS CO HOSP DIST",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.18761,
+          "source": "ocr"
+        },
+        "rate_2026": {
+          "value": 0.0,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "044",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "HARRIS CQ EDUC DEPT",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.004798,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "048",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "HQUSTON CITY COLLEGE",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.098802,
+          "source": "ocr"
+        }
+      },
+      {
+        "district": {
+          "value": "061",
+          "source": "ocr"
+        },
+        "name": {
+          "value": "CITY QE HOUSTON",
+          "source": "ocr"
+        },
+        "rate_2025": {
+          "value": 0.51919,
+          "source": "ocr"
+        },
+        "rate_2026": {
+          "value": 0.0,
+          "source": "ocr"
+        }
+      }
+    ],
+    "legal_description": {
+      "value": "TR 12 ABST 8 J BROWN",
+      "source": "ocr"
+    },
+    "nearby_landmarks": {
+      "value": [
+        "Metrix Logistics Group",
+        "Buffers",
+        "GMI Mann Warehouse",
+        "Randy's Drive-In Service",
+        "Gabhls Truck Parts"
+      ],
+      "source": [
+        "page-7"
+      ]
+    }
+  },
+  "building_information": {
+    "property_type": {
+      "value": "Commercial",
+      "source": "ocr"
+    },
+    "building_summary": {
+      "year_built": {
+        "value": 1977,
+        "source": "ocr"
+      },
+      "remodeled": {
+        "value": 2024,
+        "source": "ocr"
+      },
+      "type": {
+        "value": "Distribution Warehouse",
+        "source": "ocr"
+      },
+      "style": {
+        "value": "8454 Shell, Industrial",
+        "source": "ocr"
+      },
+      "quality": {
+        "value": "Average",
+        "source": "ocr"
+      },
+      "impr_sq_ft": {
+        "value": 207600,
+        "source": "ocr"
+      }
+    },
+    "roof_type": {
+      "value": "Flat",
+      "source": [
+        "page-2"
+      ]
+    },
+    "net_rentable_area": {
+      "value": {
+        "value": 208050,
+        "source": "ocr"
+      },
+      "unit": {
+        "value": "SF",
+        "source": "ocr"
+      }
+    },
+    "extra_features": [
+      {
+        "description": {
+          "value": "Paving Light Concrete",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 92000,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1979,
+          "source": "ocr"
+        }
+      },
+      {
+        "description": {
+          "value": "Dock Level Floor",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 207372,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1977,
+          "source": "ocr"
+        }
+      },
+      {
+        "description": {
+          "value": "Enclosure, Office",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 5615,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1977,
+          "source": "ocr"
+        }
+      },
+      {
+        "description": {
+          "value": "Loading Ramp, Concrete",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 300,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1977,
+          "source": "ocr"
+        }
+      },
+      {
+        "description": {
+          "value": "Loading Ramp, Concrete",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 300,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1977,
+          "source": "ocr"
+        }
+      },
+      {
+        "description": {
+          "value": "Loading Ramp, Concrete",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 336,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1977,
+          "source": "ocr"
+        }
+      },
+      {
+        "description": {
+          "value": "Multi-Use; Office",
+          "source": "ocr"
+        },
+        "quality": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "condition": {
+          "value": "Average",
+          "source": "ocr"
+        },
+        "units": {
+          "value": 2475,
+          "source": "ocr"
+        },
+        "year_built": {
+          "value": 1977,
+          "source": "ocr"
+        }
+      }
+    ],
+    "building_area": {
+      "value": {
+        "value": 207600,
+        "source": "ocr"
+      },
+      "unit": {
+        "value": "SF",
+        "source": "ocr"
+      }
+    },
+    "laundry_center": {
+      "responsibility": {
+        "value": "Owner's responsibility or Outside vendor",
+        "source": [
+          "page-2"
+        ]
+      }
+    }
+  },
+  "building_systems": [
+    {
+      "domain": {
+        "value": "Site Utilities",
+        "source": "pca"
+      },
+      "information": {
+        "electricity": {
+          "value": "CentrePoint",
+          "source": [
+            "page-1"
+          ]
+        },
+        "solid_waste": {
+          "value": "WasteManagement",
+          "source": [
+            "page-1"
+          ]
+        },
+        "internet_and_cable": {
+          "value": "AT&T",
+          "source": [
+            "page-1"
+          ]
+        }
+      },
+      "source": [
+        {
+          "value": "page-1",
+          "source": "pca"
+        }
+      ]
+    },
+    {
+      "domain": {
+        "value": "Roofing System",
+        "source": "pca"
+      },
+      "information": {
+        "roof_type": {
+          "value": "Flat",
+          "source": [
+            "page-2"
+          ]
+        }
+      },
+      "source": [
+        {
+          "value": "page-2",
+          "source": "pca"
+        }
+      ]
+    },
+    {
+      "domain": {
+        "value": "Electrical Systems",
+        "source": "pca"
+      },
+      "information": {
+        "main_electrical_distribution_panel": {
+          "volts": {
+            "value": "120-480",
+            "source": [
+              "page-2"
+            ]
+          },
+          "manufacturer": {
+            "value": "Milbank",
+            "source": [
+              "page-2"
+            ]
+          }
+        },
+        "wiring_type": {
+          "value": "ALUMINUM OR COPPER",
+          "source": [
+            "page-3"
+          ]
+        }
+      },
+      "source": [
+        {
+          "value": "page-2",
+          "source": "pca"
+        },
+        {
+          "value": "page-3",
+          "source": "pca"
+        }
+      ]
+    },
+    {
+      "domain": {
+        "value": "Plumbing Systems",
+        "source": "pca"
+      },
+      "information": {
+        "water_heaters": {
+          "total_count": {
+            "value": 4,
+            "source": [
+              "page-3"
+            ]
+          },
+          "manufacturer": {
+            "value": "Rheem",
+            "source": [
+              "page-3"
+            ]
+          },
+          "locations": {
+            "value": [
+              "Metrix",
+              "Buffers",
+              "Vacant"
+            ],
+            "source": [
+              "page-3"
+            ]
+          },
+          "capacity": {
+            "value": "50 gallons",
+            "source": [
+              "page-3"
+            ]
+          },
+          "type": {
+            "value": "ELECTRIC",
+            "source": [
+              "page-3"
+            ]
+          }
+        },
+        "piping": {
+          "supply_lines": {
+            "value": "COPPER",
+            "source": [
+              "page-3"
+            ]
+          },
+          "waste_lines": {
+            "value": "PVC",
+            "source": [
+              "page-3"
+            ]
+          }
+        }
+      },
+      "source": [
+        {
+          "value": "page-3",
+          "source": "pca"
+        }
+      ]
+    },
+    {
+      "domain": {
+        "value": "Fire & Life Safety",
+        "source": "pca"
+      },
+      "information": {
+        "fire_extinguisher": {
+          "inspection_date": {
+            "value": "Jun 2026",
+            "source": [
+              "page-3"
+            ]
+          }
+        },
+        "fire_riser_sprinkler": {
+          "type": {
+            "value": "WET",
+            "source": [
+              "page-3"
+            ]
+          },
+          "location": {
+            "value": "Red star on map",
+            "source": [
+              "page-3"
+            ]
+          },
+          "inspection_date": {
+            "value": "Jun 2026",
+            "source": [
+              "page-3"
+            ]
+          }
+        },
+        "fire_alarm_control_panel": {
+          "location": {
+            "value": "Red star on map",
+            "source": [
+              "page-3"
+            ]
+          },
+          "inspection_date": {
+            "value": "11/2025",
+            "source": [
+              "page-3"
+            ]
+          },
+          "total_count": {
+            "value": 1,
+            "source": [
+              "page-3"
+            ]
+          },
+          "manufacturer": {
+            "value": "FirePro Tech",
+            "source": [
+              "page-3"
+            ]
+          }
+        }
+      },
+      "source": [
+        {
+          "value": "page-3",
+          "source": "pca"
+        }
+      ]
+    },
+    {
+      "domain": {
+        "value": "Security Systems",
+        "source": "pca"
+      },
+      "information": {
+        "damage_responsibility": {
+          "interior": {
+            "value": "OWNER or TENANT",
+            "source": [
+              "page-3"
+            ]
+          },
+          "exterior": {
+            "value": "OWNER or TENANT",
+            "source": [
+              "page-3"
+            ]
+          }
+        }
+      },
+      "source": [
+        {
+          "value": "page-3",
+          "source": "pca"
+        }
+      ]
+    },
+    {
+      "domain": {
+        "value": "Mechanical Systems",
+        "source": "pca"
+      },
+      "information": {
+        "roof_mounted_package_units": {
+          "refrigerant": {
+            "value": "410",
+            "source": [
+              "page-5"
+            ]
+          },
+          "manufacturers": {
+            "value": [
+              "Carrier",
+              "Johnson",
+              "York",
+              "Trane"
+            ],
+            "source": [
+              "page-5"
+            ]
+          },
+          "total_units": {
+            "value": 11,
+            "source": [
+              "page-5"
+            ]
+          },
+          "unit_details": {
+            "value": [
+              {
+                "quantity": 1,
+                "age": "2024",
+                "capacity": 6
+              },
+              {
+                "quantity": 1,
+                "age": "Older unit",
+                "capacity": 5
+              },
+              {
+                "quantity": 1,
+                "age": "Older unit",
+                "capacity": 7.5
+              },
+              {
+                "quantity": 3,
+                "age": "2007",
+                "capacity": 7.5
+              }
+            ],
+            "source": [
+              "page-5"
+            ]
+          },
+          "location": {
+            "value": "Roof",
+            "source": [
+              "page-5"
+            ]
+          }
+        }
+      },
+      "source": [
+        {
+          "value": "page-5",
+          "source": "pca"
+        }
+      ]
+    }
+  ],
+  "financial_regulatory_information": {
+    "status": {
+      "value_notice_date": {
+        "value": "Apr 17, 2026",
+        "source": "ocr"
+      },
+      "deadline_to_file_protest": {
+        "value": "May 18, 2026",
+        "source": "ocr"
+      },
+      "protest_received_date": {
+        "value": "May 15, 2026",
+        "source": "ocr"
+      },
+      "arb_status": {
+        "value": "Not Certified",
+        "source": "ocr"
+      },
+      "arb_status_date": {
+        "value": "Jul 24, 2026",
+        "source": "ocr"
+      }
+    },
+    "valuation_history": [
+      {
+        "year": {
+          "value": 2022,
+          "source": "ocr"
+        },
+        "market_value": {
+          "value": 7000000,
+          "source": "ocr"
+        },
+        "appraised_value": {
+          "value": 1000000,
+          "source": "ocr"
+        },
+        "land_value": {
+          "value": 500000,
+          "source": "ocr"
+        },
+        "improvement_value": {
+          "value": 5500000,
+          "source": "ocr"
+        }
+      },
+      {
+        "year": {
+          "value": 2023,
+          "source": "ocr"
+        },
+        "market_value": {
+          "value": 7500000,
+          "source": "ocr"
+        },
+        "appraised_value": {
+          "value": 1000000,
+          "source": "ocr"
+        },
+        "land_value": {
+          "value": 500000,
+          "source": "ocr"
+        },
+        "improvement_value": {
+          "value": 6000000,
+          "source": "ocr"
+        }
+      },
+      {
+        "year": {
+          "value": 2024,
+          "source": "ocr"
+        },
+        "market_value": {
+          "value": 8000000,
+          "source": "ocr"
+        },
+        "appraised_value": {
+          "value": 1000000,
+          "source": "ocr"
+        },
+        "land_value": {
+          "value": 500000,
+          "source": "ocr"
+        },
+        "improvement_value": {
+          "value": 6500000,
+          "source": "ocr"
+        }
+      },
+      {
+        "year": {
+          "value": 2025,
+          "source": "ocr"
+        },
+        "market_value": {
+          "value": 8500000,
+          "source": "ocr"
+        },
+        "appraised_value": {
+          "value": 1000000,
+          "source": "ocr"
+        },
+        "land_value": {
+          "value": 500000,
+          "source": "ocr"
+        },
+        "improvement_value": {
+          "value": 7000000,
+          "source": "ocr"
+        }
+      },
+      {
+        "year": {
+          "value": 2026,
+          "source": "ocr"
+        },
+        "market_value": {
+          "value": 9000000,
+          "source": "ocr"
+        },
+        "appraised_value": {
+          "value": 1000000,
+          "source": "ocr"
+        },
+        "land_value": {
+          "value": 500000,
+          "source": "ocr"
+        },
+        "improvement_value": {
+          "value": 7500000,
+          "source": "ocr"
+        }
+      }
+    ],
+    "valuations": {
+      "land_value": {
+        "value": 1327536,
+        "source": "ocr"
+      },
+      "improvement_value": {
+        "value": 8273972,
+        "source": "ocr"
+      },
+      "market_value": {
+        "value": 9601508,
+        "source": "ocr"
+      },
+      "appraised_value": {
+        "value": 9601508,
+        "source": "ocr"
+      }
+    }
+  },
+  "document_metadata": {
+    "document_date": {
+      "value": "2026-08-05",
+      "source": "ocr"
+    },
+    "all_pages": [
+      {
+        "page": {
+          "value": "page-1",
+          "source": "pca"
+        },
+        "metadata": {
+          "title": {
+            "value": "PCA SITE RECONNAISSANCE CHECKLIST",
+            "source": "pca"
+          },
+          "page": {
+            "value": "1 of 6",
+            "source": "pca"
+          }
+        }
+      },
+      {
+        "page": {
+          "value": "page-2",
+          "source": "pca"
+        },
+        "metadata": {
+          "document_title": {
+            "value": "PCA SITE RECONNAISSANCE CHECKLIST",
+            "source": "pca"
+          },
+          "page": {
+            "value": "Page 2 of 6",
+            "source": "pca"
+          }
+        }
+      },
+      {
+        "page": {
+          "value": "page-3",
+          "source": "pca"
+        },
+        "metadata": {
+          "document_title": {
+            "value": "PCA SITE RECONNAISSANCE CHECKLIST",
+            "source": "pca"
+          },
+          "page": {
+            "value": "Page 3 of 6",
+            "source": "pca"
+          }
+        }
+      },
+      {
+        "page": {
+          "value": "page-4",
+          "source": "pca"
+        },
+        "metadata": {
+          "document_type": {
+            "value": "PCA Site Reconnaissance Checklist",
+            "source": "pca"
+          },
+          "page_number": {
+            "value": "Page 4 of 6",
+            "source": "pca"
+          }
+        }
+      },
+      {
+        "page": {
+          "value": "page-5",
+          "source": "pca"
+        },
+        "metadata": {
+          "title": {
+            "value": "PCA SITE RECONNAISSANCE CHECKLIST",
+            "source": "pca"
+          },
+          "page": {
+            "value": "5 of 6",
+            "source": "pca"
+          }
+        }
+      },
+      {
+        "page": {
+          "value": "page-6",
+          "source": "pca"
+        },
+        "metadata": {
+          "document_title": {
+            "value": "PCA SITE RECONNAISSANCE CHECKLIST",
+            "source": "pca"
+          },
+          "page_number": {
+            "value": "6 of 6",
+            "source": "pca"
+          }
+        }
+      }
+    ],
+    "source": {
+      "value": "HCAD Property Search",
+      "source": "ocr"
+    }
+  }
+}

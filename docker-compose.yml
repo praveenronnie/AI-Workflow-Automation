@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   redis:
     image: redis:7-alpine
@@ -10,6 +8,94 @@ services:
     volumes:
       - redis_data:/data
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: form-automation-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: form-automation-postgres
+    restart: unless-stopped
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: form_automation
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d form_automation"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: form-automation-worker
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    command: ["celery", "-A", "inspection_ai.celery_app", "worker", "--concurrency=4", "--loglevel=info"]
+    environment:
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      DB_NAME: form_automation
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      VECTOR_DB_URL: http://qdrant:6333
+    volumes:
+      - .:/app
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: form-automation-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DB_NAME: form_automation
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      VECTOR_DB_URL: http://qdrant:6333
+      MODAL_PROXY_TOKEN_ID: ${MODAL_PROXY_TOKEN_ID}
+      MODAL_PROXY_TOKEN_SECRET: ${MODAL_PROXY_TOKEN_SECRET}
+    depends_on:
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    volumes:
+      - .:/app
+    command: ["uvicorn", "inspection_ai.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+
 volumes:
   redis_data:
+    driver: local
+  qdrant_data:
+    driver: local
+  postgres_data:
     driver: local

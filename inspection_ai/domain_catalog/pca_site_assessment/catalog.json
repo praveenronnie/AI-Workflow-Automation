@@ -1,0 +1,2993 @@
+{
+  "domain_name": "pca_site_assessment",
+  "display_name": "PCA Site Assessment",
+  "version": "1.0.0",
+  "description": "Building/site-assessment catalog – concise, domain-specific metadata.",
+  "is_active": true,
+  "sections": [
+    {
+      "name": "General Description",
+      "aliases": [
+        "pca property overview",
+        "property assessment overview",
+        "subject property overview",
+        "site assessment general information"
+      ],
+      "fields": [
+        {
+          "name": "Property Setting",
+          "aliases": [
+            "property setting",
+            "subject property setting",
+            "site setting",
+            "building site setting",
+            "property location and setting"
+          ],
+          "intent": "property_information",
+          "description": "Physical setting and site context of the subject property."
+        },
+        {
+          "name": "Pre-Survey Questionnaire",
+          "aliases": [
+            "pca pre-survey questionnaire",
+            "pre-assessment questionnaire",
+            "property pre-survey",
+            "site assessment questionnaire"
+          ],
+          "intent": "property_information",
+          "description": "Pre-survey property information and assessment questions."
+        }
+      ]
+    },
+    {
+      "name": "Property Condition & Maintenance",
+      "aliases": [
+        "property condition assessment",
+        "building condition and maintenance",
+        "property maintenance assessment",
+        "overall property condition"
+      ],
+      "fields": [
+        {
+          "name": "Subject Property Overall Condition",
+          "aliases": [
+            "overall property condition",
+            "subject property condition",
+            "overall building condition",
+            "overall site and building condition",
+            "pca overall condition"
+          ],
+          "intent": "condition",
+          "description": "Overall physical condition of the subject property."
+        },
+        {
+          "name": "Quality of Current Maintenance Programs",
+          "aliases": [
+            "maintenance program quality",
+            "property maintenance program",
+            "current maintenance practices",
+            "building maintenance quality",
+            "site maintenance program"
+          ],
+          "intent": "condition",
+          "description": "Quality and effectiveness of current property maintenance programs."
+        }
+      ]
+    },
+    {
+      "name": "Topography",
+      "aliases": [
+        "site topography assessment",
+        "site grading and drainage",
+        "property slope and elevation",
+        "site drainage assessment"
+      ],
+      "fields": [
+        {
+          "name": "General Topography",
+          "aliases": [
+            "site topography",
+            "property topography",
+            "site grading",
+            "site elevation and grade",
+            "general site grade"
+          ],
+          "intent": "site_improvements",
+          "description": "Overall landform, elevation, and grade characteristics of the site."
+        },
+        {
+          "name": "Slope",
+          "aliases": [
+            "site slope",
+            "property slope",
+            "site grade slope",
+            "ground slope",
+            "site gradient"
+          ],
+          "intent": "site_improvements",
+          "description": "Degree of incline or grade of the subject property site."
+        },
+        {
+          "name": "Storm Drainage",
+          "aliases": [
+            "site storm drainage",
+            "stormwater drainage system",
+            "surface stormwater drainage",
+            "stormwater management",
+            "site drainage system"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Site system for collecting and managing stormwater runoff."
+        }
+      ]
+    },
+    {
+      "name": "Paving and Curbing",
+      "aliases": [
+        "site paving and curbs",
+        "pavement and curb assessment",
+        "parking and vehicle access",
+        "site hardscape paving"
+      ],
+      "fields": [
+        {
+          "name": "Vehicle Ingress / Egress Points",
+          "aliases": [
+            "vehicle ingress and egress",
+            "vehicle access points",
+            "driveway access points",
+            "site vehicle entry and exit",
+            "vehicular access"
+          ],
+          "intent": "site_improvements",
+          "description": "Locations where vehicles enter and exit the subject property."
+        },
+        {
+          "name": "Pavement",
+          "aliases": [
+            "site pavement",
+            "pavement type",
+            "paving material",
+            "parking and drive pavement",
+            "pavement condition"
+          ],
+          "intent": "site_improvements",
+          "description": "Type and condition of paved surfaces serving the property."
+        },
+        {
+          "name": "Pavement Location",
+          "aliases": [
+            "pavement areas",
+            "paved area locations",
+            "site paving locations",
+            "pavement placement",
+            "location of paved surfaces"
+          ],
+          "intent": "site_improvements",
+          "description": "Locations and areas of pavement across the subject property."
+        },
+        {
+          "name": "Parking Space Count Source",
+          "aliases": [
+            "parking space count",
+            "parking count source",
+            "parking inventory source",
+            "number of parking spaces",
+            "parking space inventory"
+          ],
+          "intent": "site_improvements",
+          "description": "Source used to determine the number of parking spaces on the property."
+        },
+        {
+          "name": "Parking Garages",
+          "aliases": [
+            "parking garage",
+            "parking structure",
+            "garage parking",
+            "parking garage condition",
+            "structured parking"
+          ],
+          "intent": "condition",
+          "description": "Parking garage structures and their condition at the property."
+        },
+        {
+          "name": "Curbing",
+          "aliases": [
+            "site curbing",
+            "curb condition",
+            "curb and gutter condition",
+            "parking curb condition",
+            "pavement curbs"
+          ],
+          "intent": "site_improvements",
+          "description": "Type and condition of curbs along paved site areas."
+        }
+      ]
+    },
+    {
+      "name": "Landscaping, Site Improvements & Site Amenities",
+      "aliases": [
+        "site landscaping assessment",
+        "site improvements assessment",
+        "site amenities and landscaping",
+        "exterior site features"
+      ],
+      "fields": [
+        {
+          "name": "Landscaping",
+          "aliases": [
+            "site landscaping",
+            "landscape condition",
+            "landscape improvements",
+            "landscaped areas",
+            "property landscaping"
+          ],
+          "intent": "site_improvements",
+          "description": "Landscape features, vegetation, and site planting conditions."
+        },
+        {
+          "name": "Irrigation",
+          "aliases": [
+            "site irrigation",
+            "landscape irrigation",
+            "irrigation system",
+            "sprinkler irrigation system",
+            "irrigation condition"
+          ],
+          "intent": "site_improvements",
+          "description": "Irrigation systems supporting landscaping and site vegetation."
+        },
+        {
+          "name": "Signage",
+          "aliases": [
+            "site signage",
+            "property signage",
+            "exterior signage",
+            "building site signs",
+            "signage condition"
+          ],
+          "intent": "site_improvements",
+          "description": "Property signage and its location or condition."
+        },
+        {
+          "name": "Sidewalks",
+          "aliases": [
+            "site sidewalks",
+            "pedestrian sidewalks",
+            "sidewalk condition",
+            "exterior walkways",
+            "paved pedestrian paths"
+          ],
+          "intent": "site_improvements",
+          "description": "Pedestrian sidewalks and their condition across the site."
+        },
+        {
+          "name": "Site Stairs",
+          "aliases": [
+            "exterior site stairs",
+            "site stairways",
+            "exterior steps",
+            "site steps",
+            "stair condition"
+          ],
+          "intent": "site_improvements",
+          "description": "Exterior stairs and steps serving the property site."
+        },
+        {
+          "name": "Lighting",
+          "aliases": [
+            "site lighting",
+            "exterior site lighting",
+            "property lighting",
+            "exterior lighting condition",
+            "site illumination"
+          ],
+          "intent": "site_improvements",
+          "description": "Exterior lighting systems serving the property and site."
+        },
+        {
+          "name": "Fencing",
+          "aliases": [
+            "site fencing",
+            "property fencing",
+            "exterior fencing",
+            "fence condition",
+            "perimeter fencing"
+          ],
+          "intent": "site_improvements",
+          "description": "Fencing systems and barriers around the property."
+        },
+        {
+          "name": "Fencing Location",
+          "aliases": [
+            "fence location",
+            "site fence location",
+            "perimeter fence location",
+            "fencing placement",
+            "location of site fencing"
+          ],
+          "intent": "site_improvements",
+          "description": "Locations and areas where property fencing is installed."
+        },
+        {
+          "name": "Retaining Walls",
+          "aliases": [
+            "site retaining walls",
+            "retaining wall condition",
+            "landscape retaining walls",
+            "earth retaining walls",
+            "retaining wall system"
+          ],
+          "intent": "site_improvements",
+          "description": "Retaining wall structures supporting changes in site elevation."
+        },
+        {
+          "name": "Retaining Wall Location",
+          "aliases": [
+            "retaining wall location",
+            "site retaining wall location",
+            "wall placement",
+            "location of retaining walls",
+            "retaining wall alignment"
+          ],
+          "intent": "site_improvements",
+          "description": "Locations of retaining walls across the property site."
+        },
+        {
+          "name": "Water Features",
+          "aliases": [
+            "site water features",
+            "landscape water features",
+            "ponds and fountains",
+            "exterior water features",
+            "water feature condition"
+          ],
+          "intent": "site_improvements",
+          "description": "Ponds, fountains, pools, and other water features on the site."
+        },
+        {
+          "name": "Other Landscape Features",
+          "aliases": [
+            "other site landscape features",
+            "miscellaneous landscape features",
+            "additional site features",
+            "landscape site features",
+            "other exterior site improvements"
+          ],
+          "intent": "site_improvements",
+          "description": "Additional landscape and site features not otherwise categorized."
+        },
+        {
+          "name": "Waste Enclosures",
+          "aliases": [
+            "waste enclosure",
+            "trash enclosure",
+            "dumpster enclosure",
+            "refuse enclosure",
+            "waste collection enclosure"
+          ],
+          "intent": "site_improvements",
+          "description": "Enclosed areas designated for dumpsters and property waste storage."
+        },
+        {
+          "name": "Other Amenities",
+          "aliases": [
+            "site amenities",
+            "property amenities",
+            "exterior site amenities",
+            "additional site amenities",
+            "miscellaneous site amenities"
+          ],
+          "intent": "site_improvements",
+          "description": "Additional site amenities and property convenience features."
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "aliases": [
+        "site utility systems",
+        "property utility services",
+        "utility infrastructure assessment",
+        "site utilities assessment"
+      ],
+      "fields": [
+        {
+          "name": "Storm Drainage",
+          "aliases": [
+            "site storm drainage",
+            "stormwater drainage system",
+            "surface stormwater drainage",
+            "stormwater management",
+            "site drainage system"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Site system for collecting and managing stormwater runoff."
+        },
+        {
+          "name": "Other Special Utility Systems",
+          "aliases": [
+            "special site utility systems",
+            "other utility systems",
+            "auxiliary utility systems",
+            "specialized property utilities",
+            "nonstandard utility systems"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Specialized utility systems serving the property beyond standard utilities."
+        },
+        {
+          "name": "Water Supply",
+          "aliases": [
+            "site water supply",
+            "municipal water service",
+            "domestic water service",
+            "property water source",
+            "water utility service"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Source and availability of water service to the subject property."
+        },
+        {
+          "name": "Sanitary Sewer",
+          "aliases": [
+            "sanitary sewer service",
+            "site sanitary sewer",
+            "wastewater sewer connection",
+            "sanitary sewer system",
+            "sewer utility service"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Sanitary sewer service and wastewater conveyance for the property."
+        },
+        {
+          "name": "Electricity",
+          "aliases": [
+            "site electrical service",
+            "electric utility service",
+            "property electrical supply",
+            "building electric service",
+            "electrical utility"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Electrical utility service and power supply to the property."
+        },
+        {
+          "name": "Gas Service",
+          "aliases": [
+            "site gas service",
+            "natural gas service",
+            "building gas utility",
+            "gas utility connection",
+            "property gas service"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Natural gas or other gas utility service to the property."
+        },
+        {
+          "name": "Telecommunications",
+          "aliases": [
+            "site telecommunications",
+            "telecom service",
+            "property telecom service",
+            "telephone and data service",
+            "communications utility"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Telecommunication services and infrastructure serving the property."
+        }
+      ]
+    },
+    {
+      "name": "Private Water Well",
+      "aliases": [
+        "private water well assessment",
+        "onsite water well system",
+        "private well condition",
+        "well system pca"
+      ],
+      "fields": [
+        {
+          "name": "Reported System Adequacy",
+          "aliases": [
+            "onsite system adequacy",
+            "private system adequacy",
+            "reported utility system adequacy",
+            "system capacity adequacy",
+            "reported system condition and adequacy",
+            "private water well reported system adequacy"
+          ],
+          "intent": "condition",
+          "description": "Adequacy of the private water or wastewater system to meet property needs."
+        },
+        {
+          "name": "Cost of Connecting Property to Municipal System",
+          "aliases": [
+            "municipal water connection cost",
+            "cost to connect property to municipal utility",
+            "public system connection cost",
+            "municipal utility hookup cost",
+            "cost of municipal connection"
+          ],
+          "intent": "repair_cost",
+          "description": "Estimated cost to connect the property to the municipal utility system."
+        },
+        {
+          "name": "Level of Work Required to Accomplish Municipal System Connection",
+          "aliases": [
+            "municipal connection work required",
+            "utility connection work scope",
+            "work required for public system connection",
+            "municipal hookup work required",
+            "connection work effort"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Extent of work required to connect the property to the municipal utility system."
+        },
+        {
+          "name": "System Maintenance Provider",
+          "aliases": [
+            "onsite system maintenance provider",
+            "private utility maintenance provider",
+            "system service provider",
+            "maintenance responsibility",
+            "system maintenance company",
+            "private water well system maintenance provider"
+          ],
+          "intent": "condition",
+          "description": "Party responsible for maintaining the private utility or wastewater system."
+        },
+        {
+          "name": "Concerns Regarding Quality of Maintenance",
+          "aliases": [
+            "maintenance quality concerns",
+            "onsite system maintenance concerns",
+            "private system maintenance deficiencies",
+            "maintenance program concerns",
+            "system maintenance quality",
+            "private water well concerns regarding quality of maintenance"
+          ],
+          "intent": "condition",
+          "description": "Known concerns regarding the quality of system maintenance."
+        },
+        {
+          "name": "Equipment Accessible to Unauthorized Personnel",
+          "aliases": [
+            "unauthorized access to equipment",
+            "restricted utility equipment access",
+            "onsite equipment security",
+            "utility equipment accessible to unauthorized persons",
+            "equipment access safety",
+            "private water well equipment accessible to unauthorized personnel"
+          ],
+          "intent": "life_safety",
+          "description": "Accessibility of utility or system equipment to unauthorized persons."
+        },
+        {
+          "name": "Concerns Regarding Backup Water Source",
+          "aliases": [
+            "backup water source concerns",
+            "alternate water supply concerns",
+            "emergency water source concerns",
+            "backup water supply adequacy",
+            "secondary water source"
+          ],
+          "intent": "condition",
+          "description": "Concerns regarding availability or reliability of a backup water source."
+        },
+        {
+          "name": "Current or Previous Violations",
+          "aliases": [
+            "property code violations",
+            "current or prior code violations",
+            "onsite system violations",
+            "municipal compliance violations",
+            "reported property violations",
+            "private water well current or previous violations"
+          ],
+          "intent": "code_violation",
+          "description": "Current or historical violations associated with the private utility system."
+        },
+        {
+          "name": "System Type Atypical for Market",
+          "aliases": [
+            "atypical utility system type",
+            "nonstandard onsite system",
+            "unusual system type for market",
+            "nonstandard property utility system",
+            "atypical system configuration",
+            "private water well system type atypical for market"
+          ],
+          "intent": "condition",
+          "description": "Private system characteristics that are atypical for comparable properties in the market."
+        },
+        {
+          "name": "Other Person or Property Authorized to Use the System",
+          "aliases": [
+            "shared utility system users",
+            "other authorized system users",
+            "authorized third-party system use",
+            "other property using system",
+            "shared onsite system authorization",
+            "private water well other person or property authorized to use the system"
+          ],
+          "intent": "property_information",
+          "description": "Other persons or properties authorized to use the private utility system."
+        },
+        {
+          "name": "System Owned or Maintained by Residents",
+          "aliases": [
+            "resident-owned utility system",
+            "resident-maintained system",
+            "owner or resident maintained system",
+            "onsite system resident maintenance",
+            "private system ownership and maintenance",
+            "private water well system owned or maintained by residents"
+          ],
+          "intent": "condition",
+          "description": "Resident ownership or maintenance responsibilities for the private system."
+        },
+        {
+          "name": "System Fails to Meet Applicable Requirements",
+          "aliases": [
+            "utility system code compliance",
+            "system fails applicable requirements",
+            "onsite system regulatory compliance",
+            "private system code deficiency",
+            "system compliance requirements",
+            "private water well system fails to meet applicable requirements"
+          ],
+          "intent": "code_violation",
+          "description": "System deficiencies involving applicable regulatory or code requirements."
+        }
+      ]
+    },
+    {
+      "name": "Private Septic Systems",
+      "aliases": [
+        "private septic system assessment",
+        "onsite septic system",
+        "septic system condition",
+        "leach field assessment"
+      ],
+      "fields": [
+        {
+          "name": "Reported System Adequacy",
+          "aliases": [
+            "onsite system adequacy",
+            "private system adequacy",
+            "reported utility system adequacy",
+            "system capacity adequacy",
+            "reported system condition and adequacy",
+            "private septic system reported system adequacy"
+          ],
+          "intent": "condition",
+          "description": "Adequacy of the private water or wastewater system to meet property needs."
+        },
+        {
+          "name": "Distance From Leach Field to Surrounding Bodies of Water",
+          "aliases": [
+            "leach field distance to water",
+            "septic leach field setback",
+            "leach field water body setback",
+            "septic system water setback",
+            "distance from leach field to surface water"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Separation between the septic leach field and nearby bodies of water."
+        },
+        {
+          "name": "Cost of Connecting Subject Property to Municipal System",
+          "aliases": [
+            "municipal system connection cost",
+            "subject property utility connection cost",
+            "cost to connect to municipal sewer",
+            "public utility connection cost",
+            "municipal hookup cost"
+          ],
+          "intent": "repair_cost",
+          "description": "Estimated cost to connect the subject property to the municipal utility system."
+        },
+        {
+          "name": "Level of Work Required to Accomplish Municipal System Connection",
+          "aliases": [
+            "municipal connection work required",
+            "utility connection work scope",
+            "work required for public system connection",
+            "municipal hookup work required",
+            "connection work effort"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Extent of work required to connect the property to the municipal utility system."
+        },
+        {
+          "name": "System Maintenance Provider",
+          "aliases": [
+            "onsite system maintenance provider",
+            "private utility maintenance provider",
+            "system service provider",
+            "maintenance responsibility",
+            "system maintenance company",
+            "private septic system system maintenance provider"
+          ],
+          "intent": "condition",
+          "description": "Party responsible for maintaining the private utility or wastewater system."
+        },
+        {
+          "name": "Concerns Regarding Quality of Maintenance",
+          "aliases": [
+            "maintenance quality concerns",
+            "onsite system maintenance concerns",
+            "private system maintenance deficiencies",
+            "maintenance program concerns",
+            "system maintenance quality",
+            "private septic system concerns regarding quality of maintenance"
+          ],
+          "intent": "condition",
+          "description": "Known concerns regarding the quality of system maintenance."
+        },
+        {
+          "name": "Buildings or Structures Located on Top of Leach Field",
+          "aliases": [
+            "structures over leach field",
+            "building over septic leach field",
+            "structures on leach field",
+            "leach field encroachment by structure",
+            "construction over leach field"
+          ],
+          "intent": "code_violation",
+          "description": "Buildings or structures located over or within the septic leach field area."
+        },
+        {
+          "name": "Equipment Accessible to Unauthorized Personnel",
+          "aliases": [
+            "unauthorized access to equipment",
+            "restricted utility equipment access",
+            "onsite equipment security",
+            "utility equipment accessible to unauthorized persons",
+            "equipment access safety",
+            "private septic system equipment accessible to unauthorized personnel"
+          ],
+          "intent": "life_safety",
+          "description": "Accessibility of utility or system equipment to unauthorized persons."
+        },
+        {
+          "name": "Current or Previous Violations",
+          "aliases": [
+            "property code violations",
+            "current or prior code violations",
+            "onsite system violations",
+            "municipal compliance violations",
+            "reported property violations",
+            "private septic system current or previous violations"
+          ],
+          "intent": "code_violation",
+          "description": "Current or historical violations associated with the private utility system."
+        },
+        {
+          "name": "System Type Atypical for Market",
+          "aliases": [
+            "atypical utility system type",
+            "nonstandard onsite system",
+            "unusual system type for market",
+            "nonstandard property utility system",
+            "atypical system configuration",
+            "private septic system system type atypical for market"
+          ],
+          "intent": "condition",
+          "description": "Private system characteristics that are atypical for comparable properties in the market."
+        },
+        {
+          "name": "Other Person or Property Authorized to Use the System",
+          "aliases": [
+            "shared utility system users",
+            "other authorized system users",
+            "authorized third-party system use",
+            "other property using system",
+            "shared onsite system authorization",
+            "private septic system other person or property authorized to use the system"
+          ],
+          "intent": "property_information",
+          "description": "Other persons or properties authorized to use the private utility system."
+        },
+        {
+          "name": "System Owned or Maintained by Residents",
+          "aliases": [
+            "resident-owned utility system",
+            "resident-maintained system",
+            "owner or resident maintained system",
+            "onsite system resident maintenance",
+            "private system ownership and maintenance",
+            "private septic system system owned or maintained by residents"
+          ],
+          "intent": "condition",
+          "description": "Resident ownership or maintenance responsibilities for the private system."
+        },
+        {
+          "name": "System Fails to Meet Applicable Requirements",
+          "aliases": [
+            "utility system code compliance",
+            "system fails applicable requirements",
+            "onsite system regulatory compliance",
+            "private system code deficiency",
+            "system compliance requirements",
+            "private septic system system fails to meet applicable requirements"
+          ],
+          "intent": "code_violation",
+          "description": "System deficiencies involving applicable regulatory or code requirements."
+        }
+      ]
+    },
+    {
+      "name": "Private Wastewater Treatment Plant",
+      "aliases": [
+        "private wastewater treatment assessment",
+        "onsite wastewater treatment plant",
+        "wastewater treatment system condition",
+        "effluent discharge assessment"
+      ],
+      "fields": [
+        {
+          "name": "Reported System Adequacy",
+          "aliases": [
+            "onsite system adequacy",
+            "private system adequacy",
+            "reported utility system adequacy",
+            "system capacity adequacy",
+            "reported system condition and adequacy",
+            "private wastewater treatment plant reported system adequacy"
+          ],
+          "intent": "condition",
+          "description": "Adequacy of the private water or wastewater system to meet property needs."
+        },
+        {
+          "name": "Distance to Effluent Discharge Body of Water",
+          "aliases": [
+            "effluent discharge distance to water",
+            "wastewater discharge water setback",
+            "effluent outfall distance to water body",
+            "discharge point water setback",
+            "treated effluent discharge proximity"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Separation between treated effluent discharge and nearby bodies of water."
+        },
+        {
+          "name": "Cost of Connecting Subject Property to Municipal System",
+          "aliases": [
+            "municipal system connection cost",
+            "subject property utility connection cost",
+            "cost to connect to municipal sewer",
+            "public utility connection cost",
+            "municipal hookup cost"
+          ],
+          "intent": "repair_cost",
+          "description": "Estimated cost to connect the subject property to the municipal utility system."
+        },
+        {
+          "name": "Level of Work Required to Accomplish Municipal System Connection",
+          "aliases": [
+            "municipal connection work required",
+            "utility connection work scope",
+            "work required for public system connection",
+            "municipal hookup work required",
+            "connection work effort"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Extent of work required to connect the property to the municipal utility system."
+        },
+        {
+          "name": "System Maintenance Provider",
+          "aliases": [
+            "onsite system maintenance provider",
+            "private utility maintenance provider",
+            "system service provider",
+            "maintenance responsibility",
+            "system maintenance company",
+            "private wastewater treatment plant system maintenance provider"
+          ],
+          "intent": "condition",
+          "description": "Party responsible for maintaining the private utility or wastewater system."
+        },
+        {
+          "name": "Concerns Regarding Quality of Maintenance",
+          "aliases": [
+            "maintenance quality concerns",
+            "onsite system maintenance concerns",
+            "private system maintenance deficiencies",
+            "maintenance program concerns",
+            "system maintenance quality",
+            "private wastewater treatment plant concerns regarding quality of maintenance"
+          ],
+          "intent": "condition",
+          "description": "Known concerns regarding the quality of system maintenance."
+        },
+        {
+          "name": "Equipment Accessible to Unauthorized Personnel",
+          "aliases": [
+            "unauthorized access to equipment",
+            "restricted utility equipment access",
+            "onsite equipment security",
+            "utility equipment accessible to unauthorized persons",
+            "equipment access safety",
+            "private wastewater treatment plant equipment accessible to unauthorized personnel"
+          ],
+          "intent": "life_safety",
+          "description": "Accessibility of utility or system equipment to unauthorized persons."
+        },
+        {
+          "name": "Current or Previous Violations",
+          "aliases": [
+            "property code violations",
+            "current or prior code violations",
+            "onsite system violations",
+            "municipal compliance violations",
+            "reported property violations",
+            "private wastewater treatment plant current or previous violations"
+          ],
+          "intent": "code_violation",
+          "description": "Current or historical violations associated with the private utility system."
+        },
+        {
+          "name": "System Type Atypical for Market",
+          "aliases": [
+            "atypical utility system type",
+            "nonstandard onsite system",
+            "unusual system type for market",
+            "nonstandard property utility system",
+            "atypical system configuration",
+            "private wastewater treatment plant system type atypical for market"
+          ],
+          "intent": "condition",
+          "description": "Private system characteristics that are atypical for comparable properties in the market."
+        },
+        {
+          "name": "Other Person or Property Authorized to Use the System",
+          "aliases": [
+            "shared utility system users",
+            "other authorized system users",
+            "authorized third-party system use",
+            "other property using system",
+            "shared onsite system authorization",
+            "private wastewater treatment plant other person or property authorized to use the system"
+          ],
+          "intent": "property_information",
+          "description": "Other persons or properties authorized to use the private utility system."
+        },
+        {
+          "name": "System Owned or Maintained by Residents",
+          "aliases": [
+            "resident-owned utility system",
+            "resident-maintained system",
+            "owner or resident maintained system",
+            "onsite system resident maintenance",
+            "private system ownership and maintenance",
+            "private wastewater treatment plant system owned or maintained by residents"
+          ],
+          "intent": "condition",
+          "description": "Resident ownership or maintenance responsibilities for the private system."
+        },
+        {
+          "name": "System Fails to Meet Applicable Requirements",
+          "aliases": [
+            "utility system code compliance",
+            "system fails applicable requirements",
+            "onsite system regulatory compliance",
+            "private system code deficiency",
+            "system compliance requirements",
+            "private wastewater treatment plant system fails to meet applicable requirements"
+          ],
+          "intent": "code_violation",
+          "description": "System deficiencies involving applicable regulatory or code requirements."
+        }
+      ]
+    },
+    {
+      "name": "On-Site Sewage Lift Stations",
+      "aliases": [
+        "onsite sewage lift station assessment",
+        "sewage lift station condition",
+        "wastewater lift station",
+        "sewage pumping station"
+      ],
+      "fields": [
+        {
+          "name": "Reported System Adequacy",
+          "aliases": [
+            "onsite system adequacy",
+            "private system adequacy",
+            "reported utility system adequacy",
+            "system capacity adequacy",
+            "reported system condition and adequacy",
+            "onsite sewage lift station reported system adequacy"
+          ],
+          "intent": "condition",
+          "description": "Adequacy of the private water or wastewater system to meet property needs."
+        },
+        {
+          "name": "System Maintenance Provider",
+          "aliases": [
+            "onsite system maintenance provider",
+            "private utility maintenance provider",
+            "system service provider",
+            "maintenance responsibility",
+            "system maintenance company",
+            "onsite sewage lift station system maintenance provider"
+          ],
+          "intent": "condition",
+          "description": "Party responsible for maintaining the private utility or wastewater system."
+        },
+        {
+          "name": "Concerns Regarding Quality of Maintenance",
+          "aliases": [
+            "maintenance quality concerns",
+            "onsite system maintenance concerns",
+            "private system maintenance deficiencies",
+            "maintenance program concerns",
+            "system maintenance quality",
+            "onsite sewage lift station concerns regarding quality of maintenance"
+          ],
+          "intent": "condition",
+          "description": "Known concerns regarding the quality of system maintenance."
+        },
+        {
+          "name": "Buildings or Structures Located on Top of Lift Station",
+          "aliases": [
+            "structures over sewage lift station",
+            "building over lift station",
+            "construction above lift station",
+            "lift station structure encroachment",
+            "structures on sewage lift station"
+          ],
+          "intent": "code_violation",
+          "description": "Buildings or structures located over or immediately adjacent to the sewage lift station."
+        },
+        {
+          "name": "Equipment Accessible to Unauthorized Personnel",
+          "aliases": [
+            "unauthorized access to equipment",
+            "restricted utility equipment access",
+            "onsite equipment security",
+            "utility equipment accessible to unauthorized persons",
+            "equipment access safety",
+            "onsite sewage lift station equipment accessible to unauthorized personnel"
+          ],
+          "intent": "life_safety",
+          "description": "Accessibility of utility or system equipment to unauthorized persons."
+        },
+        {
+          "name": "Current or Previous Violations",
+          "aliases": [
+            "property code violations",
+            "current or prior code violations",
+            "onsite system violations",
+            "municipal compliance violations",
+            "reported property violations",
+            "onsite sewage lift station current or previous violations"
+          ],
+          "intent": "code_violation",
+          "description": "Current or historical violations associated with the private utility system."
+        },
+        {
+          "name": "System Type Atypical for Market",
+          "aliases": [
+            "atypical utility system type",
+            "nonstandard onsite system",
+            "unusual system type for market",
+            "nonstandard property utility system",
+            "atypical system configuration",
+            "onsite sewage lift station system type atypical for market"
+          ],
+          "intent": "condition",
+          "description": "Private system characteristics that are atypical for comparable properties in the market."
+        },
+        {
+          "name": "Other Person or Property Authorized to Use the System",
+          "aliases": [
+            "shared utility system users",
+            "other authorized system users",
+            "authorized third-party system use",
+            "other property using system",
+            "shared onsite system authorization",
+            "onsite sewage lift station other person or property authorized to use the system"
+          ],
+          "intent": "property_information",
+          "description": "Other persons or properties authorized to use the private utility system."
+        },
+        {
+          "name": "System Owned or Maintained by Residents",
+          "aliases": [
+            "resident-owned utility system",
+            "resident-maintained system",
+            "owner or resident maintained system",
+            "onsite system resident maintenance",
+            "private system ownership and maintenance",
+            "onsite sewage lift station system owned or maintained by residents"
+          ],
+          "intent": "condition",
+          "description": "Resident ownership or maintenance responsibilities for the private system."
+        },
+        {
+          "name": "System Fails to Meet Applicable Requirements",
+          "aliases": [
+            "utility system code compliance",
+            "system fails applicable requirements",
+            "onsite system regulatory compliance",
+            "private system code deficiency",
+            "system compliance requirements",
+            "onsite sewage lift station system fails to meet applicable requirements"
+          ],
+          "intent": "code_violation",
+          "description": "System deficiencies involving applicable regulatory or code requirements."
+        }
+      ]
+    },
+    {
+      "name": "Substructure",
+      "aliases": [
+        "building foundation assessment",
+        "substructure condition",
+        "foundation and below-grade assessment",
+        "foundation system"
+      ],
+      "fields": [
+        {
+          "name": "Foundation Type",
+          "aliases": [
+            "foundation system type",
+            "building foundation type",
+            "foundation construction type",
+            "substructure foundation",
+            "foundation material and type"
+          ],
+          "intent": "structural",
+          "description": "Foundation Type information relevant to the subject property site."
+        },
+        {
+          "name": "Grade Level Floor",
+          "aliases": [
+            "slab-on-grade floor",
+            "grade level slab",
+            "ground-level floor",
+            "on-grade floor construction",
+            "grade floor system"
+          ],
+          "intent": "structural",
+          "description": "Grade Level Floor information relevant to the subject property site."
+        },
+        {
+          "name": "Basement",
+          "aliases": [
+            "basement level",
+            "below-grade basement",
+            "basement construction",
+            "below-grade space",
+            "basement condition"
+          ],
+          "intent": "structural",
+          "description": "Basement information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Superstructure",
+      "aliases": [
+        "building structural framing assessment",
+        "superstructure condition",
+        "structural frame assessment",
+        "building framing systems"
+      ],
+      "fields": [
+        {
+          "name": "Wall Framing",
+          "aliases": [
+            "wall framing system",
+            "exterior wall framing",
+            "structural wall framing",
+            "building wall frame",
+            "wall structural system"
+          ],
+          "intent": "structural",
+          "description": "Wall Framing information relevant to the subject property site."
+        },
+        {
+          "name": "Floor Framing",
+          "aliases": [
+            "floor framing system",
+            "structural floor framing",
+            "building floor frame",
+            "floor joist or framing system",
+            "floor structural system"
+          ],
+          "intent": "structural",
+          "description": "Floor Framing information relevant to the subject property site."
+        },
+        {
+          "name": "Roof Framing",
+          "aliases": [
+            "roof framing system",
+            "structural roof framing",
+            "roof truss or framing",
+            "roof structural system",
+            "roof frame"
+          ],
+          "intent": "structural",
+          "description": "Roof Framing information relevant to the subject property site."
+        },
+        {
+          "name": "Attic",
+          "aliases": [
+            "attic space",
+            "roof attic space",
+            "attic condition",
+            "roof void",
+            "attic area"
+          ],
+          "intent": "structural",
+          "description": "Attic information relevant to the subject property site."
+        },
+        {
+          "name": "Podium Construction",
+          "aliases": [
+            "podium structure",
+            "podium building construction",
+            "transfer podium construction",
+            "podium structural system",
+            "podium level construction"
+          ],
+          "intent": "structural",
+          "description": "Podium Construction information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Facade Summary",
+      "aliases": [
+        "building facade assessment",
+        "exterior building envelope",
+        "facade and exterior openings",
+        "exterior envelope condition"
+      ],
+      "fields": [
+        {
+          "name": "Facade Finishes",
+          "aliases": [
+            "facade finish materials",
+            "exterior facade finishes",
+            "building exterior finishes",
+            "facade cladding",
+            "exterior wall finish"
+          ],
+          "intent": "building_envelope",
+          "description": "Facade Finishes information relevant to the subject property site."
+        },
+        {
+          "name": "Windows",
+          "aliases": [
+            "building windows",
+            "exterior window systems",
+            "window condition",
+            "window assemblies",
+            "exterior glazing"
+          ],
+          "intent": "building_envelope",
+          "description": "Windows information relevant to the subject property site."
+        },
+        {
+          "name": "Exterior Common Entrance Doors",
+          "aliases": [
+            "common entrance doors",
+            "building main entrance doors",
+            "exterior common-area doors",
+            "common entry doors",
+            "building entrance door condition"
+          ],
+          "intent": "building_envelope",
+          "description": "Exterior Common Entrance Doors information relevant to the subject property site."
+        },
+        {
+          "name": "Exterior Unit Entrance Doors",
+          "aliases": [
+            "exterior unit entry doors",
+            "apartment unit entrance doors",
+            "dwelling unit exterior doors",
+            "unit entry door condition",
+            "unit exterior entrance"
+          ],
+          "intent": "building_envelope",
+          "description": "Exterior Unit Entrance Doors information relevant to the subject property site."
+        },
+        {
+          "name": "Unit Balcony / Patio Doors",
+          "aliases": [
+            "balcony doors",
+            "patio doors",
+            "unit balcony doors",
+            "unit patio doors",
+            "exterior balcony/patio door condition"
+          ],
+          "intent": "building_envelope",
+          "description": "Unit Balcony / Patio Doors information relevant to the subject property site."
+        },
+        {
+          "name": "Service / Access Doors",
+          "aliases": [
+            "service doors",
+            "exterior access doors",
+            "maintenance access doors",
+            "service and access door condition",
+            "utility access doors"
+          ],
+          "intent": "building_envelope",
+          "description": "Service / Access Doors information relevant to the subject property site."
+        },
+        {
+          "name": "Overhead Doors",
+          "aliases": [
+            "overhead garage doors",
+            "roll-up doors",
+            "overhead service doors",
+            "garage overhead doors",
+            "overhead door condition"
+          ],
+          "intent": "building_envelope",
+          "description": "Overhead Doors information relevant to the subject property site."
+        },
+        {
+          "name": "Other Exterior Features",
+          "aliases": [
+            "other exterior building features",
+            "miscellaneous facade features",
+            "additional exterior features",
+            "building exterior site features",
+            "other envelope features"
+          ],
+          "intent": "building_envelope",
+          "description": "Other Exterior Features information relevant to the subject property site."
+        },
+        {
+          "name": "Municipal Facade Inspection Required",
+          "aliases": [
+            "facade inspection requirement",
+            "municipal facade inspection",
+            "required exterior facade inspection",
+            "local facade inspection requirement",
+            "facade compliance inspection"
+          ],
+          "intent": "code_violation",
+          "description": "Municipal Facade Inspection Required information relevant to the subject property site."
+        },
+        {
+          "name": "Municipal Fire Escape Inspection Required",
+          "aliases": [
+            "fire escape inspection requirement",
+            "municipal fire escape inspection",
+            "required fire escape inspection",
+            "fire escape compliance inspection",
+            "local fire escape inspection"
+          ],
+          "intent": "life_safety",
+          "description": "Municipal Fire Escape Inspection Required information relevant to the subject property site."
+        },
+        {
+          "name": "California Exterior Elevated Element Inspection Required",
+          "aliases": [
+            "california eee inspection",
+            "california exterior elevated elements",
+            "balcony inspection requirement california",
+            "exterior elevated element compliance",
+            "california elevated element inspection"
+          ],
+          "intent": "code_violation",
+          "description": "California Exterior Elevated Element Inspection Required information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Roofing",
+      "aliases": [
+        "roof system assessment",
+        "building roof condition",
+        "roofing system evaluation",
+        "roof covering and drainage"
+      ],
+      "fields": [
+        {
+          "name": "Roof Type",
+          "aliases": [
+            "roof system type",
+            "roof construction type",
+            "roof covering type",
+            "building roof type",
+            "roof material type"
+          ],
+          "intent": "roofing",
+          "description": "Roof Type information relevant to the subject property site."
+        },
+        {
+          "name": "Roof Condition",
+          "aliases": [
+            "roof system condition",
+            "roof covering condition",
+            "roof condition assessment",
+            "roof performance condition",
+            "roof deficiencies"
+          ],
+          "intent": "condition",
+          "description": "Roof Condition information relevant to the subject property site."
+        },
+        {
+          "name": "Roof Age",
+          "aliases": [
+            "roof system age",
+            "roof covering age",
+            "age of roof",
+            "roof installation age",
+            "roof service age"
+          ],
+          "intent": "roofing",
+          "description": "Roof Age information relevant to the subject property site."
+        },
+        {
+          "name": "Roof Surface",
+          "aliases": [
+            "roof surface material",
+            "roof covering surface",
+            "roofing membrane or covering",
+            "roof surface condition",
+            "roof covering"
+          ],
+          "intent": "roofing",
+          "description": "Roof Surface information relevant to the subject property site."
+        },
+        {
+          "name": "Roofing Drains",
+          "aliases": [
+            "roof drainage",
+            "roof drains",
+            "roof drain system",
+            "roof scuppers and drains",
+            "roof drainage outlets"
+          ],
+          "intent": "roofing",
+          "description": "Roofing Drains information relevant to the subject property site."
+        },
+        {
+          "name": "Previous Roof Repairs",
+          "aliases": [
+            "prior roof repairs",
+            "roof repair history",
+            "previous roof maintenance",
+            "roof repair work",
+            "historic roof repairs"
+          ],
+          "intent": "roofing",
+          "description": "Previous Roof Repairs information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Plumbing Summary",
+      "aliases": [
+        "plumbing system assessment",
+        "building domestic water and plumbing",
+        "sanitary and plumbing systems",
+        "plumbing equipment assessment"
+      ],
+      "fields": [
+        {
+          "name": "Water Supply Piping",
+          "aliases": [
+            "domestic water piping",
+            "building water supply piping",
+            "potable water piping",
+            "domestic water distribution",
+            "water service piping"
+          ],
+          "intent": "mep",
+          "description": "Water Supply Piping information relevant to the subject property site."
+        },
+        {
+          "name": "Sanitary Waste Piping",
+          "aliases": [
+            "sanitary waste piping",
+            "building sanitary piping",
+            "wastewater piping",
+            "sanitary drain piping",
+            "plumbing waste lines"
+          ],
+          "intent": "mep",
+          "description": "Sanitary Waste Piping information relevant to the subject property site."
+        },
+        {
+          "name": "Gas Distribution Piping",
+          "aliases": [
+            "building gas piping",
+            "natural gas distribution piping",
+            "gas supply piping",
+            "property gas piping",
+            "gas distribution system"
+          ],
+          "intent": "mep",
+          "description": "Gas Distribution Piping information relevant to the subject property site."
+        },
+        {
+          "name": "Plumbing Fittings",
+          "aliases": [
+            "plumbing fixtures and fittings",
+            "plumbing fittings condition",
+            "building plumbing fixtures",
+            "water and sanitary fittings",
+            "plumbing fixture connections"
+          ],
+          "intent": "mep",
+          "description": "Plumbing Fittings information relevant to the subject property site."
+        },
+        {
+          "name": "Booster Pump Systems",
+          "aliases": [
+            "domestic water booster pumps",
+            "booster pump system",
+            "water pressure booster system",
+            "building booster pumps",
+            "domestic water pressure system"
+          ],
+          "intent": "mep",
+          "description": "Booster Pump Systems information relevant to the subject property site."
+        },
+        {
+          "name": "Sump Pump / Sewage Ejector Systems",
+          "aliases": [
+            "sump pump system",
+            "sewage ejector pump",
+            "sump and ejector pumps",
+            "basement sump pump",
+            "sewage ejector system"
+          ],
+          "intent": "mep",
+          "description": "Sump Pump / Sewage Ejector Systems information relevant to the subject property site."
+        },
+        {
+          "name": "Water Softener Systems",
+          "aliases": [
+            "water softener system",
+            "building water softening",
+            "water treatment softener",
+            "domestic water softener",
+            "water softener equipment"
+          ],
+          "intent": "mep",
+          "description": "Water Softener Systems information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Storage Tanks",
+          "aliases": [
+            "domestic water storage tank",
+            "potable water storage tank",
+            "building water storage",
+            "domestic water tank",
+            "water storage system"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Storage Tanks information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Heater Systems",
+          "aliases": [
+            "domestic water heater",
+            "building water heating system",
+            "hot water heater system",
+            "domestic hot water equipment",
+            "water heater equipment"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Heater Systems information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Heater Location",
+          "aliases": [
+            "water heater location",
+            "domestic water heater placement",
+            "hot water heater location",
+            "water heater installation location",
+            "water heating equipment location"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Heater Location information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Heater Age",
+          "aliases": [
+            "water heater age",
+            "domestic hot water equipment age",
+            "hot water heater service age",
+            "water heater installation age",
+            "water heating system age"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Heater Age information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Boiler Systems",
+          "aliases": [
+            "domestic water boiler",
+            "building hot water boiler",
+            "domestic hot water boiler system",
+            "water boiler equipment",
+            "hot water boiler system"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Boiler Systems information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Boiler Location",
+          "aliases": [
+            "water boiler location",
+            "domestic boiler placement",
+            "hot water boiler location",
+            "water boiler equipment location",
+            "boiler installation location"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Boiler Location information relevant to the subject property site."
+        },
+        {
+          "name": "Domestic Water Boiler Age",
+          "aliases": [
+            "water boiler age",
+            "domestic boiler service age",
+            "hot water boiler age",
+            "boiler installation age",
+            "water heating boiler age"
+          ],
+          "intent": "mep",
+          "description": "Domestic Water Boiler Age information relevant to the subject property site."
+        },
+        {
+          "name": "Hot Water Storage Tanks",
+          "aliases": [
+            "hot water storage tank",
+            "domestic hot water storage",
+            "hot water tank system",
+            "building hot water storage",
+            "thermal hot water storage"
+          ],
+          "intent": "mep",
+          "description": "Hot Water Storage Tanks information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Electrical Summary",
+      "aliases": [
+        "electrical system assessment",
+        "building electrical service",
+        "electrical distribution assessment",
+        "electrical safety systems"
+      ],
+      "fields": [
+        {
+          "name": "Electrical Main Service",
+          "aliases": [
+            "main electrical service",
+            "building electrical main service",
+            "electrical service entrance",
+            "utility electrical service",
+            "main power service"
+          ],
+          "intent": "mep",
+          "description": "Electrical Main Service information relevant to the subject property site."
+        },
+        {
+          "name": "Unit Panel Service Capacity",
+          "aliases": [
+            "unit electrical panel capacity",
+            "dwelling unit panel ampacity",
+            "unit service capacity",
+            "electrical panel service size",
+            "unit electrical service rating"
+          ],
+          "intent": "mep",
+          "description": "Unit Panel Service Capacity information relevant to the subject property site."
+        },
+        {
+          "name": "Federal Pacific Electric Stab-Lok Breaker Panels",
+          "aliases": [
+            "federal pacific stab-lok panels",
+            "fpe stab-lok breakers",
+            "federal pacific electrical panels",
+            "stab-lok breaker panel",
+            "fpe panel safety concern"
+          ],
+          "intent": "life_safety",
+          "description": "Federal Pacific Electric Stab-Lok Breaker Panels information relevant to the subject property site."
+        },
+        {
+          "name": "Branch Wiring",
+          "aliases": [
+            "branch circuit wiring",
+            "building branch wiring",
+            "electrical branch circuits",
+            "branch electrical wiring",
+            "branch circuit distribution"
+          ],
+          "intent": "mep",
+          "description": "Branch Wiring information relevant to the subject property site."
+        },
+        {
+          "name": "Transformers",
+          "aliases": [
+            "electrical transformers",
+            "building transformers",
+            "site electrical transformer",
+            "power transformer",
+            "transformer equipment"
+          ],
+          "intent": "mep",
+          "description": "Transformers information relevant to the subject property site."
+        },
+        {
+          "name": "Electrical Meters",
+          "aliases": [
+            "electric meters",
+            "electrical utility meters",
+            "building electrical metering",
+            "electricity meter system",
+            "power meters"
+          ],
+          "intent": "mep",
+          "description": "Electrical Meters information relevant to the subject property site."
+        },
+        {
+          "name": "Distribution Panels",
+          "aliases": [
+            "electrical distribution panels",
+            "building distribution panels",
+            "power distribution panel",
+            "electrical panelboards",
+            "distribution panel condition"
+          ],
+          "intent": "mep",
+          "description": "Distribution Panels information relevant to the subject property site."
+        },
+        {
+          "name": "GFCI Fixtures",
+          "aliases": [
+            "gfci outlets",
+            "ground-fault circuit interrupter fixtures",
+            "gfci receptacles",
+            "ground fault protection",
+            "gfci electrical protection"
+          ],
+          "intent": "life_safety",
+          "description": "GFCI Fixtures information relevant to the subject property site."
+        },
+        {
+          "name": "Emergency Generators",
+          "aliases": [
+            "emergency generator system",
+            "standby generator",
+            "backup generator",
+            "building emergency power generator",
+            "generator condition"
+          ],
+          "intent": "mep",
+          "description": "Emergency Generators information relevant to the subject property site."
+        },
+        {
+          "name": "Energy Management System",
+          "aliases": [
+            "building energy management system",
+            "bems energy management",
+            "energy controls system",
+            "building energy monitoring and controls",
+            "energy management controls"
+          ],
+          "intent": "mep",
+          "description": "Energy Management System information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Fire & Life Safety Systems",
+      "aliases": [
+        "fire protection assessment",
+        "building fire life safety",
+        "fire alarm and sprinkler systems",
+        "life safety systems assessment"
+      ],
+      "fields": [
+        {
+          "name": "Fire Sprinkler System",
+          "aliases": [
+            "building fire sprinkler system",
+            "automatic sprinkler system",
+            "fire suppression sprinkler system",
+            "sprinkler protection system",
+            "fire sprinkler condition"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Sprinkler System information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Sprinkler Head Brand Omega or Central Observed",
+          "aliases": [
+            "omega sprinkler heads",
+            "central sprinkler heads",
+            "omega or central fire sprinkler heads",
+            "sprinkler head manufacturer identification",
+            "fire sprinkler head brand"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Sprinkler Head Brand Omega or Central Observed information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Pump",
+          "aliases": [
+            "fire protection pump",
+            "fire sprinkler pump",
+            "fire pump system",
+            "fire pump equipment",
+            "fire suppression pump"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Pump information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Sprinkler System Water Storage",
+          "aliases": [
+            "fire sprinkler water storage",
+            "fire protection water tank",
+            "sprinkler reserve water",
+            "fire water storage tank",
+            "fire suppression water storage"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Sprinkler System Water Storage information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Sprinkler Inspection Date",
+          "aliases": [
+            "fire sprinkler inspection date",
+            "sprinkler system inspection date",
+            "last sprinkler inspection",
+            "fire protection inspection date",
+            "sprinkler inspection record"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Sprinkler Inspection Date information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Alarm System",
+          "aliases": [
+            "building fire alarm system",
+            "fire detection and alarm system",
+            "fire alarm equipment",
+            "fire alarm protection",
+            "fire alarm condition"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Alarm System information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Alarm Inspection Date",
+          "aliases": [
+            "fire alarm inspection date",
+            "last fire alarm inspection",
+            "fire alarm system inspection date",
+            "alarm inspection record",
+            "fire detection inspection date"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Alarm Inspection Date information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Alarm Control Panel Age",
+          "aliases": [
+            "fire alarm panel age",
+            "fire alarm control panel service age",
+            "alarm panel installation age",
+            "fire alarm control unit age",
+            "fire panel age"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Alarm Control Panel Age information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Alarm System Monitoring",
+          "aliases": [
+            "fire alarm monitoring",
+            "central station fire alarm monitoring",
+            "fire alarm supervisory monitoring",
+            "alarm system monitoring service",
+            "fire alarm remote monitoring"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Alarm System Monitoring information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Extinguishers",
+          "aliases": [
+            "portable fire extinguishers",
+            "building fire extinguishers",
+            "fire extinguisher equipment",
+            "portable suppression equipment",
+            "fire extinguisher condition"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Extinguishers information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Extinguisher Inspections",
+          "aliases": [
+            "fire extinguisher inspection",
+            "portable extinguisher inspection",
+            "extinguisher inspection date",
+            "fire extinguisher maintenance inspection",
+            "extinguisher service record"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Extinguisher Inspections information relevant to the subject property site."
+        },
+        {
+          "name": "Chemical Fire Suppression Systems",
+          "aliases": [
+            "chemical fire suppression",
+            "special hazard suppression system",
+            "clean agent or chemical suppression",
+            "chemical extinguishing system",
+            "special suppression system"
+          ],
+          "intent": "life_safety",
+          "description": "Chemical Fire Suppression Systems information relevant to the subject property site."
+        },
+        {
+          "name": "Chemical Fire Suppression System Inspection Date",
+          "aliases": [
+            "chemical suppression inspection date",
+            "special suppression inspection date",
+            "fire suppression system inspection",
+            "chemical fire system inspection record",
+            "suppression system inspection date"
+          ],
+          "intent": "life_safety",
+          "description": "Chemical Fire Suppression System Inspection Date information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Department Connections",
+          "aliases": [
+            "fire department connection",
+            "fdc",
+            "sprinkler fire department connection",
+            "fire service connection",
+            "fire department inlet"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Department Connections information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Hydrants",
+          "aliases": [
+            "site fire hydrants",
+            "private fire hydrants",
+            "building fire hydrant service",
+            "fire hydrant condition",
+            "fire protection hydrants"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Hydrants information relevant to the subject property site."
+        },
+        {
+          "name": "Life Safety Fixtures",
+          "aliases": [
+            "life safety equipment",
+            "building life safety fixtures",
+            "life safety devices",
+            "emergency safety fixtures",
+            "life safety system components"
+          ],
+          "intent": "life_safety",
+          "description": "Life Safety Fixtures information relevant to the subject property site."
+        },
+        {
+          "name": "Smoke Detectors",
+          "aliases": [
+            "smoke detection devices",
+            "building smoke detectors",
+            "smoke alarm devices",
+            "smoke detection system",
+            "smoke detector condition"
+          ],
+          "intent": "life_safety",
+          "description": "Smoke Detectors information relevant to the subject property site."
+        },
+        {
+          "name": "CO Detectors",
+          "aliases": [
+            "carbon monoxide detectors",
+            "co detection devices",
+            "carbon monoxide alarm",
+            "building co detectors",
+            "co detection system"
+          ],
+          "intent": "life_safety",
+          "description": "CO Detectors information relevant to the subject property site."
+        },
+        {
+          "name": "Smoke Evacuation",
+          "aliases": [
+            "smoke evacuation system",
+            "smoke control system",
+            "smoke removal system",
+            "smoke exhaust system",
+            "building smoke evacuation"
+          ],
+          "intent": "life_safety",
+          "description": "Smoke Evacuation information relevant to the subject property site."
+        },
+        {
+          "name": "Stairwell Pressurization",
+          "aliases": [
+            "stairwell pressurization system",
+            "pressurized stairwells",
+            "stair smoke control",
+            "stairwell pressure system",
+            "emergency stairwell pressurization"
+          ],
+          "intent": "life_safety",
+          "description": "Stairwell Pressurization information relevant to the subject property site."
+        },
+        {
+          "name": "Exit Signage",
+          "aliases": [
+            "exit signs",
+            "emergency exit signage",
+            "egress exit signs",
+            "illuminated exit signs",
+            "exit sign condition"
+          ],
+          "intent": "life_safety",
+          "description": "Exit Signage information relevant to the subject property site."
+        },
+        {
+          "name": "Emergency Lighting",
+          "aliases": [
+            "emergency lighting system",
+            "backup emergency lighting",
+            "egress emergency lighting",
+            "emergency illumination",
+            "emergency light fixtures"
+          ],
+          "intent": "life_safety",
+          "description": "Emergency Lighting information relevant to the subject property site."
+        },
+        {
+          "name": "Means of Egress",
+          "aliases": [
+            "means of egress",
+            "egress paths",
+            "building exit routes",
+            "safe egress system",
+            "egress access and exits"
+          ],
+          "intent": "life_safety",
+          "description": "Means of Egress information relevant to the subject property site."
+        },
+        {
+          "name": "Fire Rating Assemblies",
+          "aliases": [
+            "fire-rated assemblies",
+            "fire resistance assemblies",
+            "rated wall and floor assemblies",
+            "fire-resistance construction",
+            "fire-rated building components"
+          ],
+          "intent": "life_safety",
+          "description": "Fire Rating Assemblies information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Elevators & Escalators",
+      "aliases": [
+        "vertical transportation assessment",
+        "elevator and escalator systems",
+        "elevator condition assessment",
+        "accessible lift assessment"
+      ],
+      "fields": [
+        {
+          "name": "Elevator Type",
+          "aliases": [
+            "elevator system type",
+            "elevator equipment type",
+            "building elevator type",
+            "passenger or freight elevator",
+            "elevator configuration"
+          ],
+          "intent": "mep",
+          "description": "Elevator Type information relevant to the subject property site."
+        },
+        {
+          "name": "Number of Elevators",
+          "aliases": [
+            "elevator count",
+            "number of building elevators",
+            "elevator inventory",
+            "total elevators",
+            "elevator quantity"
+          ],
+          "intent": "mep",
+          "description": "Number of elevators associated with the property."
+        },
+        {
+          "name": "Elevator Inspection Date",
+          "aliases": [
+            "elevator inspection date",
+            "last elevator inspection",
+            "elevator safety inspection",
+            "elevator inspection record",
+            "elevator compliance inspection"
+          ],
+          "intent": "life_safety",
+          "description": "Elevator Inspection Date information relevant to the subject property site."
+        },
+        {
+          "name": "Elevator Machinery Age",
+          "aliases": [
+            "elevator machinery age",
+            "elevator equipment age",
+            "elevator machine service age",
+            "elevator machinery installation age",
+            "elevator drive equipment age"
+          ],
+          "intent": "mep",
+          "description": "Elevator Machinery Age information relevant to the subject property site."
+        },
+        {
+          "name": "Elevator Cab Flooring",
+          "aliases": [
+            "elevator cab floor",
+            "elevator flooring",
+            "lift cab flooring",
+            "elevator interior floor",
+            "elevator cab floor condition"
+          ],
+          "intent": "mep",
+          "description": "Elevator Cab Flooring information relevant to the subject property site."
+        },
+        {
+          "name": "Elevator Cab Walls",
+          "aliases": [
+            "elevator cab walls",
+            "lift cab wall finishes",
+            "elevator interior walls",
+            "elevator cab wall condition",
+            "elevator wall finishes"
+          ],
+          "intent": "mep",
+          "description": "Elevator Cab Walls information relevant to the subject property site."
+        },
+        {
+          "name": "Escalators",
+          "aliases": [
+            "building escalators",
+            "escalator system",
+            "escalator equipment",
+            "escalator condition",
+            "vertical escalator systems"
+          ],
+          "intent": "mep",
+          "description": "Escalators information relevant to the subject property site."
+        },
+        {
+          "name": "Accessible Lifts",
+          "aliases": [
+            "accessible lifts",
+            "ada accessible lift",
+            "wheelchair lift",
+            "accessibility lift",
+            "accessible vertical transportation"
+          ],
+          "intent": "ada_compliance",
+          "description": "Accessible Lifts information relevant to the subject property site."
+        },
+        {
+          "name": "Machine Room Condition",
+          "aliases": [
+            "elevator machine room condition",
+            "lift machine room condition",
+            "elevator machinery room",
+            "machine room assessment",
+            "elevator machine room"
+          ],
+          "intent": "mep",
+          "description": "Machine Room Condition information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Municipal Code Findings",
+      "aliases": [
+        "municipal code assessment",
+        "zoning and building code findings",
+        "code compliance findings",
+        "municipal compliance assessment"
+      ],
+      "fields": [
+        {
+          "name": "Current Zoning",
+          "aliases": [
+            "current property zoning",
+            "site zoning classification",
+            "zoning designation",
+            "property zoning",
+            "existing zoning"
+          ],
+          "intent": "code_violation",
+          "description": "Current Zoning information relevant to the subject property site."
+        },
+        {
+          "name": "Current Use Permitted",
+          "aliases": [
+            "permitted property use",
+            "zoning permitted use",
+            "current use compliance",
+            "permitted building use",
+            "allowed property use"
+          ],
+          "intent": "code_violation",
+          "description": "Current Use Permitted information relevant to the subject property site."
+        },
+        {
+          "name": "Certificate of Occupancy",
+          "aliases": [
+            "certificate of occupancy",
+            "occupancy certificate",
+            "co certificate",
+            "building occupancy approval",
+            "certificate of occupancy status"
+          ],
+          "intent": "code_violation",
+          "description": "Certificate of Occupancy information relevant to the subject property site."
+        },
+        {
+          "name": "Outstanding Building Code Violations",
+          "aliases": [
+            "outstanding building code violations",
+            "open building code deficiencies",
+            "unresolved building code findings",
+            "building code compliance violations",
+            "open building violations"
+          ],
+          "intent": "code_violation",
+          "description": "Outstanding Building Code Violations information relevant to the subject property site."
+        },
+        {
+          "name": "Outstanding Fire Code Violations",
+          "aliases": [
+            "outstanding fire code violations",
+            "open fire code deficiencies",
+            "unresolved fire code findings",
+            "fire code compliance violations",
+            "open fire violations"
+          ],
+          "intent": "code_violation",
+          "description": "Outstanding Fire Code Violations information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Blueprint / General Report Data",
+      "aliases": [
+        "pca report property data",
+        "building and site inventory",
+        "property identification data",
+        "pca report metadata"
+      ],
+      "fields": [
+        {
+          "name": "Number of Buildings",
+          "aliases": [
+            "building count",
+            "number of buildings on site",
+            "site building inventory",
+            "total buildings",
+            "building quantity"
+          ],
+          "intent": "property_information",
+          "description": "Number of buildings associated with the property."
+        },
+        {
+          "name": "Number of Parcels",
+          "aliases": [
+            "parcel count",
+            "number of property parcels",
+            "site parcel inventory",
+            "total parcels",
+            "property parcel count"
+          ],
+          "intent": "property_information",
+          "description": "Number of parcels associated with the property."
+        },
+        {
+          "name": "Number of Stories",
+          "aliases": [
+            "story count",
+            "number of building stories",
+            "building floors count",
+            "total stories",
+            "building story inventory"
+          ],
+          "intent": "property_information",
+          "description": "Number of stories associated with the property."
+        },
+        {
+          "name": "Building Gross Square Feet",
+          "aliases": [
+            "gross building area",
+            "building gross square footage",
+            "gfa",
+            "gross square feet",
+            "gross floor area"
+          ],
+          "intent": "property_information",
+          "description": "Building Gross Square Feet information relevant to the subject property site."
+        },
+        {
+          "name": "Building Net Square Feet",
+          "aliases": [
+            "net building area",
+            "building net square footage",
+            "nfa",
+            "net square feet",
+            "net floor area"
+          ],
+          "intent": "property_information",
+          "description": "Building Net Square Feet information relevant to the subject property site."
+        },
+        {
+          "name": "Building Square Feet",
+          "aliases": [
+            "building area",
+            "total building square footage",
+            "building square footage",
+            "building floor area",
+            "total building area"
+          ],
+          "intent": "property_information",
+          "description": "Building Square Feet information relevant to the subject property site."
+        },
+        {
+          "name": "Client Name",
+          "aliases": [
+            "pca client name",
+            "assessment client",
+            "property assessment client",
+            "client organization for pca",
+            "report client name"
+          ],
+          "intent": "property_information",
+          "description": "Client Name information relevant to the subject property site."
+        },
+        {
+          "name": "Client Address",
+          "aliases": [
+            "pca client address",
+            "assessment client address",
+            "client mailing address",
+            "property assessment client address",
+            "report client address"
+          ],
+          "intent": "property_information",
+          "description": "Client Address information relevant to the subject property site."
+        },
+        {
+          "name": "Property Address",
+          "aliases": [
+            "subject property address",
+            "site address",
+            "building property address",
+            "pca property address",
+            "assessment site address"
+          ],
+          "intent": "property_information",
+          "description": "Property Address information relevant to the subject property site."
+        },
+        {
+          "name": "Property City",
+          "aliases": [
+            "subject property city",
+            "site city",
+            "building city",
+            "pca property city",
+            "assessment property city"
+          ],
+          "intent": "property_information",
+          "description": "Property City information relevant to the subject property site."
+        },
+        {
+          "name": "Site Contact",
+          "aliases": [
+            "property site contact",
+            "pca site contact",
+            "onsite property contact",
+            "assessment site contact",
+            "property representative"
+          ],
+          "intent": "property_information",
+          "description": "Site Contact information relevant to the subject property site."
+        },
+        {
+          "name": "Author SF ID",
+          "aliases": [
+            "assessment author sf id",
+            "pca author identifier",
+            "report author sf id",
+            "assessment author id",
+            "sf report author identifier"
+          ],
+          "intent": "property_information",
+          "description": "Author SF ID information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Capital Needs Assessment",
+      "aliases": [
+        "capital needs assessment",
+        "capital reserve planning",
+        "long term capital needs",
+        "capital replacement planning"
+      ],
+      "fields": [
+        {
+          "name": "Capital Component",
+          "aliases": [
+            "capital component",
+            "capital reserve component",
+            "building component for capital planning",
+            "capital replacement component",
+            "reserve study component"
+          ],
+          "intent": "capital_needs",
+          "description": "Capital Component information relevant to the subject property site."
+        },
+        {
+          "name": "Component Condition",
+          "aliases": [
+            "capital component condition",
+            "component physical condition",
+            "reserve component condition",
+            "asset condition for capital planning",
+            "capital item condition"
+          ],
+          "intent": "condition",
+          "description": "Component Condition information relevant to the subject property site."
+        },
+        {
+          "name": "Remaining Useful Life",
+          "aliases": [
+            "remaining useful life",
+            "rul",
+            "component remaining life",
+            "remaining service life",
+            "asset useful life"
+          ],
+          "intent": "remaining_life",
+          "description": "Remaining Useful Life information relevant to the subject property site."
+        },
+        {
+          "name": "Replacement Year",
+          "aliases": [
+            "component replacement year",
+            "capital replacement year",
+            "expected replacement year",
+            "projected renewal year",
+            "planned component replacement year"
+          ],
+          "intent": "remaining_life",
+          "description": "Replacement Year information relevant to the subject property site."
+        },
+        {
+          "name": "Capital Reserve Total",
+          "aliases": [
+            "total capital reserve",
+            "capital reserve balance",
+            "reserve funding total",
+            "capital needs reserve total",
+            "total reserve amount"
+          ],
+          "intent": "capital_needs",
+          "description": "Capital Reserve Total information relevant to the subject property site."
+        },
+        {
+          "name": "Annual Reserve Contribution",
+          "aliases": [
+            "annual reserve contribution",
+            "annual capital reserve funding",
+            "annual reserve deposit",
+            "yearly capital reserve contribution",
+            "annual reserve requirement"
+          ],
+          "intent": "capital_needs",
+          "description": "Annual Reserve Contribution information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Deferred Maintenance & Immediate Repairs",
+      "aliases": [
+        "deferred maintenance assessment",
+        "immediate repair needs",
+        "repair deficiency assessment",
+        "property repair priorities"
+      ],
+      "fields": [
+        {
+          "name": "Repair Item",
+          "aliases": [
+            "repair item",
+            "property repair item",
+            "pca deficiency repair",
+            "corrective repair item",
+            "building repair need"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Repair Item information relevant to the subject property site."
+        },
+        {
+          "name": "Repair Priority",
+          "aliases": [
+            "repair priority",
+            "pca repair priority",
+            "deficiency priority",
+            "repair urgency",
+            "corrective action priority"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Repair Priority information relevant to the subject property site."
+        },
+        {
+          "name": "Estimated Repair Cost",
+          "aliases": [
+            "estimated repair cost",
+            "repair cost estimate",
+            "pca repair budget",
+            "estimated corrective repair cost",
+            "projected repair expense"
+          ],
+          "intent": "repair_cost",
+          "description": "Estimated Repair Cost information relevant to the subject property site."
+        },
+        {
+          "name": "Target Repair Date",
+          "aliases": [
+            "target repair date",
+            "planned repair date",
+            "expected repair completion date",
+            "repair due date",
+            "corrective action target date"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Target Repair Date information relevant to the subject property site."
+        },
+        {
+          "name": "Repair Location",
+          "aliases": [
+            "repair location",
+            "deficiency location",
+            "location of repair item",
+            "building/site repair location",
+            "corrective work location"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Repair Location information relevant to the subject property site."
+        },
+        {
+          "name": "Repair Status",
+          "aliases": [
+            "repair status",
+            "corrective action status",
+            "repair progress status",
+            "deficiency repair status",
+            "maintenance repair status"
+          ],
+          "intent": "deferred_maintenance",
+          "description": "Repair Status information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Cost Estimates",
+      "aliases": [
+        "pca repair cost estimates",
+        "capital repair cost data",
+        "replacement cost assessment",
+        "building repair pricing"
+      ],
+      "fields": [
+        {
+          "name": "Cost Item",
+          "aliases": [
+            "cost item",
+            "repair cost item",
+            "capital cost item",
+            "replacement cost item",
+            "pca cost line item"
+          ],
+          "intent": "repair_cost",
+          "description": "Cost Item information relevant to the subject property site."
+        },
+        {
+          "name": "Unit Cost",
+          "aliases": [
+            "unit repair cost",
+            "unit replacement cost",
+            "cost per unit",
+            "pca unit cost",
+            "repair unit pricing"
+          ],
+          "intent": "repair_cost",
+          "description": "Unit Cost information relevant to the subject property site."
+        },
+        {
+          "name": "Quantity",
+          "aliases": [
+            "repair quantity",
+            "component quantity",
+            "replacement quantity",
+            "quantity for cost estimate",
+            "cost estimate quantity"
+          ],
+          "intent": "repair_cost",
+          "description": "Quantity information relevant to the subject property site."
+        },
+        {
+          "name": "Total Estimated Cost",
+          "aliases": [
+            "total estimated repair cost",
+            "total project cost estimate",
+            "total replacement cost",
+            "pca total estimated cost",
+            "estimated total corrective cost"
+          ],
+          "intent": "repair_cost",
+          "description": "Total Estimated Cost information relevant to the subject property site."
+        },
+        {
+          "name": "Cost Basis",
+          "aliases": [
+            "cost estimate basis",
+            "repair cost basis",
+            "replacement cost basis",
+            "pricing basis",
+            "basis of cost estimate"
+          ],
+          "intent": "repair_cost",
+          "description": "Cost Basis information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Environmental & Hazardous Materials",
+      "aliases": [
+        "environmental hazard assessment",
+        "hazardous materials screening",
+        "environmental conditions pca",
+        "site environmental risks"
+      ],
+      "fields": [
+        {
+          "name": "Asbestos Present",
+          "aliases": [
+            "asbestos presence",
+            "asbestos-containing material",
+            "acm present",
+            "asbestos observation",
+            "asbestos condition assessment"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Asbestos Present information relevant to the subject property site."
+        },
+        {
+          "name": "Lead Paint",
+          "aliases": [
+            "lead-based paint",
+            "lead paint presence",
+            "lead paint assessment",
+            "lead-containing paint",
+            "lead paint condition"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Lead Paint information relevant to the subject property site."
+        },
+        {
+          "name": "Mold / Moisture Intrusion",
+          "aliases": [
+            "mold and moisture intrusion",
+            "moisture intrusion",
+            "mold growth assessment",
+            "water intrusion and mold",
+            "building moisture damage"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Mold / Moisture Intrusion information relevant to the subject property site."
+        },
+        {
+          "name": "Radon",
+          "aliases": [
+            "radon presence",
+            "radon risk",
+            "radon testing",
+            "radon gas assessment",
+            "property radon condition"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Radon information relevant to the subject property site."
+        },
+        {
+          "name": "Underground Storage Tank",
+          "aliases": [
+            "underground storage tank",
+            "ust",
+            "buried fuel tank",
+            "underground petroleum tank",
+            "subsurface storage tank"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Underground Storage Tank information relevant to the subject property site."
+        },
+        {
+          "name": "Contaminated Soil",
+          "aliases": [
+            "soil contamination",
+            "contaminated site soil",
+            "environmental soil contamination",
+            "soil pollutant concern",
+            "site contamination"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Contaminated Soil information relevant to the subject property site."
+        },
+        {
+          "name": "Flood Zone",
+          "aliases": [
+            "property flood zone",
+            "flood hazard zone",
+            "fema flood zone",
+            "site flood risk",
+            "floodplain designation"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Flood Zone information relevant to the subject property site."
+        },
+        {
+          "name": "Wetlands",
+          "aliases": [
+            "property wetlands",
+            "wetland area",
+            "wetland environmental constraint",
+            "site wetland presence",
+            "wetlands assessment"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Wetlands information relevant to the subject property site."
+        },
+        {
+          "name": "Sinkhole / Geotech Risk",
+          "aliases": [
+            "sinkhole risk",
+            "geotechnical risk",
+            "geotechnical site hazard",
+            "ground stability risk",
+            "sinkhole and subsurface risk"
+          ],
+          "intent": "environmental_hazard",
+          "description": "Sinkhole / Geotech Risk information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Utilities Capacity & Metering",
+      "aliases": [
+        "utility capacity assessment",
+        "utility metering assessment",
+        "site utility capacity",
+        "building utility service capacity"
+      ],
+      "fields": [
+        {
+          "name": "Water Meter Size",
+          "aliases": [
+            "water meter size",
+            "domestic water meter size",
+            "water service meter size",
+            "property water meter capacity",
+            "water meter diameter"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Water Meter Size information relevant to the subject property site."
+        },
+        {
+          "name": "Sanitary Sewer Capacity",
+          "aliases": [
+            "sanitary sewer capacity",
+            "site sewer capacity",
+            "wastewater service capacity",
+            "sewer line capacity",
+            "sanitary sewer service size"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Sanitary Sewer Capacity information relevant to the subject property site."
+        },
+        {
+          "name": "Electrical Ampacity",
+          "aliases": [
+            "electrical ampacity",
+            "electrical service ampacity",
+            "main electrical capacity",
+            "service amperage",
+            "building electrical capacity"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Electrical Ampacity information relevant to the subject property site."
+        },
+        {
+          "name": "Gas Pressure / Capacity",
+          "aliases": [
+            "gas service pressure",
+            "gas utility capacity",
+            "natural gas pressure",
+            "gas line capacity",
+            "building gas service capacity"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Gas Pressure / Capacity information relevant to the subject property site."
+        },
+        {
+          "name": "Telecom Availability",
+          "aliases": [
+            "telecommunications availability",
+            "telecom service availability",
+            "data and communications availability",
+            "internet/telecom service at property",
+            "telecom utility availability"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Telecom Availability information relevant to the subject property site."
+        },
+        {
+          "name": "Metering Method",
+          "aliases": [
+            "utility metering method",
+            "metering configuration",
+            "utility meter arrangement",
+            "building utility metering",
+            "method of utility measurement"
+          ],
+          "intent": "utilities_capacity",
+          "description": "Metering Method information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Roof Warranties & Leak History",
+      "aliases": [
+        "roof warranty and leak assessment",
+        "roof leak history",
+        "roof warranty tracking",
+        "roof repair history"
+      ],
+      "fields": [
+        {
+          "name": "Roof Warranty Active",
+          "aliases": [
+            "active roof warranty",
+            "roof warranty status",
+            "current roof warranty",
+            "roof warranty in force",
+            "roof warranty coverage"
+          ],
+          "intent": "roofing",
+          "description": "Roof Warranty Active information relevant to the subject property site."
+        },
+        {
+          "name": "Roof Warranty Expiry",
+          "aliases": [
+            "roof warranty expiration",
+            "roof warranty expiry date",
+            "roof warranty end date",
+            "roof warranty expiration date",
+            "roof coverage end date"
+          ],
+          "intent": "roofing",
+          "description": "Roof Warranty Expiry information relevant to the subject property site."
+        },
+        {
+          "name": "Prior Roof Repairs",
+          "aliases": [
+            "prior roof repairs",
+            "roof repair history",
+            "previous roof repair work",
+            "historical roof repairs",
+            "roof maintenance repair history"
+          ],
+          "intent": "roofing",
+          "description": "Prior Roof Repairs information relevant to the subject property site."
+        },
+        {
+          "name": "Leak History",
+          "aliases": [
+            "roof leak history",
+            "historical roof leaks",
+            "roof water intrusion history",
+            "roof leakage record",
+            "reported roof leaks"
+          ],
+          "intent": "roofing",
+          "description": "Leak History information relevant to the subject property site."
+        }
+      ]
+    },
+    {
+      "name": "Building Automation & Controls",
+      "aliases": [
+        "building automation assessment",
+        "bms bas assessment",
+        "building controls systems",
+        "automation and controls condition"
+      ],
+      "fields": [
+        {
+          "name": "BMS / BAS Present",
+          "aliases": [
+            "bms present",
+            "bas present",
+            "building management system",
+            "building automation system",
+            "building controls system"
+          ],
+          "intent": "mep",
+          "description": "BMS / BAS Present information relevant to the subject property site."
+        },
+        {
+          "name": "Control System Age",
+          "aliases": [
+            "building control system age",
+            "bms/bas age",
+            "automation system age",
+            "controls equipment service age",
+            "building controls installation age"
+          ],
+          "intent": "mep",
+          "description": "Control System Age information relevant to the subject property site."
+        },
+        {
+          "name": "Control System Condition",
+          "aliases": [
+            "building control system condition",
+            "bms/bas condition",
+            "automation controls condition",
+            "building controls performance",
+            "controls system deficiencies"
+          ],
+          "intent": "condition",
+          "description": "Control System Condition information relevant to the subject property site."
+        },
+        {
+          "name": "Programmable Thermostats",
+          "aliases": [
+            "programmable thermostats",
+            "building programmable temperature controls",
+            "programmable hvac thermostats",
+            "digital programmable thermostats",
+            "thermostat control system"
+          ],
+          "intent": "mep",
+          "description": "Programmable Thermostats information relevant to the subject property site."
+        }
+      ]
+    }
+  ]
+}

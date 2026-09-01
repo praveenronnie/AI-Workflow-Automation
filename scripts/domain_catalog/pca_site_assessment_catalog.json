@@ -1,0 +1,437 @@
+[
+  {
+    "name": "General Description",
+    "aliases": ["general description table", "general", "property details", "description"],
+    "fields": [
+      {
+        "name": "Property Setting",
+        "aliases": ["setting", "property location setting", "neighborhood"],
+        "intent": "property_information"
+      },
+      {
+        "name": "Pre-Survey Questionnaire",
+        "aliases": ["questionnaire", "pre survey", "survey questionnaire"],
+        "intent": "property_information"
+      }
+    ]
+  },
+  {
+    "name": "Property Condition & Maintenance",
+    "aliases": ["condition", "maintenance", "property condition", "overall condition"],
+    "fields": [
+      {
+        "name": "Subject Property Overall Condition",
+        "aliases": ["overall condition", "overall", "subject property condition"],
+        "intent": "condition"
+      },
+      {
+        "name": "Quality of Current Maintenance Programs",
+        "aliases": ["maintenance", "maintenance programs", "quality of maintenance"],
+        "intent": "condition"
+      }
+    ]
+  },
+  {
+    "name": "Topography",
+    "aliases": ["topography", "topography and drainage", "elevation", "grade"],
+    "fields": [
+      {
+        "name": "General Topography",
+        "aliases": ["topography", "general terrain", "site grade"],
+        "intent": "site_improvements"
+      },
+      {
+        "name": "Slope",
+        "aliases": ["slope of site", "gradient", "site slope"],
+        "intent": "site_improvements"
+      },
+      {
+        "name": "Storm Drainage",
+        "aliases": ["storm water", "drainage", "stormwater"],
+        "intent": "utilities_capacity"
+      }
+    ]
+  },
+  {
+    "name": "Paving and Curbing",
+    "aliases": ["paving", "curbing", "paving and curb", "site asphalt"],
+    "fields": [
+      {
+        "name": "Vehicle Ingress / Egress Points",
+        "aliases": ["ingress egress", "vehicle access", "entry exit"],
+        "intent": "site_improvements"
+      },
+      {
+        "name": "Pavement",
+        "aliases": ["paving", "asphalt", "pavement type"],
+        "intent": "site_improvements"
+      },
+      {
+        "name": "Pavement Location",
+        "aliases": ["pavement areas", "where paved"],
+        "intent": "site_improvements"
+      },
+      {
+        "name": "Parking Space Count Source",
+        "aliases": ["parking count", "number spaces", "parking spaces"],
+        "intent": "site_improvements"
+      },
+      {
+        "name": "Parking Garages",
+        "aliases": ["garage", "parking structure", "deck"],
+        "intent": "condition"
+      },
+      {
+        "name": "Curbing",
+        "aliases": ["curb", "curbing condition", "road curb"],
+        "intent": "site_improvements"
+      }
+    ]
+  },
+  {
+    "name": "Landscaping, Site Improvements & Site Amenities",
+    "aliases": ["landscaping", "site improvements", "site amenities", "site", "improvements"],
+    "fields": [
+      { "name": "Landscaping", "aliases": ["landscape", "grounds", "plantings"], "intent": "site_improvements" },
+      { "name": "Irrigation", "aliases": ["sprinkler system site", "watering"], "intent": "site_improvements" },
+      { "name": "Signage", "aliases": ["signs", "signage"], "intent": "site_improvements" },
+      { "name": "Sidewalks", "aliases": ["walkways", "sidewalk", "paths"], "intent": "site_improvements" },
+      { "name": "Site Stairs", "aliases": ["stairs", "steps", "exterior stairs"], "intent": "site_improvements" },
+      { "name": "Lighting", "aliases": ["exterior lighting", "site lighting", "lights"], "intent": "site_improvements" },
+      { "name": "Fencing", "aliases": ["fence", "fencing"], "intent": "site_improvements" },
+      { "name": "Fencing Location", "aliases": ["fence location", "where fence"], "intent": "site_improvements" },
+      { "name": "Retaining Walls", "aliases": ["retaining wall", "retaining"], "intent": "site_improvements" },
+      { "name": "Retaining Wall Location", "aliases": ["wall location"], "intent": "site_improvements" },
+      { "name": "Water Features", "aliases": ["water feature", "fountain", "pond"], "intent": "site_improvements" },
+      { "name": "Other Landscape Features", "aliases": ["landscape features", "other site features"], "intent": "site_improvements" },
+      { "name": "Waste Enclosures", "aliases": ["trash enclosure", "waste", "dumpster area"], "intent": "site_improvements" },
+      { "name": "Other Amenities", "aliases": ["amenities", "other amenities"], "intent": "site_improvements" }
+    ]
+  },
+  {
+    "name": "Utilities",
+    "aliases": ["utilities", "site utilities", "utility systems"],
+    "fields": [
+      { "name": "Storm Drainage", "aliases": ["storm water utility", "stormwater system"], "intent": "utilities_capacity" },
+      { "name": "Other Special Utility Systems", "aliases": ["special utilities", "other utilities"], "intent": "utilities_capacity" },
+      { "name": "Water Supply", "aliases": ["water", "municipal water"], "intent": "utilities_capacity" },
+      { "name": "Sanitary Sewer", "aliases": ["sewer", "sanitary", "waste water"], "intent": "utilities_capacity" },
+      { "name": "Electricity", "aliases": ["electrical utility", "power supply"], "intent": "utilities_capacity" },
+      { "name": "Gas Service", "aliases": ["natural gas", "gas", "utility gas"], "intent": "utilities_capacity" },
+      { "name": "Telecommunications", "aliases": ["telecom", "internet", "cable", "phone"], "intent": "utilities_capacity" }
+    ]
+  },
+  {
+    "name": "Private Water Well",
+    "aliases": ["water well", "well", "private well"],
+    "fields": [
+      { "name": "Reported System Adequacy", "aliases": ["well adequacy", "system adequacy"], "intent": "condition" },
+      { "name": "Cost of Connecting Property to Municipal System", "aliases": ["connection cost", "municipal connection", "municipal hookup"], "intent": "repair_cost" },
+      { "name": "Level of Work Required to Accomplish Municipal System Connection", "aliases": ["work required", "connection work"], "intent": "deferred_maintenance" },
+      { "name": "System Maintenance Provider", "aliases": ["maintenance provider", "well provider"], "intent": "condition" },
+      { "name": "Concerns Regarding Quality of Maintenance", "aliases": ["maintenance concerns", "quality maintenance"], "intent": "condition" },
+      { "name": "Equipment Accessible to Unauthorized Personnel", "aliases": ["equipment access", "unauthorized access"], "intent": "life_safety" },
+      { "name": "Concerns Regarding Backup Water Source", "aliases": ["backup water", "backup source"], "intent": "condition" },
+      { "name": "Current or Previous Violations", "aliases": ["violations", "current violations"], "intent": "code_violation" },
+      { "name": "System Type Atypical for Market", "aliases": ["atypical", "market atypical"], "intent": "condition" },
+      { "name": "Other Person or Property Authorized to Use the System", "aliases": ["authorized use", "other user"], "intent": "property_information" },
+      { "name": "System Owned or Maintained by Residents", "aliases": ["resident owned", "resident maintained"], "intent": "condition" },
+      { "name": "System Fails to Meet Applicable Requirements", "aliases": ["system failures", "federal state local requirements"], "intent": "code_violation" }
+    ]
+  },
+  {
+    "name": "Private Septic Systems",
+    "aliases": ["septic", "septic system", "private septic"],
+    "fields": [
+      { "name": "Reported System Adequacy", "aliases": ["septic adequacy", "system adequacy"], "intent": "condition" },
+      { "name": "Distance From Leach Field to Surrounding Bodies of Water", "aliases": ["leach field distance", "leach field"], "intent": "environmental_hazard" },
+      { "name": "Cost of Connecting Subject Property to Municipal System", "aliases": ["connection cost", "municipal connection"], "intent": "repair_cost" },
+      { "name": "Level of Work Required to Accomplish Municipal System Connection", "aliases": ["connection work"], "intent": "deferred_maintenance" },
+      { "name": "System Maintenance Provider", "aliases": ["maintenance provider"], "intent": "condition" },
+      { "name": "Concerns Regarding Quality of Maintenance", "aliases": ["maintenance concern"], "intent": "condition" },
+      { "name": "Buildings or Structures Located on Top of Leach Field", "aliases": ["leach field structures", "structures on leach"], "intent": "code_violation" },
+      { "name": "Equipment Accessible to Unauthorized Personnel", "aliases": ["equipment access"], "intent": "life_safety" },
+      { "name": "Current or Previous Violations", "aliases": ["violations"], "intent": "code_violation" },
+      { "name": "System Type Atypical for Market", "aliases": ["atypical"], "intent": "condition" },
+      { "name": "Other Person or Property Authorized to Use the System", "aliases": ["authorized user"], "intent": "property_information" },
+      { "name": "System Owned or Maintained by Residents", "aliases": ["resident owned"], "intent": "condition" },
+      { "name": "System Fails to Meet Applicable Requirements", "aliases": ["requirement failure"], "intent": "code_violation" }
+    ]
+  },
+  {
+    "name": "Private Wastewater Treatment Plant",
+    "aliases": ["wastewater treatment", "treatment plant", "wwtp"],
+    "fields": [
+      { "name": "Reported System Adequacy", "aliases": ["plant adequacy"], "intent": "condition" },
+      { "name": "Distance to Effluent Discharge Body of Water", "aliases": ["effluent distance"], "intent": "environmental_hazard" },
+      { "name": "Cost of Connecting Subject Property to Municipal System", "aliases": ["connection cost"], "intent": "repair_cost" },
+      { "name": "Level of Work Required to Accomplish Municipal System Connection", "aliases": ["connection work"], "intent": "deferred_maintenance" },
+      { "name": "System Maintenance Provider", "aliases": ["maintenance provider"], "intent": "condition" },
+      { "name": "Concerns Regarding Quality of Maintenance", "aliases": ["maintenance concern"], "intent": "condition" },
+      { "name": "Equipment Accessible to Unauthorized Personnel", "aliases": ["equipment access"], "intent": "life_safety" },
+      { "name": "Current or Previous Violations", "aliases": ["violations"], "intent": "code_violation" },
+      { "name": "System Type Atypical for Market", "aliases": ["atypical"], "intent": "condition" },
+      { "name": "Other Person or Property Authorized to Use the System", "aliases": ["authorized user"], "intent": "property_information" },
+      { "name": "System Owned or Maintained by Residents", "aliases": ["resident owned"], "intent": "condition" },
+      { "name": "System Fails to Meet Applicable Requirements", "aliases": ["requirement failure"], "intent": "code_violation" }
+    ]
+  },
+  {
+    "name": "On-Site Sewage Lift Stations",
+    "aliases": ["lift stations", "sewage lift", "lift station"],
+    "fields": [
+      { "name": "Reported System Adequacy", "aliases": ["station adequacy"], "intent": "condition" },
+      { "name": "System Maintenance Provider", "aliases": ["maintenance provider"], "intent": "condition" },
+      { "name": "Concerns Regarding Quality of Maintenance", "aliases": ["maintenance concern"], "intent": "condition" },
+      { "name": "Buildings or Structures Located on Top of Lift Station", "aliases": ["structures on lift"], "intent": "code_violation" },
+      { "name": "Equipment Accessible to Unauthorized Personnel", "aliases": ["equipment access"], "intent": "life_safety" },
+      { "name": "Current or Previous Violations", "aliases": ["violations"], "intent": "code_violation" },
+      { "name": "System Type Atypical for Market", "aliases": ["atypical"], "intent": "condition" },
+      { "name": "Other Person or Property Authorized to Use the System", "aliases": ["authorized user"], "intent": "property_information" },
+      { "name": "System Owned or Maintained by Residents", "aliases": ["resident owned"], "intent": "condition" },
+      { "name": "System Fails to Meet Applicable Requirements", "aliases": ["requirement failure"], "intent": "code_violation" }
+    ]
+  },
+  {
+    "name": "Substructure",
+    "aliases": ["substructure", "foundation", "foundation type"],
+    "fields": [
+      { "name": "Foundation Type", "aliases": ["footing", "foundation"], "intent": "structural" },
+      { "name": "Grade Level Floor", "aliases": ["grade floor", "slab floor", "on grade"], "intent": "structural" },
+      { "name": "Basement", "aliases": ["basement", "below grade"], "intent": "structural" }
+    ]
+  },
+  {
+    "name": "Superstructure",
+    "aliases": ["superstructure", "framing", "structural frame"],
+    "fields": [
+      { "name": "Wall Framing", "aliases": ["walls", "framing walls"], "intent": "structural" },
+      { "name": "Floor Framing", "aliases": ["floors", "framing floor"], "intent": "structural" },
+      { "name": "Roof Framing", "aliases": ["roof framing", "structural roof"], "intent": "structural" },
+      { "name": "Attic", "aliases": ["attic", "roof void"], "intent": "structural" },
+      { "name": "Podium Construction", "aliases": ["podium", "concrete podium"], "intent": "structural" }
+    ]
+  },
+  {
+    "name": "Facade Summary",
+    "aliases": ["facade", "exterior envelope", "building envelope"],
+    "fields": [
+      { "name": "Facade Finishes", "aliases": ["facade material", "exterior finish", "finshes"], "intent": "building_envelope" },
+      { "name": "Windows", "aliases": ["window", "glazing", "window condition"], "intent": "building_envelope" },
+      { "name": "Exterior Common Entrance Doors", "aliases": ["common doors", "entrance doors"], "intent": "building_envelope" },
+      { "name": "Exterior Unit Entrance Doors", "aliases": ["unit doors", "balcony doors"], "intent": "building_envelope" },
+      { "name": "Unit Balcony / Patio Doors", "aliases": ["balcony doors", "patio doors"], "intent": "building_envelope" },
+      { "name": "Service / Access Doors", "aliases": ["service doors", "access doors"], "intent": "building_envelope" },
+      { "name": "Overhead Doors", "aliases": ["overhead", "roll up door"], "intent": "building_envelope" },
+      { "name": "Other Exterior Features", "aliases": ["exterior features"], "intent": "building_envelope" },
+      { "name": "Municipal Facade Inspection Required", "aliases": ["facade inspection", "municipal inspection"], "intent": "code_violation" },
+      { "name": "Municipal Fire Escape Inspection Required", "aliases": ["fire escape", "fire escape inspection"], "intent": "life_safety" },
+      { "name": "California Exterior Elevated Element Inspection Required", "aliases": ["elevated element", "ca inspection"], "intent": "code_violation" }
+    ]
+  },
+  {
+    "name": "Roofing",
+    "aliases": ["roof", "roofing", "roof system"],
+    "fields": [
+      { "name": "Roof Type", "aliases": ["roofing type", "roof material"], "intent": "roofing" },
+      { "name": "Roof Condition", "aliases": ["roof condition summary"], "intent": "condition" },
+      { "name": "Roof Age", "aliases": ["roof age", "roofing age"], "intent": "roofing" },
+      { "name": "Roof Surface", "aliases": ["roofing surface"], "intent": "roofing" },
+      { "name": "Roofing Drains", "aliases": ["roof drains", "drains"], "intent": "roofing" },
+      { "name": "Previous Roof Repairs", "aliases": ["roof repairs", "prior repairs"], "intent": "roofing" }
+    ]
+  },
+  {
+    "name": "Plumbing Summary",
+    "aliases": ["plumbing", "plumbing systems"],
+    "fields": [
+      { "name": "Water Supply Piping", "aliases": ["supply piping", "water piping"], "intent": "mep" },
+      { "name": "Sanitary Waste Piping", "aliases": ["waste piping", "sanitary piping"], "intent": "mep" },
+      { "name": "Gas Distribution Piping", "aliases": ["gas piping", "gas distribution"], "intent": "mep" },
+      { "name": "Plumbing Fittings", "aliases": ["fittings"], "intent": "mep" },
+      { "name": "Booster Pump Systems", "aliases": ["booster pump", "booster"], "intent": "mep" },
+      { "name": "Sump Pump / Sewage Ejector Systems", "aliases": ["sump pump", "ejector"], "intent": "mep" },
+      { "name": "Water Softener Systems", "aliases": ["water softener", "softener"], "intent": "mep" },
+      { "name": "Domestic Water Storage Tanks", "aliases": ["water storage", "storage tank"], "intent": "mep" },
+      { "name": "Domestic Water Heater Systems", "aliases": ["water heater", "heater"], "intent": "mep" },
+      { "name": "Domestic Water Heater Location", "aliases": ["heater location"], "intent": "mep" },
+      { "name": "Domestic Water Heater Age", "aliases": ["heater age"], "intent": "mep" },
+      { "name": "Domestic Water Boiler Systems", "aliases": ["water boiler", "boiler"], "intent": "mep" },
+      { "name": "Domestic Water Boiler Location", "aliases": ["boiler location"], "intent": "mep" },
+      { "name": "Domestic Water Boiler Age", "aliases": ["boiler age"], "intent": "mep" },
+      { "name": "Hot Water Storage Tanks", "aliases": ["hot water tank"], "intent": "mep" }
+    ]
+  },
+  {
+    "name": "Electrical Summary",
+    "aliases": ["electrical", "electrical systems", "electric"],
+    "fields": [
+      { "name": "Electrical Main Service", "aliases": ["main service", "electrical service"], "intent": "mep" },
+      { "name": "Unit Panel Service Capacity", "aliases": ["panel capacity", "unit panel"], "intent": "mep" },
+      { "name": "Federal Pacific Electric Stab-Lok Breaker Panels", "aliases": ["fpe panels", "stab lok"], "intent": "life_safety" },
+      { "name": "Branch Wiring", "aliases": ["wiring", "branch circuits"], "intent": "mep" },
+      { "name": "Transformers", "aliases": ["transformer"], "intent": "mep" },
+      { "name": "Electrical Meters", "aliases": ["meters", "metering"], "intent": "mep" },
+      { "name": "Distribution Panels", "aliases": ["distribution panel", "breaker panel"], "intent": "mep" },
+      { "name": "GFCI Fixtures", "aliases": ["gfci", "ground fault", "ground fault circuit interrupter"], "intent": "life_safety" },
+      { "name": "Emergency Generators", "aliases": ["generator", "emergency power"], "intent": "mep" },
+      { "name": "Energy Management System", "aliases": ["ems", "energy system"], "intent": "mep" }
+    ]
+  },
+  {
+    "name": "Fire & Life Safety Systems",
+    "aliases": ["fire safety", "life safety", "fire", "fire protection"],
+    "fields": [
+      { "name": "Fire Sprinkler System", "aliases": ["sprinkler", "fire suppression", "fire sprinkler"], "intent": "life_safety" },
+      { "name": "Fire Sprinkler Head Brand Omega or Central Observed", "aliases": ["sprinkler head", "sprinkler brand"], "intent": "life_safety" },
+      { "name": "Fire Pump", "aliases": ["fire pump"], "intent": "life_safety" },
+      { "name": "Fire Sprinkler System Water Storage", "aliases": ["sprinkler water storage", "water storage fire"], "intent": "life_safety" },
+      { "name": "Fire Sprinkler Inspection Date", "aliases": ["sprinkler inspected", "sprinkler inspection"], "intent": "life_safety" },
+      { "name": "Fire Alarm System", "aliases": ["fire alarm", "alarm"], "intent": "life_safety" },
+      { "name": "Fire Alarm Inspection Date", "aliases": ["alarm inspected", "alarm last serviced"], "intent": "life_safety" },
+      { "name": "Fire Alarm Control Panel Age", "aliases": ["alarm panel age", "control panel age"], "intent": "life_safety" },
+      { "name": "Fire Alarm System Monitoring", "aliases": ["alarm monitoring", "monitoring"], "intent": "life_safety" },
+      { "name": "Fire Extinguishers", "aliases": ["extinguisher", "fire extinguisher"], "intent": "life_safety" },
+      { "name": "Fire Extinguisher Inspections", "aliases": ["extinguisher inspections", "extinguisher checked"], "intent": "life_safety" },
+      { "name": "Chemical Fire Suppression Systems", "aliases": ["chemical suppression", "chemical fire"], "intent": "life_safety" },
+      { "name": "Chemical Fire Suppression System Inspection Date", "aliases": ["chemical suppression inspection"], "intent": "life_safety" },
+      { "name": "Fire Department Connections", "aliases": ["fire department", "fdc"], "intent": "life_safety" },
+      { "name": "Fire Hydrants", "aliases": ["hydrant", "fire hydrant"], "intent": "life_safety" },
+      { "name": "Life Safety Fixtures", "aliases": ["life safety fixtures"], "intent": "life_safety" },
+      { "name": "Smoke Detectors", "aliases": ["smoke detector", "smoke alarm"], "intent": "life_safety" },
+      { "name": "CO Detectors", "aliases": ["carbon monoxide", "co detector"], "intent": "life_safety" },
+      { "name": "Smoke Evacuation", "aliases": ["smoke exhaust", "evacuation"], "intent": "life_safety" },
+      { "name": "Stairwell Pressurization", "aliases": ["stairwell", "stair pressurization"], "intent": "life_safety" },
+      { "name": "Exit Signage", "aliases": ["exit signs", "egress signage"], "intent": "life_safety" },
+      { "name": "Emergency Lighting", "aliases": ["emergency lights", "egress lighting"], "intent": "life_safety" },
+      { "name": "Means of Egress", "aliases": ["egress", "exit"], "intent": "life_safety" },
+      { "name": "Fire Rating Assemblies", "aliases": ["fire rating", "fire separation"], "intent": "life_safety" }
+    ]
+  },
+  {
+    "name": "Elevators & Escalators",
+    "aliases": ["elevator", "escalator", "vertical transportation"],
+    "fields": [
+      { "name": "Elevator Type", "aliases": ["elevator", "hydraulic elevator", "traction"], "intent": "mep" },
+      { "name": "Number of Elevators", "aliases": ["elevator count"], "intent": "mep" },
+      { "name": "Elevator Inspection Date", "aliases": ["elevator inspected"], "intent": "life_safety" },
+      { "name": "Elevator Machinery Age", "aliases": ["machinery age", "elevator age"], "intent": "mep" },
+      { "name": "Elevator Cab Flooring", "aliases": ["cab flooring", "elevator floor"], "intent": "mep" },
+      { "name": "Elevator Cab Walls", "aliases": ["cab walls", "elevator walls"], "intent": "mep" },
+      { "name": "Escalators", "aliases": ["escalator"], "intent": "mep" },
+      { "name": "Accessible Lifts", "aliases": ["accessible lift", "platform lift"], "intent": "ada_compliance" },
+      { "name": "Machine Room Condition", "aliases": ["machine room", "elevator room"], "intent": "mep" }
+    ]
+  },
+  {
+    "name": "Municipal Code Findings",
+    "aliases": ["municipal code", "zoning", "code findings", "municipal"],
+    "fields": [
+      { "name": "Current Zoning", "aliases": ["zoning", "zoning district"], "intent": "code_violation" },
+      { "name": "Current Use Permitted", "aliases": ["permitted use", "use permitted"], "intent": "code_violation" },
+      { "name": "Certificate of Occupancy", "aliases": ["c of o", "certificate occupancy"], "intent": "code_violation" },
+      { "name": "Outstanding Building Code Violations", "aliases": ["building violations", "violations"], "intent": "code_violation" },
+      { "name": "Outstanding Fire Code Violations", "aliases": ["fire violations"], "intent": "code_violation" }
+    ]
+  },
+  {
+    "name": "Blueprint / General Report Data",
+    "aliases": ["blueprint", "report data", "general metadata"],
+    "fields": [
+      { "name": "Number of Buildings", "aliases": ["buildings", "building count"], "intent": "property_information" },
+      { "name": "Number of Parcels", "aliases": ["parcels", "parcel count"], "intent": "property_information" },
+      { "name": "Number of Stories", "aliases": ["stories", "floors"], "intent": "property_information" },
+      { "name": "Building Gross Square Feet", "aliases": ["gross sf", "gross area"], "intent": "property_information" },
+      { "name": "Building Net Square Feet", "aliases": ["net sf", "net area"], "intent": "property_information" },
+      { "name": "Building Square Feet", "aliases": ["bldg sf", "building area"], "intent": "property_information" },
+      { "name": "Client Name", "aliases": ["client", "owner name"], "intent": "property_information" },
+      { "name": "Client Address", "aliases": ["client address", "address line"], "intent": "property_information" },
+      { "name": "Property Address", "aliases": ["address", "site address"], "intent": "property_information" },
+      { "name": "Property City", "aliases": ["city", "site city"], "intent": "property_information" },
+      { "name": "Site Contact", "aliases": ["contact", "site contact name"], "intent": "property_information" },
+      { "name": "Author SF ID", "aliases": ["author", "sf id"], "intent": "property_information" }
+    ]
+  },
+  {
+    "name": "Capital Needs Assessment",
+    "aliases": ["capital needs", "capital plan", "reserves"],
+    "fields": [
+      { "name": "Capital Component", "aliases": ["component", "asset"], "intent": "capital_needs" },
+      { "name": "Component Condition", "aliases": ["component condition"], "intent": "condition" },
+      { "name": "Remaining Useful Life", "aliases": ["rul", "remaining life"], "intent": "remaining_life" },
+      { "name": "Replacement Year", "aliases": ["replacement", "expected replacement"], "intent": "remaining_life" },
+      { "name": "Capital Reserve Total", "aliases": ["reserves", "reserve funds"], "intent": "capital_needs" },
+      { "name": "Annual Reserve Contribution", "aliases": ["annual contribution"], "intent": "capital_needs" }
+    ]
+  },
+  {
+    "name": "Deferred Maintenance & Immediate Repairs",
+    "aliases": ["deferred maintenance", "immediate repairs", "repair items"],
+    "fields": [
+      { "name": "Repair Item", "aliases": ["repair", "repair description"], "intent": "deferred_maintenance" },
+      { "name": "Repair Priority", "aliases": ["priority", "urgency"], "intent": "deferred_maintenance" },
+      { "name": "Estimated Repair Cost", "aliases": ["repair cost", "cost estimate"], "intent": "repair_cost" },
+      { "name": "Target Repair Date", "aliases": ["target date", "repair date"], "intent": "deferred_maintenance" },
+      { "name": "Repair Location", "aliases": ["location", "where"], "intent": "deferred_maintenance" },
+      { "name": "Repair Status", "aliases": ["status", "completed"], "intent": "deferred_maintenance" }
+    ]
+  },
+  {
+    "name": "Cost Estimates",
+    "aliases": ["cost estimate", "capital costs", "replacement costs"],
+    "fields": [
+      { "name": "Cost Item", "aliases": ["item", "component"], "intent": "repair_cost" },
+      { "name": "Unit Cost", "aliases": ["unit price"], "intent": "repair_cost" },
+      { "name": "Quantity", "aliases": ["qty", "count"], "intent": "repair_cost" },
+      { "name": "Total Estimated Cost", "aliases": ["total cost", "estimate total"], "intent": "repair_cost" },
+      { "name": "Cost Basis", "aliases": ["basis", "source of estimate"], "intent": "repair_cost" }
+    ]
+  },
+  {
+    "name": "Environmental & Hazardous Materials",
+    "aliases": ["environmental", "hazardous materials", "hazmat"],
+    "fields": [
+      { "name": "Asbestos Present", "aliases": ["asbestos", "acm"], "intent": "environmental_hazard" },
+      { "name": "Lead Paint", "aliases": ["lead", "lead based paint", "lbp"], "intent": "environmental_hazard" },
+      { "name": "Mold / Moisture Intrusion", "aliases": ["mold", "moisture", "water intrusion"], "intent": "environmental_hazard" },
+      { "name": "Radon", "aliases": ["radon"], "intent": "environmental_hazard" },
+      { "name": "Underground Storage Tank", "aliases": ["ust", "storage tank"], "intent": "environmental_hazard" },
+      { "name": "Contaminated Soil", "aliases": ["soil contamination", "polluted soil"], "intent": "environmental_hazard" },
+      { "name": "Flood Zone", "aliases": ["flood", "flood zone", "fema"], "intent": "environmental_hazard" },
+      { "name": "Wetlands", "aliases": ["wetlands", "wetland"], "intent": "environmental_hazard" },
+      { "name": "Sinkhole / Geotech Risk", "aliases": ["sinkhole", "geo tech", "subsidence"], "intent": "environmental_hazard" }
+    ]
+  },
+  {
+    "name": "Utilities Capacity & Metering",
+    "aliases": ["utility capacity", "metering", "utility"],
+    "fields": [
+      { "name": "Water Meter Size", "aliases": ["water meter", "meter size"], "intent": "utilities_capacity" },
+      { "name": "Sanitary Sewer Capacity", "aliases": ["sewer capacity"], "intent": "utilities_capacity" },
+      { "name": "Electrical Ampacity", "aliases": ["ampacity", "electrical amperage"], "intent": "utilities_capacity" },
+      { "name": "Gas Pressure / Capacity", "aliases": ["gas capacity", "pressure"], "intent": "utilities_capacity" },
+      { "name": "Telecom Availability", "aliases": ["telecom", "internet availability"], "intent": "utilities_capacity" },
+      { "name": "Metering Method", "aliases": ["metering"], "intent": "utilities_capacity" }
+    ]
+  },
+  {
+    "name": "Roof Warranties & Leak History",
+    "aliases": ["roof warranty", "leak history", "warranty"],
+    "fields": [
+      { "name": "Roof Warranty Active", "aliases": ["warranty active", "warranty status"], "intent": "roofing" },
+      { "name": "Roof Warranty Expiry", "aliases": ["warranty expiry", "warranty end"], "intent": "roofing" },
+      { "name": "Prior Roof Repairs", "aliases": ["prior roof repair", "previous repairs"], "intent": "roofing" },
+      { "name": "Leak History", "aliases": ["leaks", "water leaks"], "intent": "roofing" }
+    ]
+  },
+  {
+    "name": "Building Automation & Controls",
+    "aliases": ["bms", "building automation", "controls", "bas"],
+    "fields": [
+      { "name": "BMS / BAS Present", "aliases": ["bms", "bas", "building management"], "intent": "mep" },
+      { "name": "Control System Age", "aliases": ["controls age"], "intent": "mep" },
+      { "name": "Control System Condition", "aliases": ["controls condition"], "intent": "condition" },
+      { "name": "Programmable Thermostats", "aliases": ["thermostats", "programmable thermostats"], "intent": "mep" }
+    ]
+  }
+]

@@ -1,15 +1,64 @@
-data/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+*.egg
+dist/
+build/
+
+# Virtual environments
 .venv/
 venv/
-storage/
+env/
 
-__pycache__/
-__pytest__/
-output.json/
-report_tags_summary.json/
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
+# Environment files
 .env
 .env.example
 
+# Project data
+storage/
+uploads/
+data/
+
+# Backups and temp files
+backup_providers/
+*.bak
+*.log
+*.tmp
+
+# Node / UI
+node_modules/
+ui/node_modules/
+ui/dist/
+openquire-ai-extension/node_modules/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# OS files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Output files (root level)
 /output.json
 /report_tags_summary.json
+output.json/
+report_tags_summary.json/
+
+# Modal cache
+.modal/
+
+# Extension build artifacts
+openquire-ai-extension/ui/dist/
+extension/ui/dist/

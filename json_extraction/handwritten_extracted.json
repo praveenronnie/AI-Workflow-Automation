@@ -1,0 +1,256 @@
+[
+  {
+    "image_id": 1,
+    "image_data": {
+      "property_information": {
+        "site_contact": {
+          "name": "James Holland",
+          "phone": "8328376672"
+        },
+        "document_collection_email": "duediligence@skaenvironment.com",
+        "total_buildings": 1,
+        "total_units": 4,
+        "vacant_units": 1,
+        "occupied_units": 3,
+        "property_signage": {
+          "total": 1
+        },
+        "property_entrance": "Yes",
+        "parking": {
+          "total_spaces": 120,
+          "general": 62,
+          "loading_docks": 58
+        }
+      },
+      "building_information": {},
+      "building_systems": [
+        {
+          "domain": "Site Utilities",
+          "information": {
+            "electricity": "CentrePoint",
+            "solid_waste": "WasteManagement",
+            "internet_and_cable": "AT&T"
+          }
+        }
+      ],
+      "financial_regulatory_information": {},
+      "documents_metadata": {
+        "title": "PCA SITE RECONNAISSANCE CHECKLIST",
+        "page": "1 of 6"
+      }
+    }
+  },
+  {
+    "image_id": 2,
+    "image_data": {
+      "property_information": {},
+      "building_information": {
+        "laundry_center": {
+          "responsibility": "Owner's responsibility or Outside vendor"
+        },
+        "roof_type": "Flat"
+      },
+      "building_systems": [
+        {
+          "domain": "Roofing System",
+          "information": {
+            "roof_type": "Flat"
+          }
+        },
+        {
+          "domain": "Electrical Systems",
+          "information": {
+            "main_electrical_distribution_panel": {
+              "volts": "120-480",
+              "manufacturer": "Milbank"
+            }
+          }
+        }
+      ],
+      "financial_regulatory_information": {},
+      "documents_metadata": {
+        "document_title": "PCA SITE RECONNAISSANCE CHECKLIST",
+        "page": "Page 2 of 6"
+      }
+    }
+  },
+  {
+    "image_id": 3,
+    "image_data": {
+      "property_information": {},
+      "building_information": {},
+      "building_systems": [
+        {
+          "domain": "Electrical Systems",
+          "information": {
+            "wiring_type": "ALUMINUM OR COPPER"
+          }
+        },
+        {
+          "domain": "Plumbing Systems",
+          "information": {
+            "water_heaters": {
+              "total_count": 4,
+              "manufacturer": "Rheem",
+              "locations": [
+                "Metrix",
+                "Buffers",
+                "Vacant"
+              ],
+              "capacity": "50 gallons",
+              "type": "ELECTRIC"
+            },
+            "piping": {
+              "supply_lines": "COPPER",
+              "waste_lines": "PVC"
+            }
+          }
+        },
+        {
+          "domain": "Fire & Life Safety",
+          "information": {
+            "fire_extinguisher": {
+              "inspection_date": "Jun 2026"
+            },
+            "fire_riser_sprinkler": {
+              "type": "WET",
+              "location": "Red star on map",
+              "inspection_date": "Jun 2026"
+            },
+            "fire_alarm_control_panel": {
+              "location": "Red star on map",
+              "inspection_date": "11/2025",
+              "total_count": 1,
+              "manufacturer": "FirePro Tech"
+            }
+          }
+        },
+        {
+          "domain": "Security Systems",
+          "information": {
+            "damage_responsibility": {
+              "interior": "OWNER or TENANT",
+              "exterior": "OWNER or TENANT"
+            }
+          }
+        }
+      ],
+      "financial_regulatory_information": {},
+      "documents_metadata": {
+        "document_title": "PCA SITE RECONNAISSANCE CHECKLIST",
+        "page": "Page 3 of 6"
+      }
+    }
+  },
+  {
+    "image_id": 4,
+    "image_data": {
+      "property_information": {},
+      "building_information": {},
+      "building_systems": [],
+      "financial_regulatory_information": {},
+      "documents_metadata": {
+        "document_type": "PCA Site Reconnaissance Checklist",
+        "page_number": "Page 4 of 6"
+      }
+    }
+  },
+  {
+    "image_id": 5,
+    "image_data": {
+      "property_information": {},
+      "building_information": {},
+      "building_systems": [
+        {
+          "domain": "Mechanical Systems",
+          "information": {
+            "roof_mounted_package_units": {
+              "refrigerant": "410",
+              "manufacturers": [
+                "Carrier",
+                "Johnson",
+                "York",
+                "Trane"
+              ],
+              "total_units": 11,
+              "unit_details": [
+                {
+                  "quantity": 1,
+                  "age": "2024",
+                  "capacity": 6
+                },
+                {
+                  "quantity": 1,
+                  "age": "Older unit",
+                  "capacity": 5
+                },
+                {
+                  "quantity": 1,
+                  "age": "Older unit",
+                  "capacity": 7.5
+                },
+                {
+                  "quantity": 3,
+                  "age": "2007",
+                  "capacity": 7.5
+                }
+              ],
+              "location": "Roof"
+            }
+          }
+        }
+      ],
+      "financial_regulatory_information": {},
+      "documents_metadata": {
+        "title": "PCA SITE RECONNAISSANCE CHECKLIST",
+        "page": "5 of 6"
+      }
+    }
+  },
+  {
+    "image_id": 6,
+    "image_data": {
+      "property_information": {
+        "units_inspected": [
+          {
+            "number": "1",
+            "description": "Buffers USA Transportation Management Consultants"
+          },
+          {
+            "number": "2",
+            "description": "Metrix Vacancy"
+          }
+        ]
+      },
+      "building_information": {},
+      "building_systems": [],
+      "financial_regulatory_information": {},
+      "documents_metadata": {
+        "document_title": "PCA SITE RECONNAISSANCE CHECKLIST",
+        "page_number": "6 of 6"
+      }
+    }
+  },
+  {
+    "image_id": 7,
+    "image_data": {
+      "property_information": {
+        "address": "8000 Market St",
+        "units": "4 units",
+        "vacancy_notes": "Vacancy accessible through Metrix logistics group, three risers (red stars) shown on map",
+        "access_notes": "Ladder access through Northern most edge of the property near Buffers USA",
+        "nearby_landmarks": [
+          "Metrix Logistics Group",
+          "Buffers",
+          "GMI Mann Warehouse",
+          "Randy's Drive-In Service",
+          "Gabhls Truck Parts"
+        ]
+      },
+      "building_information": {},
+      "building_systems": [],
+      "financial_regulatory_information": {},
+      "documents_metadata": {}
+    }
+  }
+]

@@ -1,0 +1,17 @@
+Analyze the building/property photograph and return observations of visible elements.
+
+Return JSON:
+{
+  "building_area": "roof|exterior|foundation|garage|kitchen|...",
+  "category": "interior|exterior|mechanical|structural|unknown",
+  "observations": [
+    {"field_name": "...", "value": "...", "confidence": 0.0}
+  ]
+}
+
+Property-inspection focus: roofing, exterior envelope, HVAC equipment, electrical panels,
+plumbing, structural elements, interior rooms, damage indicators.
+
+Rules:
+- Only describe directly visible elements; never infer hidden defects, materials, brands.
+- confidence: 0.8-1.0 clear, 0.5-0.8 uncertain.

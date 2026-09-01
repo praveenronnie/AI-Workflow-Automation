@@ -1,0 +1,8 @@
+{
+  "domain_name": "pca_site_assessment",
+  "displayName": "PCA Site Assessment",
+  "version": "1.0.0",
+  "description": "Property Condition Assessment (ASTM E2018 style) for commercial real estate. The manifest carries only domain identity and counts; the full section/field/alias tree is stored in the backend database.",
+  "sectionCount": 27,
+  "fieldCount": 221
+}

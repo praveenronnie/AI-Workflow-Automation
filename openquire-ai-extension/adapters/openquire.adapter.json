@@ -1,0 +1,67 @@
+{
+  "id": "openquire",
+  "displayName": "OpenQuire",
+  "version": "1.0.0",
+  "description": "Declarative adapter config for OpenQuire report forms. References the existing API extractor functions as the extraction contract.",
+  "match": {
+    "hosts": ["app.openquire.com"],
+    "urlPatterns": ["/reports/{reportId}"]
+  },
+  "reportId": {
+    "urlPath": "/reports/([a-zA-Z0-9_-]+)",
+    "queryParams": ["report_id", "reportId", "id"]
+  },
+  "extraction": {
+    "default": "api+dom",
+    "strategies": {
+      "api": {
+        "entry": "openquire.buildSchema",
+        "endpoints": {
+          "reportHtml": {
+            "path": "/reports/{reportId}",
+            "method": "GET",
+            "auth": "cookie",
+            "content": "html"
+          },
+          "tableSection": {
+            "path": "/info_table_sections/{tableId}/edit_table",
+            "query": { "force": 1 },
+            "method": "GET",
+            "auth": "cookie",
+            "content": "json"
+          },
+          "blueprintTags": {
+            "path": "/reports/{reportId}/blueprint_tags",
+            "method": "GET",
+            "auth": "cookie",
+            "content": "json"
+          },
+          "lock": {
+            "release": "/info_table_sections/{tableId}/unlock_for_edit",
+            "setValue": "/info_table_values/{rowId}"
+          }
+        },
+        "parsers": {
+          "tableJson": "openquire.parseTableJSON",
+          "blueprintTags": "openquire.parseBlueprintTags"
+        },
+        "dictionaryValueRegex": "_quire_keyword_value:"
+      },
+      "dom": {
+        "entry": "scanEntireForm",
+        "fillers": {
+          "text": "textFiller",
+          "dropdown": "dropdownFiller",
+          "checkbox": "checkboxFiller",
+          "radio": "radioFiller",
+          "multiselect": "multiselectFiller"
+        }
+      }
+    }
+  },
+  "panels": {
+    "open": "api.openPanel",
+    "fill": "api.fillValue"
+  },
+  "supportedDomains": ["pca_site_assessment"]
+}

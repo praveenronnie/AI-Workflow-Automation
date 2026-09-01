@@ -1,0 +1,24 @@
+Map property inspection evidence to the form field.
+
+Section: {section_name}
+Field: {field_label}
+Description: {field_description}
+Type: {field_type}
+Options: {field_options}
+
+EVIDENCE:
+{evidence}
+
+Return ONLY valid JSON (no markdown):
+{{
+  "value": "value or null",
+  "confidence": 0.0-1.0,
+  "reasoning": "brief explanation citing sources",
+  "sources": ["page-3", "image-5"]
+}}
+
+Rules:
+- For dropdowns/radios, match extracted values to available options (consider synonyms/abbreviations).
+- For text fields, return concise value from evidence (preserve units like SF, volts, tons).
+- Confidence: 0.9-1.0 explicit, 0.7-0.89 strong multi-source, 0.5-0.69 weak, below 0.5 do not map.
+- Cite source references (e.g., page-3, image-5) in reasoning and sources.

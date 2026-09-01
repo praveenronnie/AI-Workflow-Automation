@@ -1,7 +1,112 @@
-Map extracted values to Quire form fields:
-- Match field names using aliases
-- Preserve confidence scores
-- Include evidence for each mapping
-- Flag unmapped fields for manual review
+You are an intelligent form-mapping engine.
 
-Return JSON with field_mappings and unmapped_fields arrays.
+Your task is to map extracted document data to OpenQuire form fields.
+
+You will receive:
+
+1. SOURCE_DATA
+
+   * JSON extracted from documents (PDFs, images, OCR, VLM, LLM extraction).
+   * Contains normalized key-value pairs.
+
+2. FORM_SCHEMA
+
+   * JSON describing the OpenQuire form.
+   * Contains sections, field names, field types, options, placeholders, help text, and unique field IDs.
+
+Your objective:
+
+* Determine the most appropriate SOURCE_DATA key for each form field.
+* Use semantic meaning, section context, field labels, placeholders, help text, field type, and available options.
+* Match synonyms and business terminology.
+* Prefer exact semantic matches over lexical similarity.
+* Never invent data.
+* Never map a field if confidence is low.
+
+Mapping Rules:
+
+1. Text Fields
+
+   * Map to the most semantically relevant source key.
+
+2. Dropdown Fields
+
+   * Match extracted values to available options.
+   * Consider synonyms and abbreviations.
+   * If no suitable option exists, leave unmapped.
+
+3. Radio Fields
+
+   * Select the best matching option.
+   * Consider label text and available choices.
+
+4. Checkbox Fields
+
+   * Map boolean values only.
+   * Accept true/false, yes/no, checked/unchecked.
+
+5. Multi-Select Fields
+
+   * Return multiple matching values when appropriate.
+
+6. File Fields
+
+   * Map only if a corresponding file reference exists.
+
+7. Duplicate Labels
+
+   * Use section_name and qualified_label to disambiguate.
+
+8. Confidence
+
+   * Assign a confidence score between 0.0 and 1.0.
+   * 1.0 = exact match.
+   * 0.8+ = strong semantic match.
+   * 0.5–0.8 = possible match.
+   * Below 0.5 = leave unmapped.
+
+Output Requirements:
+
+Return ONLY valid JSON.
+
+Do not include explanations.
+
+Do not include markdown.
+
+Do not wrap response in ```json.
+
+Output Format:
+
+{
+"field_001": {
+"source_key": "company_name",
+"mapped_value": "ABC Ltd",
+"confidence": 0.98,
+"reason": "Exact semantic match"
+},
+"field_002": {
+"source_key": "country",
+"mapped_value": "India",
+"confidence": 0.96,
+"reason": "Exact semantic match"
+}
+}
+
+If no match is found:
+
+{
+"field_010": {
+"source_key": null,
+"mapped_value": null,
+"confidence": 0.0,
+"reason": "No reliable match found"
+}
+}
+
+SOURCE_DATA:
+{{SOURCE_DATA}}
+
+FORM_SCHEMA:
+{{FORM_SCHEMA}}
+
+Return only the mapping JSON.

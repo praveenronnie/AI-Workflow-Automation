@@ -1,0 +1,212 @@
+{
+  "property_information": {
+    "address": {
+      "street": "8000 MARKET STREET RD",
+      "city": "HOUSTON",
+      "state": "TX",
+      "zip": "77029"
+    },
+    "account_number": "0401900020035",
+    "owner": {
+      "name": "HOUSTON INFILL INDUSTRIAL INVESTORS II LLC",
+      "mailing_address": "600 UNICORN PARK DR WOBURN, MA 01801-3376"
+    },
+    "ownership_history": [
+      {
+        "owner": "HOUSTON INFILL INDUSTRIAL INVESTORS II LLC",
+        "effective_date": "06/16/2021"
+      },
+      { "owner": "ROX TREP MARKET LLC", "effective_date": "01/31/2017" },
+      { "owner": "MARKET STREET GEREN LP", "effective_date": "07/22/2013" },
+      { "owner": "TEACHERS INSURANCE &", "effective_date": "12/31/2002" },
+      { "owner": "TEACHERS INSURANCE & AME", "effective_date": "12/31/2002" },
+      { "owner": "AMB PROPERTY II LP", "effective_date": "07/31/1998" },
+      { "owner": "AMBERJACK LTD", "effective_date": "04/23/1988" }
+    ],
+    "legal_description": "TR 12 ABST 8 J BROWN",
+    "state_class_code": "F1 Real, Commercial",
+    "neighborhood": "5981.22",
+    "neighborhood_name": "GLENDALE BUSINESS PARK",
+    "market_area": "6022 East",
+    "map_facet": "5558D",
+    "key_map": "495E",
+    "land_area": { "value": 331884, "unit": "SF" },
+    "land_details": {
+      "land_use": "8001 Land Neighborhood Section 4380 Distribution Warehouse",
+      "unit_type": "SF",
+      "units": 331884,
+      "size_factor": 1.0,
+      "site_factor": 1.0,
+      "appr_or_factor": 1.0,
+      "appr_or_reason": "Corner or Alley",
+      "total_adj": "04",
+      "unit_price": 4.0,
+      "adj_unit_price": 4.0,
+      "value": 1327536
+    },
+    "jurisdictions": [
+      { "district": "001", "name": "HOUSTON ISD", "rate_2025": 0.8783 },
+      {
+        "district": "040",
+        "name": "HARRIS COUNTY",
+        "rate_2025": 0.38096,
+        "rate_2026": 0.0
+      },
+      {
+        "district": "041",
+        "name": "HARRIS CQ FLOOD CNTRL",
+        "rate_2025": 0.04966
+      },
+      {
+        "district": "042",
+        "name": "PORT QF HOUSTON AUTHY",
+        "rate_2025": 0.0059
+      },
+      {
+        "district": "043",
+        "name": "HARRIS CO HOSP DIST",
+        "rate_2025": 0.18761,
+        "rate_2026": 0.0
+      },
+      {
+        "district": "044",
+        "name": "HARRIS CQ EDUC DEPT",
+        "rate_2025": 0.004798
+      },
+      {
+        "district": "048",
+        "name": "HQUSTON CITY COLLEGE",
+        "rate_2025": 0.098802
+      },
+      {
+        "district": "061",
+        "name": "CITY QE HOUSTON",
+        "rate_2025": 0.51919,
+        "rate_2026": 0.0
+      }
+    ],
+    "exemption_type": "None",
+    "fiduciary": "WILSON & FRANCO 00491"
+  },
+  "building_information": {
+    "property_type": "Commercial",
+    "building_area": { "value": 207600, "unit": "SF" },
+    "net_rentable_area": { "value": 208050, "unit": "SF" },
+    "building_summary": {
+      "year_built": 1977,
+      "remodeled": 2024,
+      "type": "Distribution Warehouse",
+      "style": "8454 Shell, Industrial",
+      "quality": "Average",
+      "impr_sq_ft": 207600
+    },
+    "extra_features": [
+      {
+        "description": "Paving Light Concrete",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 92000,
+        "year_built": 1979
+      },
+      {
+        "description": "Dock Level Floor",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 207372,
+        "year_built": 1977
+      },
+      {
+        "description": "Enclosure, Office",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 5615,
+        "year_built": 1977
+      },
+      {
+        "description": "Loading Ramp, Concrete",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 300,
+        "year_built": 1977
+      },
+      {
+        "description": "Loading Ramp, Concrete",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 300,
+        "year_built": 1977
+      },
+      {
+        "description": "Loading Ramp, Concrete",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 336,
+        "year_built": 1977
+      },
+      {
+        "description": "Multi-Use; Office",
+        "quality": "Average",
+        "condition": "Average",
+        "units": 2475,
+        "year_built": 1977
+      }
+    ]
+  },
+  "building_systems": [],
+  "financial_regulatory_information": {
+    "valuations": {
+      "land_value": 1327536,
+      "improvement_value": 8273972,
+      "market_value": 9601508,
+      "appraised_value": 9601508
+    },
+    "valuation_history": [
+      {
+        "year": 2022,
+        "market_value": 7000000,
+        "appraised_value": 1000000,
+        "land_value": 500000,
+        "improvement_value": 5500000
+      },
+      {
+        "year": 2023,
+        "market_value": 7500000,
+        "appraised_value": 1000000,
+        "land_value": 500000,
+        "improvement_value": 6000000
+      },
+      {
+        "year": 2024,
+        "market_value": 8000000,
+        "appraised_value": 1000000,
+        "land_value": 500000,
+        "improvement_value": 6500000
+      },
+      {
+        "year": 2025,
+        "market_value": 8500000,
+        "appraised_value": 1000000,
+        "land_value": 500000,
+        "improvement_value": 7000000
+      },
+      {
+        "year": 2026,
+        "market_value": 9000000,
+        "appraised_value": 1000000,
+        "land_value": 500000,
+        "improvement_value": 7500000
+      }
+    ],
+    "status": {
+      "value_notice_date": "Apr 17, 2026",
+      "deadline_to_file_protest": "May 18, 2026",
+      "protest_received_date": "May 15, 2026",
+      "arb_status": "Not Certified",
+      "arb_status_date": "Jul 24, 2026"
+    }
+  },
+  "documents_metadata": {
+    "source": "HCAD Property Search",
+    "document_date": "2026-08-05"
+  }
+}

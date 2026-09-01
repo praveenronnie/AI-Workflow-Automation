@@ -1,0 +1,33 @@
+If the image contains:
+- labels
+- certificates
+- inspection tags
+- service stickers
+- permits
+- equipment plates
+- signage
+
+Extract all important visible fields.
+
+Return:
+
+{
+  "document_type": "",
+  "entities": {
+      "field_name": "value"
+  }
+}
+
+Rules:
+- Preserve visible text exactly.
+- Do not guess missing text.
+- Do not invent values.
+- Include dates, names, serial numbers, registration numbers,
+  license numbers, manufacturers, service companies, phone numbers,
+  inspection years, and work types when visible.
+- Return JSON only
+- Do NOT wrap the JSON in markdown.
+- Do NOT output ```json.
+- Do NOT output backticks.
+- The first character of your response must be {
+- The last character of your response must be }

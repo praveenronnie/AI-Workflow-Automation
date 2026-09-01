@@ -1,0 +1,361 @@
+{
+  "source_metadata": {
+    "source_file": "handwritten_extracted.json",
+    "total_pages_aggregated": 7,
+    "aggregation_timestamp": "2026-08-05T20:49:38.352896",
+    "property_identifier": {
+      "image_ids": [1, 2, 3, 4, 5, 6, 7]
+    }
+  },
+  "property_information": {
+    "site_contact": {
+      "name": {
+        "value": "James Holland",
+        "source": ["page-1"]
+      },
+      "phone": {
+        "value": "8328376672",
+        "source": ["page-1"]
+      }
+    },
+    "document_collection_email": {
+      "value": "duediligence@skaenvironment.com",
+      "source": ["page-1"]
+    },
+    "total_buildings": {
+      "value": 1,
+      "source": ["page-1"]
+    },
+    "total_units": {
+      "value": 4,
+      "source": ["page-1"]
+    },
+    "vacant_units": {
+      "value": 1,
+      "source": ["page-1"]
+    },
+    "occupied_units": {
+      "value": 3,
+      "source": ["page-1"]
+    },
+    "property_signage": {
+      "total": {
+        "value": 1,
+        "source": ["page-1"]
+      }
+    },
+    "property_entrance": {
+      "value": "Yes",
+      "source": ["page-1"]
+    },
+    "parking": {
+      "total_spaces": {
+        "value": 120,
+        "source": ["page-1"]
+      },
+      "general": {
+        "value": 62,
+        "source": ["page-1"]
+      },
+      "loading_docks": {
+        "value": 58,
+        "source": ["page-1"]
+      }
+    },
+    "units_inspected": {
+      "value": [
+        {
+          "number": "1",
+          "description": "Buffers USA Transportation Management Consultants"
+        },
+        {
+          "number": "2",
+          "description": "Metrix Vacancy"
+        }
+      ],
+      "source": ["page-6"]
+    },
+    "address": {
+      "value": "8000 Market St",
+      "source": ["page-7"]
+    },
+    "units": {
+      "value": "4 units",
+      "source": ["page-7"]
+    },
+    "vacancy_notes": {
+      "value": "Vacancy accessible through Metrix logistics group, three risers (red stars) shown on map",
+      "source": ["page-7"]
+    },
+    "access_notes": {
+      "value": "Ladder access through Northern most edge of the property near Buffers USA",
+      "source": ["page-7"]
+    },
+    "nearby_landmarks": {
+      "value": [
+        "Metrix Logistics Group",
+        "Buffers",
+        "GMI Mann Warehouse",
+        "Randy's Drive-In Service",
+        "Gabhls Truck Parts"
+      ],
+      "source": ["page-7"]
+    }
+  },
+  "building_information": {
+    "laundry_center": {
+      "responsibility": {
+        "value": "Owner's responsibility or Outside vendor",
+        "source": ["page-2"]
+      }
+    },
+    "roof_type": {
+      "value": "Flat",
+      "source": ["page-2"]
+    }
+  },
+  "building_systems": [
+    {
+      "domain": "Site Utilities",
+      "information": {
+        "electricity": {
+          "value": "CentrePoint",
+          "source": ["page-1"]
+        },
+        "solid_waste": {
+          "value": "WasteManagement",
+          "source": ["page-1"]
+        },
+        "internet_and_cable": {
+          "value": "AT&T",
+          "source": ["page-1"]
+        }
+      },
+      "source": ["page-1"]
+    },
+    {
+      "domain": "Roofing System",
+      "information": {
+        "roof_type": {
+          "value": "Flat",
+          "source": ["page-2"]
+        }
+      },
+      "source": ["page-2"]
+    },
+    {
+      "domain": "Electrical Systems",
+      "information": {
+        "main_electrical_distribution_panel": {
+          "volts": {
+            "value": "120-480",
+            "source": ["page-2"]
+          },
+          "manufacturer": {
+            "value": "Milbank",
+            "source": ["page-2"]
+          }
+        },
+        "wiring_type": {
+          "value": "ALUMINUM OR COPPER",
+          "source": ["page-3"]
+        }
+      },
+      "source": ["page-2", "page-3"]
+    },
+    {
+      "domain": "Plumbing Systems",
+      "information": {
+        "water_heaters": {
+          "total_count": {
+            "value": 4,
+            "source": ["page-3"]
+          },
+          "manufacturer": {
+            "value": "Rheem",
+            "source": ["page-3"]
+          },
+          "locations": {
+            "value": ["Metrix", "Buffers", "Vacant"],
+            "source": ["page-3"]
+          },
+          "capacity": {
+            "value": "50 gallons",
+            "source": ["page-3"]
+          },
+          "type": {
+            "value": "ELECTRIC",
+            "source": ["page-3"]
+          }
+        },
+        "piping": {
+          "supply_lines": {
+            "value": "COPPER",
+            "source": ["page-3"]
+          },
+          "waste_lines": {
+            "value": "PVC",
+            "source": ["page-3"]
+          }
+        }
+      },
+      "source": ["page-3"]
+    },
+    {
+      "domain": "Fire & Life Safety",
+      "information": {
+        "fire_extinguisher": {
+          "inspection_date": {
+            "value": "Jun 2026",
+            "source": ["page-3"]
+          }
+        },
+        "fire_riser_sprinkler": {
+          "type": {
+            "value": "WET",
+            "source": ["page-3"]
+          },
+          "location": {
+            "value": "Red star on map",
+            "source": ["page-3"]
+          },
+          "inspection_date": {
+            "value": "Jun 2026",
+            "source": ["page-3"]
+          }
+        },
+        "fire_alarm_control_panel": {
+          "location": {
+            "value": "Red star on map",
+            "source": ["page-3"]
+          },
+          "inspection_date": {
+            "value": "11/2025",
+            "source": ["page-3"]
+          },
+          "total_count": {
+            "value": 1,
+            "source": ["page-3"]
+          },
+          "manufacturer": {
+            "value": "FirePro Tech",
+            "source": ["page-3"]
+          }
+        }
+      },
+      "source": ["page-3"]
+    },
+    {
+      "domain": "Security Systems",
+      "information": {
+        "damage_responsibility": {
+          "interior": {
+            "value": "OWNER or TENANT",
+            "source": ["page-3"]
+          },
+          "exterior": {
+            "value": "OWNER or TENANT",
+            "source": ["page-3"]
+          }
+        }
+      },
+      "source": ["page-3"]
+    },
+    {
+      "domain": "Mechanical Systems",
+      "information": {
+        "roof_mounted_package_units": {
+          "refrigerant": {
+            "value": "410",
+            "source": ["page-5"]
+          },
+          "manufacturers": {
+            "value": ["Carrier", "Johnson", "York", "Trane"],
+            "source": ["page-5"]
+          },
+          "total_units": {
+            "value": 11,
+            "source": ["page-5"]
+          },
+          "unit_details": {
+            "value": [
+              {
+                "quantity": 1,
+                "age": "2024",
+                "capacity": 6
+              },
+              {
+                "quantity": 1,
+                "age": "Older unit",
+                "capacity": 5
+              },
+              {
+                "quantity": 1,
+                "age": "Older unit",
+                "capacity": 7.5
+              },
+              {
+                "quantity": 3,
+                "age": "2007",
+                "capacity": 7.5
+              }
+            ],
+            "source": ["page-5"]
+          },
+          "location": {
+            "value": "Roof",
+            "source": ["page-5"]
+          }
+        }
+      },
+      "source": ["page-5"]
+    }
+  ],
+  "financial_regulatory_information": {},
+  "documents_metadata": {
+    "all_pages": [
+      {
+        "page": "page-1",
+        "metadata": {
+          "title": "PCA SITE RECONNAISSANCE CHECKLIST",
+          "page": "1 of 6"
+        }
+      },
+      {
+        "page": "page-2",
+        "metadata": {
+          "document_title": "PCA SITE RECONNAISSANCE CHECKLIST",
+          "page": "Page 2 of 6"
+        }
+      },
+      {
+        "page": "page-3",
+        "metadata": {
+          "document_title": "PCA SITE RECONNAISSANCE CHECKLIST",
+          "page": "Page 3 of 6"
+        }
+      },
+      {
+        "page": "page-4",
+        "metadata": {
+          "document_type": "PCA Site Reconnaissance Checklist",
+          "page_number": "Page 4 of 6"
+        }
+      },
+      {
+        "page": "page-5",
+        "metadata": {
+          "title": "PCA SITE RECONNAISSANCE CHECKLIST",
+          "page": "5 of 6"
+        }
+      },
+      {
+        "page": "page-6",
+        "metadata": {
+          "document_title": "PCA SITE RECONNAISSANCE CHECKLIST",
+          "page_number": "6 of 6"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+Extract property inspection data from the provided text. Return valid JSON.
+
+Focused categories:
+- Property details: owner, address, legal description, parcel, account, jurisdiction
+- Building characteristics: area (SF), year built, property type, quality, remodel year
+- Building systems: electrical (voltage, panel, amperage), plumbing, HVAC (tons, SEER), fire, structural, foundation
+- Financial data: assesse​d value, market value, tax, levy, exemptions
+- Site features: utilities, topography, improvements, roof type
+
+Return JSON:
+{
+  "fields": [
+    {"name": "field_name", "value": "...", "conf": 0.0, "raw_text": "..."}
+  ]
+}
+
+Rules:
+- Extract only explicitly present values; never invent.
+- Include units (SF, volts, tons, %) when visible.
+- Exclude headers, footers, page numbers, disclaimers, blank fields.
+
+TEXT:
+{text}

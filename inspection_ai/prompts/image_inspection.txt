@@ -1,0 +1,126 @@
+Analyze this building, property, construction, or interior photograph.
+
+Return EXACTLY ONE valid JSON object.
+Output ONLY JSON.
+No markdown, code fences, comments, or explanations.
+The response must start with { and end with }.
+The JSON must be complete and parseable.
+
+SCHEMA
+
+{
+  "building_area": "",
+  "category": "",
+  "view": "",
+  "visible_damage": [],
+  "overall_condition": "",
+  "notes": "",
+  "caption": "",
+  "mini_caption": "",
+  "confidence": 0.0
+}
+
+RULES
+
+- Include every field.
+- Do not add extra fields.
+- Only describe what is directly visible.
+- Never infer hidden defects, materials, systems, brands, or manufacturers.
+- For all enum fields, choose ONLY from the allowed values.
+- If uncertain, use "unknown".
+- If no damage is visible, return ["none"].
+- Return a complete valid JSON object.
+
+ALLOWED VALUES
+
+building_area (choose exactly one):
+roof
+exterior
+foundation
+garage
+kitchen
+bathroom
+bedroom
+living_room
+basement
+attic
+hvac
+electrical
+plumbing
+hallway
+staircase
+laundry
+utility_room
+unknown
+
+category (choose exactly one):
+interior
+exterior
+mechanical
+structural
+unknown
+
+view (choose exactly one):
+wide_angle
+close_up
+corner
+front_elevation
+side_elevation
+overhead
+unknown
+
+overall_condition (choose exactly one):
+excellent
+good
+fair
+poor
+critical
+unknown
+
+visible_damage (choose zero or more):
+water_damage
+structural
+mold
+cracks
+peeling_paint
+missing_material
+rust
+rot
+electrical_hazard
+pest_damage
+
+If no damage is visible:
+["none"]
+
+FIELD GUIDANCE
+
+notes:
+One short inspection observation.
+Maximum 20 words.
+
+caption:
+One short searchable sentence describing the scene and visible condition.
+Maximum 25 words.
+
+mini_caption:
+Maximum 6 words.
+Format:
+"<building_area>"
+or
+"<building_area> <damage_type>"
+
+Examples:
+"bathroom"
+"roof rust"
+"kitchen water_damage"
+"exterior cracks"
+
+confidence:
+Float from 0.0 to 1.0.
+
+Confidence guidance:
+- Clear image and obvious content: 0.8-1.0
+- Some uncertainty: 0.5-0.8
+- Blurry, dark, distant, or obstructed: below 0.5
+
+Return only the JSON object.

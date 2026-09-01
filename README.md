@@ -1,113 +1,116 @@
-# Quire Report Automation
+# AI Report Automation
 
 ## Overview
 
-This project automates the extraction of data from PDFs and images and fills a Quire report form. The system is built around a **stand‑alone Windows executable** that bundles a local FastAPI server and an Electron UI.
+AI-powered form automation for the OpenQuire TRM platform (PCA Site Assessment
+domain), built with a **pluggable platform-adapter + domain-manifest** design
+so additional platforms and domains can be added without touching the core.
 
-## Key Components
+Two main components:
 
-1. **Extraction Engine** –
-   - Hand‑written PDFs: Qwen‑VL‑3B OCR (text only).
-   - Scanned PDFs (e.g., tax_details): Docling converts PDF to text, then OpenRouter LLM (`openai/gpt-oss-20b`) extracts all key-value pairs.
-   - Images: Qwen‑VL‑3B object detection.
-2. **Mapping** – Deterministic exact‑match mapping of extracted keys to Quire form fields.
-3. **Form‑Filling** – Playwright script that sets form values based on the mapping.
-4. **UI** – Streamlit app that shows the original document, extracted data, allows edits, and requires approval before submission.
+1. **Python Extraction & Mapping Engine** (`inspection_ai/`) — FastAPI backend
+   that processes PDFs/images (Docling via Modal, VLM for handwritten pages),
+   indexes extracted evidence (Qdrant + BM25 hybrid retrieval), and maps form
+   fields to evidence via alias → rule → LLM pipeline.
+2. **Chrome Extension** (`openquire-ai-extension/`) — MV3 extension with a
+   React side panel (`ui/`) that scans forms (adapter-driven API + DOM),
+   requests mappings, and auto-fills reports.
 
-## VLM Integration
+## Architecture
 
-The system now uses **Qwen2.5-VL-3B-Instruct** for both image and PDF processing:
-
-- **Image Analysis**: Extracts room, category, view, materials, systems, objects, visible damage, overall condition, captions, and notes.
-- **PDF Processing**: Converts PDF pages to PNG images (300 DPI) and extracts fields like owner name, property address, inspection date, and inspector name.
-
-### Model Loading
-
-The QwenVL model is loaded once via `QwenVLProvider` singleton and reused across all inference requests for efficiency.
-
-### Redis Caching
-
-Inference results are cached in Redis (localhost:6379) to avoid redundant processing. Cache keys are based on image path and prompt hash.
-
-### PDF to Image Conversion
-
-PDFs are converted to PNG images at 300 DPI using `pdf2image` and stored in the project's storage folder under `pdf_images/`.
-
-## Workflow
-
-1. Client uploads documents to a shared folder.
-2. Async processing extracts data from PDFs and images.
-3. Data is transformed into a flat dictionary via `field_transformer`.
-4. User provides the Quire report URL.
-5. Playwright extracts the form fields from the Quire page.
-6. Mapping service maps extracted values to Quire fields.
-7. On approval, the back‑end triggers Playwright to auto-fill the form.
-
-## Installation (Windows)
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Additional system dependency for PDF conversion
-# Install poppler for pdf2image
-# Download from: http://blog.alivate.com.au/poppler-windows/
-
-# Optional: Install Redis for caching
-# Download from: https://github.com/tporadowski/redis-windows
 ```
+Chrome Extension (MV3)
+├── Side Panel UI (ui/ — React + Zustand)
+├── Background Service Worker (all backend API calls, JWT)
+└── Content Script (DOM + adapter registry)
+      └── adapters/*.adapter.json  → declarative platform config
+          extraction strategies (api + dom), fillers, parsers
+                │ REST + JWT
+                v
+FastAPI (inspection_ai/api)
+├── /auth (JWT)  /reports (upload, schema, map)  /domains (manifests, prompts)
+└── universal_service/  ← core (platform & domain agnostic)
+      ├── extractors/  pdf (Docling/Modal) · handwritten (VLM) · image · zip
+      ├── indexer/     Qdrant vectors + BM25 + cross-encoder reranker
+      ├── mapper/      alias → retrieval → rule → LLM, concurrent per section
+      └── storage/     evidence store · report registry · Redis cache
 
-## Usage
-
-```bash
-# Run the Streamlit UI
-streamlit run inspection_ai/app.py
-
-# Or build the executable (requires Python 3.12+ and PyInstaller)
-pyinstaller --onefile --add-data "templates;templates" --add-data "static;static" main.py
+Celery worker: pdf/image/intent/embed tasks
+Infra: PostgreSQL · Redis · Qdrant · Modal (GPU inference)
 ```
-
-The UI will open automatically. The client can then upload documents to the configured folder.
 
 ## Project Structure
 
 ```
-inspection_ai/
-├── app.py                    # Streamlit UI
-├── config.py                 # Configuration settings
-├── models/
-│   ├── __init__.py
-│   └── dto.py               # Data transfer objects
-├── prompts/
-│   ├── image_analysis.txt     # Prompt for image analysis
-│   ├── pdf_extraction.txt     # Prompt for PDF field extraction
-│   └── field_mapping.txt
-├── services/
-│   ├── __init__.py
-│   ├── qwen_vl.py           # QwenVL wrapper class (legacy)
-│   ├── qwen_vl_provider.py    # Singleton QwenVL with Redis caching
-│   ├── image_processor.py     # Async parallel image processing
-│   ├── image_scene_service.py # Scene understanding
-│   ├── image_inspection_service.py # Inspection analysis
-│   ├── pdf_processor.py       # Async PDF processing
-│   ├── project_manager.py     # Project state management
-│   ├── mapping_service.py     # Field mapping
-│   ├── playwright_service.py    # Form filling
-│   ├── review_service.py      # Review and approval
-│   ├── async_extract.py       # Async Quire page extraction
-│   └── field_transformer.py   # Transforms extracted data for mapping
-└── storage/                  # Project data storage
+ai-report-automation/
+├── inspection_ai/
+│   ├── api/                  # FastAPI app, auth, report & domain routes
+│   ├── database/             # SQLAlchemy models + repositories (Postgres)
+│   ├── universal_service/    # CORE: extraction, indexing, mapping (agnostic)
+│   ├── services/             # LLM client, Docling, intent detection, Modal executor
+│   ├── tasks/                # Celery tasks (pdf, image, embed, intent)
+│   ├── worker/               # Modal app definitions (docling, embeddings)
+│   └── config.py             # Pydantic settings (.env)
+├── openquire-ai-extension/   # Chrome extension
+│   ├── adapters/             # Declarative platform adapter configs (+ index.json)
+│   ├── content/              # Scanner, fillers, adapter registry, extractors
+│   ├── background/           # Service worker (backend API + state)
+│   ├── domains/manifests/    # Domain manifest JSONs
+│   └── shared/               # Constants + schemas
+├── ui/                       # Side panel (React + TS + Vite)
+├── scripts/                  # Domain manifest seeding / payload generation
+├── testing/                  # Manual test fixtures (JSON results)
+└── docker-compose.yml        # Redis, Qdrant, Postgres, Celery worker
 ```
 
-## Extensibility
+## Quick Start
 
-- New extraction skills can be added by implementing a module that follows the `extractor` interface.
-- The mapping logic is deterministic; to support new fields, simply update the form extraction script.
+```bash
+# 1. Infrastructure
+docker compose up -d redis qdrant postgres worker
 
-## Security
+# 2. Backend
+pip install -r requirements.txt
+uvicorn inspection_ai.api.app:app --reload --port 8000
 
-- All processing occurs locally; no external network calls.
-- Extraction logs are stored encrypted.
+# 3. Extension (Chrome)
+#    chrome://extensions → Developer mode → Load unpacked → openquire-ai-extension/
+```
+
+## API Endpoints
+
+| Method | Path | Description |
+| ------ | ---- | ----------- |
+| GET    | /health | Health check |
+| POST   | /auth/register | Register a user (JWT auth) |
+| POST   | /auth/token | Login → access/refresh tokens |
+| POST   | /reports | Create a report (user-scoped) |
+| POST   | /reports/{id}/upload/pdf | Upload PDFs (`doc_types` = JSON array of `{contains_handwritten: bool}`) |
+| POST   | /reports/{id}/upload/image | Upload images or ZIP (bulk) |
+| POST   | /reports/{id}/form_schema | Store scanned form schema (optionally triggers intent pre-pass) |
+| POST   | /reports/{id}/map | Map extracted evidence to form fields (`domain_id` required) |
+| GET    | /reports/user | List the user's reports |
+| GET    | /reports/{id}/mapping | Mapping results + processing status |
+| GET/POST | /domains, /domains/{id}/manifests, /domains/upload | Domain & manifest CRUD |
+
+## Extending
+
+- **New domain** — upload a manifest via `POST /domains/upload` (sections →
+  fields with aliases/intents). No code changes; the mapping pipeline and UI
+  domain selector are data-driven.
+- **New platform** — add `adapters/<platform>.adapter.json` + an entry in
+  `adapters/index.json` + one extractor file registering named handlers
+  (e.g. `<platform>.buildSchema`) with `ApiExtractorRegistry`. The content
+  script and backend require no changes.
+
+## Design Principles
+
+- **Platform coupling lives only in adapter configs** — the backend and the
+  universal service hold no platform-specific logic.
+- **Domain knowledge lives in manifests** — sections, fields, aliases, intents.
+- **DOM first, API where available** — adapters declare extraction strategies.
+- **LLM for mapping only** — retrieval + rules resolve most fields; the LLM is
+  the fallback and resolves `option_id`s.
 
 ## License
 

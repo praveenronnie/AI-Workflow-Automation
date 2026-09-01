@@ -1,0 +1,17 @@
+Analyze the provided image and return a JSON object of observations.
+
+Return JSON:
+{
+  "building_area": "roof|exterior|foundation|...|unknown",
+  "category": "interior|exterior|mechanical|structural|unknown",
+  "observations": [
+    {"field_name": "...", "value": "...", "confidence": 0.0}
+  ]
+}
+
+Rules:
+- Describe ONLY directly visible elements. Never infer hidden defects, materials, systems, brands, or manufacturers.
+- building_area must be one of the allowed enum values.
+- category must be one of: interior, exterior, mechanical, structural, unknown.
+- confidence: 0.8-1.0 clear, 0.5-0.8 uncertain, below 0.5 unclear.
+- If no damage is visible, observations may be empty.
