@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main, restructuring]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: form_automation
+        ports: ["5434:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d form_automation"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+      qdrant:
+        image: qdrant/qdrant:latest
+        ports: ["6333:6333"]
+    env:
+      DB_NAME: form_automation
+      DB_HOST: localhost
+      DB_PORT: "5434"
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      REDIS_HOST: localhost
+      REDIS_PORT: "6379"
+      VECTOR_DB_URL: http://localhost:6333
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Compile check
+        run: python -m compileall backend -q
+      - name: Start API
+        run: |
+          python -m uvicorn backend.app:app --port 8000 &
+          # Cold ML imports can be slow; poll /health up to 5 minutes.
+          for i in $(seq 1 60); do
+            curl -sf http://127.0.0.1:8000/health && break
+            sleep 5
+          done
+          curl -sf http://127.0.0.1:8000/health
+      - name: API smoke suite (deployment gate)
+        run: python tests/smoke_api.py http://127.0.0.1:8000
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/web/package-lock.json
+      - run: npm ci
+      - name: Generate typed API client from OpenAPI contract
+        run: npx --yes openapi-typescript ../../docs/openapi.json -o src/lib/api/schema.d.ts
+      - run: npm run build
+
+  extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate manifest + background syntax
+        run: |
+          python - <<'EOF'
+          import json
+          json.load(open("extension/manifest.json"))
+          print("manifest OK")
+          EOF
+          node --check extension/background/background.js
+          node --check extension/content/content.js

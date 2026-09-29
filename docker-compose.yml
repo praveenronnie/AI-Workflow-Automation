@@ -49,9 +49,9 @@ services:
         condition: service_healthy
       qdrant:
         condition: service_started
-    command: ["celery", "-A", "inspection_ai.celery_app", "worker", "--concurrency=4", "--loglevel=info"]
+    command: ["celery", "-A", "backend.celery_app", "worker", "--concurrency=4", "--loglevel=info"]
     environment:
-      PYTHONPATH: /app/backend
+      PYTHONPATH: /app
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/1
       DB_NAME: form_automation
@@ -60,6 +60,51 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       VECTOR_DB_URL: http://qdrant:6333
+      REDIS_HOST: redis
+      # LLM routing — omniroute runs as a compose service on the same
+      # network, so it is addressed by SERVICE NAME, not host.docker.internal.
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: http://omniroute:20128/v1
+      OPENAI_BASE_MODEL: ${OPENAI_BASE_MODEL}
+      NVIDIA_API_KEY: ${NVIDIA_API_KEY}
+      USE_INFERENCE: ${USE_INFERENCE:-True}
+      INFERENCE_PROVIDER: ${INFERENCE_PROVIDER:-modal}
+      MODAL_TOKEN_ID: ${MODAL_TOKEN_ID}
+      MODAL_TOKEN_SECRET: ${MODAL_TOKEN_SECRET}
+      HF_TOKEN: ${HF_TOKEN}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .:/app
+
+  # Celery beat: schedules the maintenance heartbeat (worker_alive) + the
+  # stale-job sweeper (see celery_app.conf.beat_schedule).  Without it
+  # /ready reports worker_alive=false and stale jobs are never swept.
+  beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: form-automation-beat
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    # --schedule/--pidfile live in /tmp: the shelve DB hangs when written to
+    # the Windows bind-mounted volume (/app), and a stale pidfile there would
+    # also block restarts.
+    command: ["celery", "-A", "backend.celery_app", "beat", "--loglevel=info", "--schedule=/tmp/celerybeat-schedule", "--pidfile=/tmp/celerybeat.pid"]
+    environment:
+      PYTHONPATH: /app
+      REDIS_HOST: redis
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      DB_NAME: form_automation
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
     volumes:
       - .:/app
 
@@ -72,7 +117,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      PYTHONPATH: /app/backend
+      PYTHONPATH: /app
+      REDIS_HOST: redis
       DB_NAME: form_automation
       DB_HOST: postgres
       DB_PORT: "5432"
@@ -81,14 +127,27 @@ services:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/1
       VECTOR_DB_URL: http://qdrant:6333
-      MODAL_PROXY_TOKEN_ID: ${MODAL_PROXY_TOKEN_ID}
-      MODAL_PROXY_TOKEN_SECRET: ${MODAL_PROXY_TOKEN_SECRET}
+      # LLM routing — omniroute runs as a compose service on the same
+      # network, so it is addressed by SERVICE NAME, not host.docker.internal.
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: http://omniroute:20128/v1
+      OPENAI_BASE_MODEL: ${OPENAI_BASE_MODEL}
+      NVIDIA_API_KEY: ${NVIDIA_API_KEY}
+      USE_INFERENCE: ${USE_INFERENCE:-True}
+      INFERENCE_PROVIDER: ${INFERENCE_PROVIDER:-modal}
+      MODAL_TOKEN_ID: ${MODAL_TOKEN_ID}
+      MODAL_TOKEN_SECRET: ${MODAL_TOKEN_SECRET}
+      HF_TOKEN: ${HF_TOKEN}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/ready')\" || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 240s
     depends_on:
       redis:
         condition: service_started
@@ -98,7 +157,21 @@ services:
         condition: service_started
     volumes:
       - .:/app
-    command: ["uvicorn", "inspection_ai.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+    command: ["uvicorn", "backend.app:app", "--host", "0.0.0.0", "--port", "8000"]
+  
+  omniroute:
+    image: diegosouzapw/omniroute:latest
+    container_name: omniroute
+    restart: unless-stopped
+    stop_grace_period: 40s
+    ports:
+      - "20128:20128"
+    volumes:
+      - omniroute-data:/app/data
+    environment:
+      - INITIAL_PASSWORD=CHANGEME  # Override the default 'CHANGEME' password
+      - OMNIROUTE_MEMORY_MB=2048                # Adjust node heap allocation based on your RAM
+
 
 volumes:
   redis_data:
@@ -106,4 +179,6 @@ volumes:
   qdrant_data:
     driver: local
   postgres_data:
+    driver: local
+  omniroute-data:
     driver: local
