@@ -1,6 +1,41 @@
 # FormIQ — Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
-# Replace api.example.com with your domain (DNS must point at this host).
-api.example.com {
-	encode gzip
-	reverse_proxy api:8000
+#
+# The hostname comes from the environment (API_DOMAIN in .env, passed by
+# docker-compose.prod.yml) so this file needs no edit per environment.
+# DNS: point API_DOMAIN at this host. While the certificate is being issued keep
+# the Cloudflare record DNS-only (grey cloud); with the proxy enabled (orange
+# cloud) use a Cloudflare Origin certificate or DNS-01 instead, and set SSL/TLS
+# mode to Full (strict).
+{$API_DOMAIN} {
+	encode gzip zstd
+
+	# Uploads are PDFs/images: cap the request body and give slow uploads room.
+	request_body {
+		max_size 50MB
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+
+	log {
+		output file /data/access.log {
+			roll_size 20MB
+			roll_keep 5
+		}
+	}
+
+	reverse_proxy api:8000 {
+		# Long extraction/mapping requests: keep the upstream connection but do
+		# not cut off a slow document pipeline.
+		transport http {
+			read_timeout 600s
+			write_timeout 600s
+		}
+	}
 }
+

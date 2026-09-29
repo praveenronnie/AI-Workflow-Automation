@@ -23,7 +23,12 @@ class RagConfig(BaseSettings):
     llm_prompt_token_limit: int = Field(default=2000)
 
     openai_api_key: str = Field(default="")
-    openai_base_url: str = Field(default="http://localhost:20128/v1")
+    # LLM calls go through the OmniRoute gateway, which runs as a compose
+    # service ("omniroute") on the same docker network. The service name is the
+    # only correct default: "localhost" inside a container resolves to the
+    # container itself, never to the gateway. Dev hosts that run uvicorn
+    # directly (outside docker) override this with http://localhost:20128/v1.
+    openai_base_url: str = Field(default="http://omniroute:20128/v1")
     openai_base_model: str = Field(default="kr/claude-haiku-4.5")
 
     llm_default_primary: str = Field(default="nvidia/openai/gpt-oss-20b")

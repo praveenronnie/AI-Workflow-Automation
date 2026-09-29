@@ -31,6 +31,58 @@ logger = logging.getLogger(__name__)
 os.environ.setdefault("USE_VECTOR_INDEX", "1")
 
 
+def _is_loopback(url: str) -> bool:
+    """True when a service URL points at the local network namespace."""
+    host = (url or "").strip().lower()
+    return any(
+        marker in host for marker in ("localhost", "127.0.0.1", "0.0.0.0", "::1")
+    )
+
+
+def enforce_production_config() -> None:
+    """Refuse to boot with ENV=production and a dev-shaped configuration.
+
+    A container has its own network namespace, so a loopback service URL points
+    at the container itself (or at nothing). Every dependency is addressed by
+    its compose service name instead — that invariant is enforced here rather
+    than documented, because a silent fallback to localhost is exactly the bug
+    that only shows up in production.
+    """
+    settings = get_settings()
+    if (settings.env or "").strip().lower() != "production":
+        return
+
+    rag = get_rag_config()
+    problems: list[str] = []
+
+    if not settings.jwt_secret_key or settings.jwt_secret_key in (
+        "change-me-in-production",
+    ):
+        problems.append("JWT_SECRET_KEY is empty or still the default value")
+    if not settings.cors_allow_origins or settings.cors_allow_origins == ["*"]:
+        problems.append("CORS_ALLOW_ORIGINS must list explicit origins (never '*')")
+    if not settings.db_name or not settings.db_username:
+        problems.append("DB_NAME / DB_USERNAME are empty")
+
+    for key, value in (
+        ("DB_HOST", settings.db_host),
+        ("REDIS_HOST", settings.redis_host),
+        ("VECTOR_DB_URL", rag.vector_db_url),
+        ("OPENAI_BASE_URL", rag.openai_base_url),
+    ):
+        if _is_loopback(value):
+            problems.append(f"{key} points at loopback ({value!r}) — use a service name")
+
+    if not rag.openai_api_key:
+        problems.append("OPENAI_API_KEY (OmniRoute gateway key) is empty")
+
+    if problems:
+        raise RuntimeError(
+            "[CONFIG] refusing to start with ENV=production: "
+            + "; ".join(problems)
+        )
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Eagerly load every backing service at startup (PostgreSQL, LLM, Qdrant, Redis)."""
@@ -133,6 +185,10 @@ def custom_openapi():
 
 
 def create_db_app() -> FastAPI:
+    # Fail fast before any connection is attempted (container exits non-zero
+    # instead of serving traffic with a loopback/insecure configuration).
+    enforce_production_config()
+
     app = FastAPI(
         title="AI Report Automation API",
         description=(
@@ -211,11 +267,35 @@ def create_db_app() -> FastAPI:
                 worker_alive = cache.client.get("worker:heartbeat") is not None
         except Exception:  # noqa: BLE001
             worker_alive = None
+        # LLM gateway (OmniRoute) reachability. A constructed LLMClient proves
+        # nothing about the gateway, and every mapping call depends on it — so
+        # probe it for real. Reported, but not part of `ready` (a gateway blip
+        # must not flap the container healthcheck).
+        llm_gateway = None
+        try:
+            import httpx
+
+            rag = get_rag_config()
+            if rag.openai_base_url:
+                # /healthz lives at the gateway root — the /v1 suffix is the
+                # OpenAI-compatible API, and /v1/models there is restricted to
+                # dashboard keys. Readiness only needs "is the gateway up?".
+                base = rag.openai_base_url.rstrip("/")
+                if base.endswith("/v1"):
+                    base = base[: -len("/v1")]
+                async with httpx.AsyncClient(timeout=3.0) as client:
+                    probe = await client.get(base + "/healthz")
+                llm_gateway = probe.status_code < 400
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("[READY] LLM gateway probe failed: %s", exc)
+            llm_gateway = False
+
         ready = bool(services) and any(services.values())
         return {
             "status": "ok" if ready else "degraded",
             "services": services,
             "worker_alive": worker_alive,
+            "llm_gateway": llm_gateway,
             "ready": ready,
         }
 

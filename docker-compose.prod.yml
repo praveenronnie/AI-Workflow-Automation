@@ -1,14 +1,25 @@
 # Production compose — FormIQ
+#
 # Differences from docker-compose.yml (dev):
-#   - code is BAKED into images (no .:/app volume mounts)
+#   - code is BAKED into images (no .:/app mounts); only the shared uploads
+#     volume is mounted, so api + worker see the same files
 #   - Caddy terminates TLS (auto Let's Encrypt) and proxies the API
-#   - restart policies + logging limits
-#   - Postgres port NOT exposed publicly
-# Usage: docker compose -f docker-compose.prod.yml up -d --build
-# Requires .env with production values (JWT_SECRET_KEY, DB_*, R2_*, CORS_ALLOW_ORIGINS)
+#   - OmniRoute (LLM gateway) is a service on this network: every LLM call goes
+#     through OPENAI_BASE_URL=http://omniroute:20128/v1, never localhost
+#   - ENV=production activates the fail-fast guards in backend/app.py (the API
+#     refuses to boot on loopback URLs, the default JWT secret or CORS='*')
+#   - a one-shot `migrate` job runs `alembic upgrade head` before the API starts
+#   - restart policies + log limits; Postgres port NOT exposed publicly
+#
+# Usage:  docker compose -f docker-compose.prod.yml up -d --build
+# Requires a server-only .env (chmod 600) built from .env.example, with:
+#   JWT_SECRET_KEY, CORS_ALLOW_ORIGINS, DB_*, OPENAI_API_KEY, OPENAI_BASE_MODEL,
+#   NVIDIA_API_KEY, MODAL_TOKEN_ID/SECRET, HF_TOKEN, OMNIROUTE_INITIAL_PASSWORD,
+#   API_DOMAIN (+ optional R2_* for backups)
 
 x-backend-env: &backend-env
   PYTHONPATH: /app
+  ENV: production
   DB_NAME: ${DB_NAME}
   DB_HOST: postgres
   DB_PORT: "5432"
@@ -18,7 +29,29 @@ x-backend-env: &backend-env
   CELERY_RESULT_BACKEND: redis://redis:6379/1
   REDIS_HOST: redis
   VECTOR_DB_URL: http://qdrant:6333
-  ENV: production
+  # api + worker share this directory through the uploads_data volume: the API
+  # persists the upload, the Celery worker opens the same path. Separate
+  # container filesystems are exactly why this MUST be a named volume.
+  STORAGE_DIR: /app/storage
+  # LLM routing — OmniRoute gateway on the compose network (never localhost).
+  OPENAI_BASE_URL: http://omniroute:20128/v1
+  OPENAI_API_KEY: ${OPENAI_API_KEY}
+  OPENAI_BASE_MODEL: ${OPENAI_BASE_MODEL:-kr/claude-haiku-4.5}
+  NVIDIA_API_KEY: ${NVIDIA_API_KEY}
+  # Inference (Docling OCR + embeddings via Modal)
+  USE_INFERENCE: ${USE_INFERENCE:-True}
+  INFERENCE_PROVIDER: ${INFERENCE_PROVIDER:-modal}
+  HF_TOKEN: ${HF_TOKEN}
+  MODAL_TOKEN_ID: ${MODAL_TOKEN_ID}
+  MODAL_TOKEN_SECRET: ${MODAL_TOKEN_SECRET}
+  # Auth / browser origins
+  JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+  CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS}
+
+x-logging: &logging
+  options:
+    max-size: "10m"
+    max-file: "3"
 
 services:
   caddy:
@@ -26,11 +59,35 @@ services:
     container_name: formiq-caddy
     restart: unless-stopped
     ports: ["80:80", "443:443"]
+    environment:
+      # Caddyfile uses {$API_DOMAIN}, so no source edit per environment.
+      API_DOMAIN: ${API_DOMAIN:?set API_DOMAIN in .env (public API hostname)}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on: [api]
+    logging: *logging
+
+  # LLM gateway. Every mapping/LLM call goes through this service, so it is a
+  # required dependency. Its providers + API keys live in the omniroute_data
+  # volume (/app/data/storage.sqlite + server.env): copy that volume from a
+  # configured instance, or complete first-run setup in its UI and set
+  # OPENAI_API_KEY to the key it issues. No published ports — reachable only by
+  # api/worker on this compose network.
+  omniroute:
+    image: diegosouzapw/omniroute:latest
+    container_name: formiq-omniroute
+    restart: unless-stopped
+    stop_grace_period: 40s
+    environment:
+      INITIAL_PASSWORD: ${OMNIROUTE_INITIAL_PASSWORD:?set a strong OMNIROUTE_INITIAL_PASSWORD (never CHANGEME)}
+      OMNIROUTE_MEMORY_MB: ${OMNIROUTE_MEMORY_MB:-2048}
+    volumes: [omniroute_data:/app/data]
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   redis:
     image: redis:7-alpine
@@ -38,14 +95,14 @@ services:
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
     volumes: [redis_data:/data]
-    logging: { options: { max-size: "10m", max-file: "3" } }
+    logging: *logging
 
   qdrant:
     image: qdrant/qdrant:latest
     container_name: formiq-qdrant
     restart: unless-stopped
     volumes: [qdrant_data:/qdrant/storage]
-    logging: { options: { max-size: "10m", max-file: "3" } }
+    logging: *logging
 
   postgres:
     image: postgres:16-alpine
@@ -61,7 +118,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    logging: { options: { max-size: "10m", max-file: "3" } }
+    logging: *logging
+
+  # One-shot schema migration. Alembic owns the production schema; the API's
+  # create_all path is a dev convenience only.
+  migrate:
+    build: { context: ., dockerfile: Dockerfile }
+    container_name: formiq-migrate
+    restart: "no"
+    environment:
+      <<: *backend-env
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    logging: *logging
 
   api:
     build: { context: ., dockerfile: Dockerfile }
@@ -69,15 +139,22 @@ services:
     restart: unless-stopped
     environment:
       <<: *backend-env
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
-      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS}
       R2_ACCOUNT_ID: ${R2_ACCOUNT_ID}
       R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID}
       R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY}
       R2_BUCKET: ${R2_BUCKET}
       R2_ENDPOINT: ${R2_ENDPOINT}
-      HF_TOKEN: ${HF_TOKEN}
-    command: ["uvicorn", "backend.app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+    volumes: [uploads_data:/app/storage]
+    # One uvicorn worker per container: the ML stack (torch/docling/reranker)
+    # loads per process, so scale with replicas rather than workers.
+    command:
+      - uvicorn
+      - backend.app:app
+      - --host=0.0.0.0
+      - --port=8000
+      - --workers=1
+      - --limit-concurrency=100
+      - --timeout-keep-alive=30
     healthcheck:
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/ready')\" || exit 1"]
       interval: 30s
@@ -85,10 +162,15 @@ services:
       retries: 3
       start_period: 240s
     depends_on:
-      redis: { condition: service_started }
+      migrate: { condition: service_completed_successfully }
       postgres: { condition: service_healthy }
+      redis: { condition: service_started }
       qdrant: { condition: service_started }
-    logging: { options: { max-size: "10m", max-file: "5" } }
+      omniroute: { condition: service_started }
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   worker:
     build: { context: ., dockerfile: Dockerfile }
@@ -96,13 +178,22 @@ services:
     restart: unless-stopped
     environment:
       <<: *backend-env
-      HF_TOKEN: ${HF_TOKEN}
+    volumes: [uploads_data:/app/storage]
     command: ["celery", "-A", "backend.celery_app", "worker", "--concurrency=2", "--loglevel=info"]
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A backend.celery_app inspect ping -d celery@$$HOSTNAME || exit 1"]
+      interval: 60s
+      timeout: 15s
+      retries: 3
+      start_period: 180s
     depends_on:
-      redis: { condition: service_started }
       postgres: { condition: service_healthy }
+      redis: { condition: service_started }
       qdrant: { condition: service_started }
-    logging: { options: { max-size: "10m", max-file: "5" } }
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   beat:
     build: { context: ., dockerfile: Dockerfile }
@@ -110,9 +201,19 @@ services:
     restart: unless-stopped
     environment:
       <<: *backend-env
-    command: ["celery", "-A", "backend.celery_app", "beat", "--loglevel=info"]
-    depends_on: [redis]
-    logging: { options: { max-size: "10m", max-file: "3" } }
+    # schedule/pidfile in /tmp: the shelve DB must not live on a bind mount.
+    command:
+      - celery
+      - -A
+      - backend.celery_app
+      - beat
+      - --loglevel=info
+      - --schedule=/tmp/celerybeat-schedule
+      - --pidfile=/tmp/celerybeat.pid
+    depends_on:
+      redis: { condition: service_started }
+      postgres: { condition: service_healthy }
+    logging: *logging
 
 volumes:
   redis_data:
@@ -120,3 +221,5 @@ volumes:
   postgres_data:
   caddy_data:
   caddy_config:
+  omniroute_data:
+  uploads_data:

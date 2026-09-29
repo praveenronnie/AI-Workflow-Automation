@@ -5,8 +5,11 @@ Provides thread-safe in-memory tracking with file persistence.
 
 import json
 import os
+from pathlib import Path
 from threading import Lock
 from typing import Dict
+
+from backend.core.config import get_settings
 
 # Global token statistics (in-memory)
 token_stats = {
@@ -19,8 +22,22 @@ token_stats = {
 # Thread lock for safe concurrent access
 token_lock = Lock()
 
+
+def _stats_file() -> Path:
+    """Token stats live under the shared storage dir (api and worker agree).
+
+    This used to be a CWD-relative "data/token_stats.json", which resolved to a
+    different location per process and ended up in the container's writable
+    layer instead of a volume.
+    """
+    try:
+        return Path(get_settings().storage_dir) / "token_stats.json"
+    except Exception:  # pragma: no cover - settings unavailable
+        return Path("data") / "token_stats.json"
+
+
 # File path for persistence
-TOKEN_STATS_FILE = "data/token_stats.json"
+TOKEN_STATS_FILE = str(_stats_file())
 
 
 def increment_tokens(prompt_tokens: int, completion_tokens: int) -> None:

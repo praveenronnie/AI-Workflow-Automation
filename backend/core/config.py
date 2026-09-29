@@ -25,6 +25,12 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    # Runtime mode. "production" switches on the fail-fast config guards in
+    # backend/app.py (no loopback service URLs, no default JWT secret, no "*"
+    # CORS). Set by docker-compose.prod.yml as ENV=production; the dev value is
+    # permissive on purpose.
+    env: str = Field(default="development")
+
     # Repo-root anchored so API / worker / beat all agree on the location no
     # matter which directory each process was started from.  Override with the
     # STORAGE_DIR env var if you need to relocate it.
