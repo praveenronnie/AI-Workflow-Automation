@@ -1,13 +1,11 @@
-import { getPlatformAdapter } from '@/lib/platformAdapter';
 import { normalizeMappings, type BackendMapping } from "@/features/shared/lib/formatters";
-import { Scan, ListChecks, FileInput } from "lucide-react";
+import { Scan, ListChecks } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { Button } from "@/features/shared/components/ui/button";
+import { DomainSelector } from "@/features/form-mapping/components/DomainSelector";
 import {
   scanForm,
   generateMapping,
-  autoFill,
-  approveMapping,
 } from "@/lib/messaging";
 import { useState, useEffect } from "react";
 
@@ -17,12 +15,9 @@ export function ActionsSection() {
   const setIsScanning = useStore((state) => state.setIsScanning);
   const isMapping = useStore((state) => state.isMapping);
   const setIsMapping = useStore((state) => state.setIsMapping);
-  const isFilling = useStore((state) => state.isFilling);
-  const setIsFilling = useStore((state) => state.setIsFilling);
   const setFormFields = useStore((state) => state.setFormFields);
   const setFormStats = useStore((state) => state.setFormStats);
   const setMappings = useStore((state) => state.setMappings);
-  const setActiveDrawer = useStore((state) => state.setActiveDrawer);
   const addActivity = useStore((state) => state.addActivity);
   const documents = useStore((state) => state.documents);
 
@@ -53,13 +48,9 @@ export function ActionsSection() {
     setScanProgress(null);
     addActivity("Scanning Form...");
     try {
-      // Get platform adapter for domain-specific handling
-      const adapter = getPlatformAdapter();
-      const fieldAliases = adapter ? await adapter.getFieldAliases() : {};
-      const sectionTemplates = adapter
-        ? await adapter.getSectionTemplates()
-        : {};
-      const response = await scanForm({ fieldAliases, sectionTemplates });
+      // Scan is DOM-driven; platform config lives in the extension's
+      // declarative adapter JSONs, not in frontend code.
+      const response = await scanForm({});
       if (response.success && response.data) {
         const data = response.data as {
           fields?: Array<{
@@ -138,48 +129,28 @@ export function ActionsSection() {
             fieldsMapped: mapped,
             missingFields: total - mapped,
           });
-          // Auto-approve mappings after generation
-          await approveMapping(newMappings);
+          // Surface the review stage immediately — the user's next step.
+          useStore.getState().setReportTab("review");
           addActivity(
-            `Mapping Review Complete: ${mapped}/${total} fields mapped`,
+            `Mapping generated: ${mapped}/${total} fields matched — review before applying`,
           );
-          // Jump straight to the fields table — it re-fetches the schema on
-          // open, so the sections render with the freshly mapped values.
-          setActiveDrawer("fields-table");
         } else {
           addActivity(`Mapping failed: ${response.error || "Unknown error"}`);
-          setActiveDrawer("mapping");
         }
       } catch (err) {
         addActivity(
           `Mapping failed: ${err instanceof Error ? err.message : "Unknown error"}`,
         );
-        setActiveDrawer("mapping");
       }
-      setIsMapping(false);
-  };
-
-  const handleFillForm = async () => {
-    setIsFilling(true);
-    addActivity("Filling Form...");
-    try {
-      const response = await autoFill();
-      if (response.success) {
-        addActivity("Form Filling Complete");
-      } else {
-        addActivity(`Fill failed: ${response.error || "Unknown error"}`);
-      }
-    } catch (err) {
-      addActivity(
-        `Fill failed: ${err instanceof Error ? err.message : "Unknown error"}`,
-      );
-    }
-    setIsFilling(false);
+    setIsMapping(false);
   };
 
   return (
     <div className="space-y-3">
       <h2 className="text-sm font-medium">Actions</h2>
+
+      {/* Domain routing for /map (required by the backend) */}
+      <DomainSelector />
 
       {/* Progress indicator */}
       {isScanning && scanProgress && (
@@ -210,17 +181,6 @@ export function ActionsSection() {
         >
           <ListChecks className="size-4" />
           {isMapping ? "Generating..." : "Review Mapping"}
-        </Button>
-
-        <Button
-          variant="default"
-          size="sm"
-          className="w-full justify-start gap-2"
-          onClick={handleFillForm}
-          disabled={isFilling}
-        >
-          <FileInput className="size-4" />
-          {isFilling ? "Filling..." : "Fill Form"}
         </Button>
       </div>
     </div>

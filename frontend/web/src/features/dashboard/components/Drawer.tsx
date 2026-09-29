@@ -5,6 +5,9 @@ import {
   uploadMultipleFiles,
   deleteDocument,
   getFormSchema,
+  syncDocuments,
+  approveMapping,
+  autoFill,
 } from "@/lib/messaging";
 import { FormFieldsTable } from "@/features/form-mapping/components/FormFieldsTable";
 import { transformToSections } from "@/features/shared/lib/formatters";
@@ -86,8 +89,8 @@ function DocumentRow({
 function DocumentsDrawerContent() {
   const {
     documents,
-    addDocument,
     removeDocument,
+    setDocuments,
     isUploading,
     setIsUploading,
     addActivity,
@@ -99,6 +102,18 @@ function DocumentsDrawerContent() {
 
   const pdfInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync the authoritative server document list whenever the drawer opens.
+  useEffect(() => {
+    syncDocuments().then((response) => {
+      if (response.success && Array.isArray(response.data)) {
+        setDocuments(response.data as Document[]);
+      } else if (response.error) {
+        console.warn("Failed to sync documents:", response.error);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const uploadFiles = async (
     filesToUpload: File[],
@@ -156,14 +171,14 @@ function DocumentsDrawerContent() {
         // Upload complete: 100%
         setUploadProgress(100);
 
+        // Re-sync from the server: document ids are server-authored.
+        const synced = await syncDocuments();
+        if (synced.success && Array.isArray(synced.data)) {
+          setDocuments(synced.data as Document[]);
+        } else {
+          console.warn("Document sync failed after upload:", synced.error);
+        }
         filesToUpload.forEach((file) => {
-          const isPdf = /\\.pdf$/i.test(file.name);
-          const newDoc: Document = {
-            id: crypto.randomUUID(),
-            name: file.name,
-            docType: isPdf ? activeDoc : "image",
-          };
-          addDocument(newDoc);
           addActivity(`Upload complete: ${file.name}`);
         });
       } else {
@@ -350,7 +365,19 @@ function DocumentsDrawerContent() {
           </p>
         )}
         {documents.map((doc) => (
-          <DocumentRow key={doc.id} doc={doc} onDelete={removeDocument} />
+          <DocumentRow
+            key={doc.id}
+            doc={doc}
+            onDelete={async (id) => {
+              // deleteDocument hits the backend and returns the fresh
+              // server list — replace local state with it.
+              removeDocument(id);
+              const synced = await syncDocuments();
+              if (synced.success && Array.isArray(synced.data)) {
+                setDocuments(synced.data as Document[]);
+              }
+            }}
+          />
         ))}
       </div>
 
@@ -376,6 +403,129 @@ function DocumentsDrawerContent() {
         </div>
       )}
 
+    </div>
+  );
+}
+
+/**
+ * Mapping review drawer: the actual human gate (plan item 2.4).
+ * Each field can be accepted or rejected; "Apply to Form" approves only the
+ * accepted mappings and then triggers the fill. Nothing is auto-approved.
+ */
+function MappingDrawerContent() {
+  const { mappings, addActivity, setMappingDone } = useStore();
+  const [rejected, setRejected] = useState<Set<string>>(new Set());
+  const [applying, setApplying] = useState(false);
+
+  const entries = Object.entries(mappings);
+  const accepted = entries.filter(([fieldId]) => !rejected.has(fieldId));
+  const acceptedMappings = Object.fromEntries(accepted);
+
+  const toggleReject = (fieldId: string) => {
+    setRejected((prev) => {
+      const next = new Set(prev);
+      if (next.has(fieldId)) next.delete(fieldId);
+      else next.add(fieldId);
+      return next;
+    });
+  };
+
+  const handleApply = async () => {
+    setApplying(true);
+    try {
+      if (accepted.length === 0) {
+        addActivity("Nothing to apply — accept at least one field");
+        return;
+      }
+      const approval = await approveMapping(acceptedMappings);
+      if (!approval.success) {
+        addActivity(`Approval failed: ${approval.error || "Unknown error"}`);
+        return;
+      }
+      setMappingDone(true);
+      addActivity(
+        `Approved ${accepted.length}/${entries.length} fields — filling form...`,
+      );
+      const fill = await autoFill();
+      if (fill.success) {
+        addActivity("Form filling complete (approved fields only)");
+      } else {
+        addActivity(`Fill failed: ${fill.error || "Unknown error"}`);
+      }
+    } catch (err) {
+      addActivity(
+        `Apply failed: ${err instanceof Error ? err.message : "Unknown error"}`,
+      );
+    } finally {
+      setApplying(false);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      {entries.length === 0 && (
+        <p className="text-xs text-muted-foreground text-center py-8">
+          No mappings generated yet. Run "Review Mapping" first.
+        </p>
+      )}
+      {entries.map(([fieldId, mapping]) => {
+        const confidence = mapping.confidence ?? 0;
+        const isRejected = rejected.has(fieldId);
+        let statusIcon = "✕";
+        let statusColor = "text-destructive";
+        if (confidence >= 0.8) {
+          statusIcon = "✓";
+          statusColor = "text-green-600";
+        } else if (confidence >= 0.5) {
+          statusIcon = "⚠";
+          statusColor = "text-amber-500";
+        }
+        return (
+          <div
+            key={fieldId}
+            className={`rounded-md border px-3 py-2 text-sm ${
+              isRejected ? "opacity-50 line-through" : ""
+            }`}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-medium truncate">{fieldId}</span>
+              <span className={`${statusColor} text-xs shrink-0`}>
+                {statusIcon}{" "}
+                {confidence >= 0.8
+                  ? "High"
+                  : confidence >= 0.5
+                    ? "Review"
+                    : "Missing"}
+              </span>
+            </div>
+            <div className="text-xs text-muted-foreground mt-1">
+              → {mapping.value || mapping.source_key || "—"}
+            </div>
+            <div className="flex gap-1 mt-1.5">
+              <Button
+                variant={isRejected ? "outline" : "default"}
+                size="xs"
+                onClick={() => toggleReject(fieldId)}
+                disabled={applying}
+              >
+                {isRejected ? "Accept" : "Reject"}
+              </Button>
+            </div>
+          </div>
+        );
+      })}
+      {entries.length > 0 && (
+        <Button
+          className="w-full"
+          size="sm"
+          onClick={handleApply}
+          disabled={applying || accepted.length === 0}
+        >
+          {applying
+            ? "Applying..."
+            : `Apply to Form (${accepted.length}/${entries.length})`}
+        </Button>
+      )}
     </div>
   );
 }
@@ -463,49 +613,7 @@ export function Drawer() {
             <FormFieldsTable sections={sections} viewMode="filled" />
           )}
 
-          {activeDrawer === "mapping" && (
-            <div className="space-y-2">
-              {Object.keys(mappings).length === 0 && (
-                <p className="text-xs text-muted-foreground text-center py-8">
-                  No mappings generated yet.
-                </p>
-              )}
-              {Object.entries(mappings).map(([fieldId, mapping]) => {
-                const confidence = mapping.confidence ?? 0;
-                let statusIcon = "✕";
-                let statusColor = "text-destructive";
-                if (confidence >= 0.8) {
-                  statusIcon = "✓";
-                  statusColor = "text-green-600";
-                } else if (confidence >= 0.5) {
-                  statusIcon = "⚠";
-                  statusColor = "text-amber-500";
-                }
-
-                return (
-                  <div
-                    key={fieldId}
-                    className="rounded-md border px-3 py-2 text-sm"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">{fieldId}</span>
-                      <span className={`${statusColor} text-xs`}>
-                        {statusIcon}{" "}
-                        {confidence >= 0.8
-                          ? "High Confidence"
-                          : confidence >= 0.5
-                            ? "Needs Review"
-                            : "Missing"}
-                      </span>
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      → {mapping.value || mapping.source_key || "—"}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {activeDrawer === "mapping" && <MappingDrawerContent />}
         </div>
       </div>
     </div>

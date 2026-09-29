@@ -12,7 +12,9 @@ export default defineConfig({
   },
   base: "./",
   build: {
-    outDir: "../openquire-ai-extension/ui/dist",
+    // NOTE: relative to frontend/web — must reach the repo-root extension/
+    // folder that manifest.json actually loads (NOT frontend/extension/).
+    outDir: "../../extension/ui/dist",
     emptyOutDir: true,
   },
 });

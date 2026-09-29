@@ -1,6 +1,7 @@
 /**
- * Chrome messaging wrapper for communicating with the extension background script.
- * Also supports direct API calls for standalone mode.
+ * Chrome messaging wrapper for communicating with the extension background
+ * script. The UI is extension-only: all backend API calls are made by the
+ * background service worker (which owns the JWT and lock lifecycle).
  */
 import { useStore } from "@/store/useStore";
 
@@ -9,12 +10,6 @@ export interface MessageResponse {
   data?: unknown;
   error?: string;
 }
-
-// API base URL for standalone mode — override via localStorage "apiBase".
-const API_BASE =
-  (typeof window !== "undefined" &&
-    (window.localStorage?.getItem("apiBase") || "").trim().replace(/\/+$/, "")) ||
-  "http://localhost:8000";
 
 // Default timeouts in milliseconds
 const TIMEOUTS = {
@@ -36,10 +31,12 @@ async function sendMessage(
   timeoutMs?: number,
 ): Promise<MessageResponse> {
   if (typeof chrome === "undefined" || !chrome.runtime?.id) {
-    console.warn(
-      "[Messaging] chrome.runtime not available. Running in standalone mode.",
-    );
-    return { success: false, error: "Extension context not available" };
+    return {
+      success: false,
+      error:
+        "This panel must run inside the OpenQuire AI extension. " +
+        "Load it via chrome://extensions (Developer mode → Load unpacked).",
+    };
   }
 
   // Inject the currently selected domain into the payload so that
@@ -77,78 +74,6 @@ async function sendMessage(
       }
     });
   });
-}
-
-/**
- * Direct API upload for standalone mode.
- * Sends FormData to the backend API directly.
- */
-async function directApiUpload(
-  files: File[],
-  docTypes: string[],
-  reportId: string,
-  isImage: boolean = false,
-): Promise<MessageResponse> {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), TIMEOUTS.uploadFile);
-
-  try {
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("files", file);
-    });
-    if (!isImage) {
-      // PDF endpoint requires a JSON array of "scanned"/"handwritten" strings.
-      formData.append(
-        "doc_types",
-        JSON.stringify(
-          docTypes.map((dt) =>
-            dt === "handwritten" ? "handwritten" : "scanned",
-          ),
-        ),
-      );
-    }
-
-    const endpoint = isImage
-      ? `/reports/${reportId}/upload/image`
-      : `/reports/${reportId}/upload/pdf`;
-
-    const headers: Record<string, string> = {};
-    const token = localStorage.getItem("accessToken");
-    if (token) headers.Authorization = `Bearer ${token}`;
-
-    const response = await fetch(`${API_BASE}${endpoint}`, {
-      method: "POST",
-      headers,
-      body: formData,
-      signal: controller.signal,
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      return {
-        success: false,
-        error: `API error: ${response.status} - ${errorText}`,
-      };
-    }
-
-    const result = await response.json();
-    return { success: true, data: result };
-  } catch (error) {
-    clearTimeout(timeoutId);
-    if (error instanceof Error) {
-      if (error.name === "AbortError") {
-        return {
-          success: false,
-          error: `Upload timed out after ${TIMEOUTS.uploadFile}ms`,
-        };
-      }
-      return { success: false, error: error.message };
-    }
-    return { success: false, error: "Unknown error during upload" };
-  }
 }
 
 /**
@@ -281,100 +206,56 @@ export async function uploadMultipleFiles(
     }
   }
 
-  const isExtension = typeof chrome !== "undefined" && chrome.runtime?.id;
-
-  // Extension context: route through the typed background handlers
-  if (isExtension) {
-    const reportId = useStore.getState().reportId;
-    if (!reportId) {
-      return {
-        success: false,
-        error: "No report ID available. Please scan a form first.",
-      };
-    }
-
-    const results: MessageResponse[] = [];
-
-    // 2a. PDFs -> POST /reports/{id}/upload/pdf  (doc_types = scanned/handwritten)
-    if (pdfFiles.length > 0) {
-      const fileItems = pdfFiles.map((f) => ({
-        fileName: f.name,
-        fileType: f.type,
-        file: f.base64,
-        doc_type: (f.docType || docType) === "handwritten" ? "handwritten" : "scanned",
-      }));
-      const res = await sendMessage(
-        "UPLOAD_PDF",
-        { fileItems, reportId },
-        TIMEOUTS.uploadFile,
-      );
-      results.push(res);
-      if (!res.success) return res;
-    }
-
-    // 2b. Images / ZIP -> POST /reports/{id}/upload/image
-    if (imageFiles.length > 0) {
-      const fileItems = imageFiles.map((f) => ({
-        fileName: f.name,
-        fileType: f.type,
-        file: f.base64,
-      }));
-      const res = await sendMessage(
-        "UPLOAD_IMAGE",
-        { fileItems, reportId },
-        TIMEOUTS.uploadFile,
-      );
-      results.push(res);
-      if (!res.success) return res;
-    }
-
+  const reportId = useStore.getState().reportId;
+  if (!reportId) {
     return {
-      success: true,
-      data: {
-        pdfFiles: pdfFiles.length,
-        imageFiles: imageFiles.length,
-        results,
-      },
+      success: false,
+      error: "No report ID available. Please scan a form first.",
     };
   }
 
-  // Standalone mode: upload directly to the API with File objects.
-  const reportId = useStore.getState().reportId || crypto.randomUUID();
+  const results: MessageResponse[] = [];
 
-  const makeFile = (f: { base64: string; name: string; type: string; docType?: string }) => {
-    const byteCharacters = atob(f.base64);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: f.type });
-    return new File([blob], f.name, { type: f.type });
-  };
-
+  // 2a. PDFs -> POST /reports/{id}/upload/pdf  (doc_types = scanned/handwritten)
   if (pdfFiles.length > 0) {
-    const pdfResult = await directApiUpload(
-      pdfFiles.map(makeFile),
-      pdfFiles.map((f) => f.docType || docType),
-      reportId,
-      false,
+    const fileItems = pdfFiles.map((f) => ({
+      fileName: f.name,
+      fileType: f.type,
+      file: f.base64,
+      doc_type: (f.docType || docType) === "handwritten" ? "handwritten" : "scanned",
+    }));
+    const res = await sendMessage(
+      "UPLOAD_PDF",
+      { fileItems, reportId },
+      TIMEOUTS.uploadFile,
     );
-    if (!pdfResult.success) return pdfResult;
+    results.push(res);
+    if (!res.success) return res;
   }
 
+  // 2b. Images / ZIP -> POST /reports/{id}/upload/image
   if (imageFiles.length > 0) {
-    const imageResult = await directApiUpload(
-      imageFiles.map(makeFile),
-      imageFiles.map((f) => f.docType || docType),
-      reportId,
-      true,
+    const fileItems = imageFiles.map((f) => ({
+      fileName: f.name,
+      fileType: f.type,
+      file: f.base64,
+    }));
+    const res = await sendMessage(
+      "UPLOAD_IMAGE",
+      { fileItems, reportId },
+      TIMEOUTS.uploadFile,
     );
-    if (!imageResult.success) return imageResult;
+    results.push(res);
+    if (!res.success) return res;
   }
 
   return {
     success: true,
-    data: { pdfFiles: pdfFiles.length, imageFiles: imageFiles.length },
+    data: {
+      pdfFiles: pdfFiles.length,
+      imageFiles: imageFiles.length,
+      results,
+    },
   };
 }
 
@@ -411,6 +292,48 @@ export async function createReport(
   sourceUrl: string,
 ): Promise<MessageResponse> {
   return sendMessage("createReport", { sourceUrl }, TIMEOUTS.default);
+}
+
+/**
+ * Switch the extension's active report (workspace -> report view). Must be
+ * called before document sync/uploads so the background targets the right
+ * report.
+ */
+export async function setActiveReport(
+  reportId: string,
+  status?: string,
+): Promise<MessageResponse> {
+  return sendMessage("setActiveReport", { reportId, status }, TIMEOUTS.default);
+}
+
+/**
+ * Fetch a report document file (auth via background) and return an object
+ * URL + mime for in-panel preview (popover iframe/img).
+ */
+export async function getSourceFileUrl(
+  reportId: string,
+  fileId: string,
+): Promise<MessageResponse> {
+  return sendMessage(
+    "getSourceFileUrl",
+    { reportId, fileId },
+    TIMEOUTS.uploadFile,
+  );
+}
+
+/**
+ * Show a transient toast on the active page (used after fill completes).
+ */
+export async function showToast(message: string): Promise<MessageResponse> {
+  return sendMessage("showToast", { message }, TIMEOUTS.default);
+}
+
+/**
+ * Fetch full report detail (status, documents, source_url) — used by the
+ * pipeline strip to poll report-level processing state.
+ */
+export async function getReport(reportId?: string): Promise<MessageResponse> {
+  return sendMessage("getReport", { reportId }, TIMEOUTS.default);
 }
 
 export async function storeFormSchema(
@@ -453,4 +376,12 @@ export async function getUserReports(): Promise<MessageResponse> {
 
 export async function getDomains(): Promise<MessageResponse> {
   return sendMessage("getDomains", {}, TIMEOUTS.default);
+}
+
+/**
+ * Sync the document list from the backend (server-authored ids/names).
+ * Use after any upload/delete so the UI reflects the server state.
+ */
+export async function syncDocuments(): Promise<MessageResponse> {
+  return sendMessage("getDocuments", {}, TIMEOUTS.default);
 }

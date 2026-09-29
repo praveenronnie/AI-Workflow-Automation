@@ -2,7 +2,7 @@
 import { Plus, Upload, X, FileText } from "lucide-react";
 import { useStore, type Document } from "@/store/useStore";
 import { Button } from "@/features/shared/components/ui/button";
-import { uploadMultipleFiles } from "@/lib/messaging";
+import { syncDocuments, uploadMultipleFiles } from "@/lib/messaging";
 
 type DocType = "handwritten" | "scanned" | "image" | "zip";
 
@@ -13,30 +13,52 @@ interface PendingFile {
 
 export function AddDocumentButton() {
   const {
-    addDocument,
+    setDocuments,
     addActivity,
     isUploading,
     setIsUploading,
     uploadProgress,
     setUploadProgress,
+    reportStatus,
   } = useStore();
+  // Concurrent extraction jobs on one report are not supported server-side —
+  // block new uploads while the pipeline is running.
+  const processing = reportStatus === "processing";
 
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<PendingFile[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB, mirrors the backend cap
+  const SUPPORTED = /\.(pdf|zip|png|jpe?g|bmp|gif|webp)$/i;
+
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const selected = Array.from(e.target.files).map((file) => {
+    const selected: PendingFile[] = [];
+    const rejected: string[] = [];
+    Array.from(e.target.files).forEach((file) => {
       const isPdf = /\.pdf$/i.test(file.name);
       const isZip = /\.zip$/i.test(file.name);
+      if (!SUPPORTED.test(file.name)) {
+        rejected.push(`${file.name} (unsupported type)`);
+        return;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        rejected.push(`${file.name} (over 100MB)`);
+        return;
+      }
       let docType: DocType = "scanned";
       if (isPdf) docType = "scanned";
       else if (isZip) docType = "zip";
       else docType = "image";
-      return { file, docType };
+      selected.push({ file, docType });
     });
-    setFiles((prev) => [...prev, ...selected]);
+    if (rejected.length > 0) {
+      addActivity(`Skipped ${rejected.length} file(s): ${rejected.join(", ")}`);
+    }
+    if (selected.length > 0) {
+      setFiles((prev) => [...prev, ...selected]);
+    }
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -51,7 +73,7 @@ export function AddDocumentButton() {
   };
 
   const handleUpload = async () => {
-    if (files.length === 0) return;
+    if (files.length === 0 || processing) return;
     setIsUploading(true);
     setUploadProgress(0);
 
@@ -86,15 +108,15 @@ export function AddDocumentButton() {
 
       if (response.success) {
         setUploadProgress(100);
-        files.forEach(({ file, docType }) => {
-          const newDoc: Document = {
-            id: crypto.randomUUID(),
-            name: file.name,
-            docType: docType,
-          };
-          addDocument(newDoc);
-          addActivity(`Upload complete: ${file.name}`);
-        });
+        // Re-sync from the server: document ids/names are server-authored —
+        // never invent local ids here.
+        const synced = await syncDocuments();
+        if (synced.success && Array.isArray(synced.data)) {
+          setDocuments(synced.data as Document[]);
+        } else {
+          console.warn("Document sync failed after upload:", synced.error);
+        }
+        files.forEach(({ file }) => addActivity(`Upload complete: ${file.name}`));
         setFiles([]);
         setOpen(false);
       } else {
@@ -119,10 +141,11 @@ export function AddDocumentButton() {
         size="sm"
         className="w-full"
         onClick={() => setOpen(true)}
-        disabled={isUploading}
+        disabled={isUploading || processing}
+        title={processing ? "Wait for processing to finish" : undefined}
       >
         <Plus className="size-4" />
-        Add Documents
+        {processing ? "Processing…" : "Add Documents"}
       </Button>
 
       {open && (

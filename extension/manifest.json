@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "OpenQuire AI Form Automation",
+  "name": "FormIQ — AI Report Assistant",
   "version": "1.0.1",
-  "description": "AI-powered form automation for OpenQuire reports using DOM-based form scanning and LLM mapping.",
+  "description": "Intelligent filling for inspection reports: capture any web form, match your documents, review with confidence scores, fill with one click.",
   "permissions": ["activeTab", "storage", "scripting", "sidePanel"],
   "host_permissions": [
     "https://app.openquire.com/*",
@@ -12,7 +12,7 @@
     "default_path": "ui/dist/index.html"
   },
   "action": {
-    "default_title": "OpenQuire AI Form Automation",
+    "default_title": "FormIQ — AI Report Assistant",
     "default_icon": {
       "16": "assets/icon128.svg",
       "48": "assets/icon128.svg",

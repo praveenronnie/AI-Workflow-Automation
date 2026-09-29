@@ -1,7 +1,14 @@
 import { useStore } from "@/store/useStore";
+import { useEffect, useRef } from "react";
 
 export function ActivitySection() {
   const { activityLog } = useStore();
+  const endRef = useRef<HTMLDivElement>(null);
+
+  // Newest entries are appended at the bottom — keep them in view.
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ block: "end" });
+  }, [activityLog.length]);
 
   return (
     <div className="space-y-3">
@@ -17,6 +24,7 @@ export function ActivitySection() {
             <span>{entry}</span>
           </div>
         ))}
+        <div ref={endRef} />
       </div>
     </div>
   );

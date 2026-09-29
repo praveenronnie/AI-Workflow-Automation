@@ -21,6 +21,14 @@ export interface FormFieldWithOptions extends FormField {
   confidence?: number;
   source?: string;
   reasoning?: string;
+  /** Raw mapped value (alternative key used by some schema shapes) */
+  value?: string;
+  /** Where the mapped value came from, e.g. "page 2 · Foundation Type" */
+  source_location?: string;
+  /** Exact evidence ref, e.g. "photo2.jpg#a1b2c3d4" or "page 3" */
+  source_ref?: string;
+  /** Raw text excerpt from the source evidence */
+  source_excerpt?: string;
 }
 
 export interface FormSection {
@@ -86,6 +94,30 @@ export interface AppState {
   activeDrawer: DrawerType;
   setActiveDrawer: (drawer: DrawerType) => void;
 
+  // Multi-view navigation (workspace shell)
+  view: "workspace" | "report";
+  setView: (v: "workspace" | "report") => void;
+  activeReportId: string | null;
+  setActiveReportId: (id: string | null) => void;
+  // Report-level processing status ("draft" | "processing" | "ready" | ...)
+  reportStatus: string;
+  setReportStatus: (s: string) => void;
+  activeReportTitle: string;
+  setActiveReportTitle: (t: string) => void;
+
+  // Does the active browser tab match the report's source page?
+  // null = unknown / restricted page. Drives the context banner.
+  pageContext: { url: string; matchesReport: boolean } | null;
+  setPageContext: (c: { url: string; matchesReport: boolean } | null) => void;
+
+  // Report view stage tabs ("docs" | "review" | "log")
+  reportTab: "docs" | "review" | "log";
+  setReportTab: (t: "docs" | "review" | "log") => void;
+
+  // Backend unreachable (background failed a network-level call)
+  apiOffline: boolean;
+  setApiOffline: (v: boolean) => void;
+
   // Activity
   activityLog: string[];
   addActivity: (entry: string) => void;
@@ -134,6 +166,20 @@ export interface AppState {
   // User reports (synced from background)
   userReports: any[];
   setUserReports: (reports: any[]) => void;
+
+  // Lock state (synced from background Phase 6 lock lifecycle)
+  lockState: {
+    isReadOnly: boolean;
+    hasLock: boolean;
+    lockHolderUser: string | null;
+    lockExpiresAt: string | null;
+  };
+  setLockState: (lock: {
+    isReadOnly: boolean;
+    hasLock: boolean;
+    lockHolderUser: string | null;
+    lockExpiresAt: string | null;
+  }) => void;
 }
 
 export const useStore = create<AppState>()(
@@ -191,6 +237,15 @@ export const useStore = create<AppState>()(
       userReports: [],
       setUserReports: (reports) => set({ userReports: reports }),
 
+      // Lock state (synced from background)
+      lockState: {
+        isReadOnly: false,
+        hasLock: false,
+        lockHolderUser: null,
+        lockExpiresAt: null,
+      },
+      setLockState: (lock) => set({ lockState: lock }),
+
       // Mappings
       mappings: {},
       setMappings: (mappings) => set({ mappings }),
@@ -204,6 +259,25 @@ export const useStore = create<AppState>()(
       setPanelOpen: (open) => set({ panelOpen: open }),
       activeDrawer: null,
       setActiveDrawer: (drawer) => set({ activeDrawer: drawer }),
+
+      // Multi-view navigation (workspace shell)
+      view: "workspace",
+      setView: (v) => set({ view: v }),
+      activeReportId: null,
+      setActiveReportId: (id) => set({ activeReportId: id }),
+      reportStatus: "pending",
+      setReportStatus: (s) => set({ reportStatus: s }),
+      activeReportTitle: "",
+      setActiveReportTitle: (t) => set({ activeReportTitle: t }),
+
+      pageContext: null,
+      setPageContext: (c) => set({ pageContext: c }),
+
+      reportTab: "docs",
+      setReportTab: (t) => set({ reportTab: t }),
+
+      apiOffline: false,
+      setApiOffline: (v) => set({ apiOffline: v }),
 
       // Activity - capped at 50 entries
       activityLog: ["Ready"],

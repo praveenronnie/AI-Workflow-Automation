@@ -112,6 +112,9 @@ function transformTableFields(
       confidence: mapping?.confidence || 0,
       source: (mapping as any)?.source,
       reasoning: (mapping as any)?.reasoning,
+      source_location: (mapping as any)?.source_location,
+      source_ref: (mapping as any)?.source_ref,
+      source_excerpt: (mapping as any)?.source_excerpt,
     };
   });
 }
@@ -135,6 +138,9 @@ function mapScannedField(
     confidence: mapping?.confidence || 0,
     source: (mapping as any)?.source,
     reasoning: (mapping as any)?.reasoning,
+    source_location: (mapping as any)?.source_location,
+    source_ref: (mapping as any)?.source_ref,
+    source_excerpt: (mapping as any)?.source_excerpt,
   };
 }
 
@@ -157,6 +163,9 @@ function buildSectionsFromFields(
           confidence: mapping?.confidence || 0,
           source: (mapping as any)?.source,
           reasoning: (mapping as any)?.reasoning,
+          source_location: (mapping as any)?.source_location,
+          source_ref: (mapping as any)?.source_ref,
+          source_excerpt: (mapping as any)?.source_excerpt,
         } as FormFieldWithOptions;
       }),
     },
@@ -248,6 +257,8 @@ export function normalizeMappings(
       source: m.source,
       reasoning: m.reasoning,
       source_location: m.source_location,
+      source_ref: (m as any).source_ref,
+      source_excerpt: (m as any).source_excerpt,
       mapping_method: m.mapping_method,
     };
     if (m.field_id) out[m.field_id] = entry;

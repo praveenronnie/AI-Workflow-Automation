@@ -1,17 +1,10 @@
 import { useState } from "react";
-import { LogIn, UserPlus } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { Button } from "@/features/shared/components/ui/button";
-import { login, signup, logout } from "@/lib/messaging";
+import { login, signup } from "@/lib/messaging";
 
 export function LoginSection() {
-  const {
-    isAuthenticated,
-    userEmail,
-    setAuthenticated,
-    setUserEmail,
-    setReportId,
-  } = useStore();
+  const { isAuthenticated, setAuthenticated, setUserEmail } = useStore();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,76 +33,80 @@ export function LoginSection() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      // Optimistically update state; background will send UPDATE_UI_STATE to confirm.
-      setAuthenticated(false);
-      setUserEmail("");
-      setReportId(null);
-    } catch (err) {
-      console.error("Logout failed:", err);
-      // Optionally show error to user
-    }
-  };
-
   if (isAuthenticated) {
-    return (
-      <div className="flex items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm">
-        <span className="truncate text-muted-foreground">{userEmail || "Logged in"}</span>
-        <Button variant="outline" size="xs" onClick={handleLogout}>
-          Log out
-        </Button>
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className="space-y-2 rounded-md border p-3">
-      <div className="flex gap-2">
-        <Button
-          variant={mode === "login" ? "default" : "outline"}
-          size="xs"
-          className="flex-1"
-          onClick={() => setMode("login")}
-        >
-          <LogIn className="size-3.5" /> Login
-        </Button>
-        <Button
-          variant={mode === "signup" ? "default" : "outline"}
-          size="xs"
-          className="flex-1"
-          onClick={() => setMode("signup")}
-        >
-          <UserPlus className="size-3.5" /> Sign up
+    <div className="mx-auto flex h-full max-w-[340px] flex-col justify-center px-2 py-6">
+      {/* Brand */}
+      <div className="mb-6 text-center">
+        <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-xl bg-primary text-lg font-bold text-primary-foreground">
+          F
+        </div>
+        <h1 className="text-lg font-semibold">FormIQ</h1>
+        <p className="mt-1 text-xs leading-snug text-muted-foreground">
+          Upload inspection documents, scan any web form, review with
+          confidence, fill in one click.
+        </p>
+      </div>
+
+      {/* Card */}
+      <div className="space-y-3 rounded-xl border bg-card p-4 shadow-sm">
+        <div className="flex gap-1 rounded-lg bg-muted p-1">
+          <button
+            className={`flex-1 rounded-md py-1 text-xs font-medium transition-colors ${
+              mode === "login"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+            onClick={() => setMode("login")}
+          >
+            Login
+          </button>
+          <button
+            className={`flex-1 rounded-md py-1 text-xs font-medium transition-colors ${
+              mode === "signup"
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+            onClick={() => setMode("signup")}
+          >
+            Sign up
+          </button>
+        </div>
+        {mode === "signup" && (
+          <input
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-ring"
+            placeholder="Name (optional)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        )}
+        <input
+          className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-ring"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:border-ring"
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && !busy && handleSubmit()}
+        />
+        {error && <p className="text-xs text-destructive">{error}</p>}
+        <Button className="w-full" size="lg" disabled={busy} onClick={handleSubmit}>
+          {busy
+            ? "Please wait..."
+            : mode === "login"
+              ? "Log in"
+              : "Create account"}
         </Button>
       </div>
-      {mode === "signup" && (
-        <input
-          className="w-full rounded-md border px-3 py-1.5 text-sm"
-          placeholder="Name (optional)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      )}
-      <input
-        className="w-full rounded-md border px-3 py-1.5 text-sm"
-        placeholder="Email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        className="w-full rounded-md border px-3 py-1.5 text-sm"
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      {error && <p className="text-xs text-destructive">{error}</p>}
-      <Button className="w-full" size="sm" disabled={busy} onClick={handleSubmit}>
-        {busy ? "Please wait..." : mode === "login" ? "Login" : "Create account"}
-      </Button>
     </div>
   );
 }

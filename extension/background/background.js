@@ -9,6 +9,7 @@ const EXTENSION = {
     USER_REPORTS: "userReports",
     CURRENT_REPORT_ID: "currentReportId",
     ACCESS_TOKEN: "accessToken",
+    USER_EMAIL: "userEmail",
   },
 };
 
@@ -89,9 +90,18 @@ async function loadUserReports() {
     await chrome.storage.local.set({
       [EXTENSION.STORAGE_KEYS.USER_REPORTS]: extensionState.userReports,
     });
+    extensionState.apiOffline = false;
     notifyUIStateChange();
     return { success: true, data: extensionState.userReports };
   } catch (error) {
+    // Network-level failures (API offline) are expected when the server
+    // isn't running — keep the console quiet and surface the offline state.
+    if (/failed to fetch|networkerror|load failed/i.test(error.message || "")) {
+      console.debug("[BACKGROUND] API unreachable while loading reports");
+      extensionState.apiOffline = true;
+      notifyUIStateChange();
+      return { success: false, error: "API offline" };
+    }
     console.error("[BACKGROUND] Failed to load user reports:", error);
     return { success: false, error: error.message };
   }
@@ -165,27 +175,53 @@ async function getActiveReport() {
   }
 }
 
-function notifyUIStateChange() {
-  chrome.runtime
-    .sendMessage({
-      action: MESSAGE_ACTIONS.UPDATE_UI_STATE,
-      payload: {
-        isAuthenticated: extensionState.isAuthenticated,
-        userEmail: extensionState.userEmail,
-        activeReport: extensionState.activeReport,
-        userReports: extensionState.userReports,
-        currentReportId: extensionState.currentReportId,
-        formSchema: extensionState.formSchema,
-        // Phase 6 â€” lock / read-only state so the side panel can render a banner
-        isReadOnly: extensionState.isReadOnly,
-        lockHolderUser: extensionState.lockHolderUser,
-        hasLock: !!extensionState.currentLockToken,
-        lockExpiresAt: extensionState.lockExpiresAt || null,
-      },
-    })
-    .catch(() => {
-      // side panel may not be open â€” ignore
+// --- Tab/page context (Option C) ------------------------------------------
+// The side panel is per-window, not per-tab. Resolve whether the ACTIVE tab
+// is the page the active report was created from, so the panel can be honest
+// about context mismatches instead of silently scanning page B into report A.
+async function resolvePageContext() {
+  try {
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
     });
+    if (!tab?.url || /^(chrome|edge|about|chrome-extension):/i.test(tab.url)) {
+      return null;
+    }
+    const sourceUrl = extensionState.activeReport?.report_url || "";
+    const matchesReport = !!sourceUrl && tab.url === sourceUrl;
+    return { url: tab.url, matchesReport };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function notifyUIStateChange() {
+  const payload = {
+    isAuthenticated: extensionState.isAuthenticated,
+    userEmail: extensionState.userEmail,
+    activeReport: extensionState.activeReport,
+    userReports: extensionState.userReports,
+    currentReportId: extensionState.currentReportId,
+    formSchema: extensionState.formSchema,
+    // Report-level processing status for the UI pipeline strip
+    reportStatus: extensionState.activeReport?.status || "draft",
+    // Phase 6 — lock / read-only state so the side panel can render a banner
+    isReadOnly: extensionState.isReadOnly,
+    lockHolderUser: extensionState.lockHolderUser,
+    hasLock: !!extensionState.currentLockToken,
+    lockExpiresAt: extensionState.lockExpiresAt || null,
+    // Option C — does the active tab match the report's source page?
+    pageContext: await resolvePageContext(),
+    // API reachability flag (for the workspace offline hint)
+    apiOffline: !!extensionState.apiOffline,
+  };
+  chrome.runtime.sendMessage({
+    action: MESSAGE_ACTIONS.UPDATE_UI_STATE,
+    payload,
+  }).catch(() => {
+    // side panel may not be open — ignore
+  });
 }
 
 const MESSAGE_ACTIONS = {
@@ -1680,12 +1716,145 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
     },
 
+    // Full report detail (status, documents, source_url) — used by the UI
+    // pipeline strip to poll report-level processing state.
+    // Switch the extension's active report (workspace -> report view).
+    // Sets currentReportId so document sync/uploads target the right report.
+    async setActiveReport(message) {
+      try {
+        const { reportId, status } = message;
+        if (!reportId) {
+          return { success: false, error: "reportId is required" };
+        }
+        extensionState.currentReportId = reportId;
+        extensionState.activeReport = {
+          ...(extensionState.activeReport || {}),
+          report_id: reportId,
+          status: status || extensionState.activeReport?.status || "draft",
+        };
+        await chrome.storage.local.set({
+          [EXTENSION.STORAGE_KEYS.CURRENT_REPORT_ID]: reportId,
+        });
+        notifyUIStateChange();
+        return { success: true };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    },
+
+    // Fetch a report document file with auth and return an object URL the
+    // panel can use in <iframe>/<img> previews (iframes cannot send headers).
+    async getSourceFileUrl(message) {
+      try {
+        const { reportId, fileId } = message;
+        if (!reportId || !fileId) {
+          return { success: false, error: "reportId and fileId are required" };
+        }
+        const token = await getAccessToken();
+        if (!token) {
+          return { success: false, error: "Please sign in to continue" };
+        }
+        const apiBase = await getApiBase();
+        const resp = await fetch(
+          `${apiBase}/reports/${encodeURIComponent(reportId)}/documents/${encodeURIComponent(fileId)}/file`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => "");
+          return { success: false, error: `HTTP ${resp.status} ${text.slice(0, 120)}` };
+        }
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+        return { success: true, data: { url, mime: blob.type } };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    },
+
+    // Show a transient toast on the active page (fill summary).
+    async showToast(message) {
+      try {
+        const result = await sendToContent("showToast", {
+          message: message?.message || "Done",
+        });
+        return result;
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    },
+
+    async getReport(message) {
+      try {
+        const reportId = message?.reportId || extensionState.currentReportId;
+        if (!reportId) {
+          return { success: false, error: "No report selected" };
+        }
+        const report = await apiRequest(
+          `/reports/${encodeURIComponent(reportId)}`,
+          { method: "GET" },
+          15000,
+        );
+        return { success: true, data: report };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    },
+
+    async getDocuments() {
+      // Server-authored document list: GET /reports/{id} is the source of
+      // truth for document ids/names — the UI never invents local ids.
+      try {
+        const reportId = extensionState.currentReportId;
+        if (!reportId) {
+          return { success: true, data: [] };
+        }
+        const report = await apiRequest(
+          `/reports/${encodeURIComponent(reportId)}`,
+          { method: "GET" },
+          15000,
+        );
+        const docs = (report.documents || []).map((d) => ({
+          id: d.document_id,
+          name: d.name,
+          docType:
+            (d.type || "").includes("pdf")
+              ? "scanned"
+              : (d.name || "").toLowerCase().endsWith(".zip")
+                ? "zip"
+                : "image",
+          size: d.size,
+          uploadedAt: d.uploaded_at,
+        }));
+        await chrome.storage.local.set({ documents: docs });
+        return { success: true, data: docs };
+      } catch (error) {
+        console.error("[BACKGROUND] Failed to load documents:", error);
+        return { success: false, error: error.message, data: [] };
+      }
+    },
+
     async deleteDocument(message) {
-      const { id } = message;
-      const docs = await chrome.storage.local.get("documents");
-      const updatedDocs = (docs.documents || []).filter((doc) => doc.id !== id);
-      await chrome.storage.local.set({ documents: updatedDocs });
-      return { success: true };
+      // Delete on the backend (requires the report lock for mutations), then
+      // re-sync the authoritative server list.
+      try {
+        const { id } = message;
+        const reportId = extensionState.currentReportId;
+        if (!reportId) {
+          throw new Error("No active report — cannot delete document");
+        }
+        if (!(await ensureReportLock(reportId))) {
+          throw new Error("LOCK_CONFLICT: could not acquire the report lock");
+        }
+        await apiRequest(
+          `/reports/${encodeURIComponent(reportId)}/documents/${encodeURIComponent(id)}`,
+          { method: "DELETE" },
+          15000,
+        );
+        return await handler.getDocuments();
+      } catch (error) {
+        console.error("[BACKGROUND] Failed to delete document:", error);
+        return { success: false, error: error.message };
+      }
     },
 
     async getToken() {
@@ -1712,6 +1881,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           lockHolderUser: extensionState.lockHolderUser,
           hasLock: !!extensionState.currentLockToken,
           lockExpiresAt: extensionState.lockExpiresAt || null,
+          pageContext: await resolvePageContext(),
         },
       };
     },
@@ -1762,6 +1932,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       "approveMapping",
       "autoFill",
       "getUserReports",
+      "getDocuments",
     ]);
     if (AUTH_ACTIONS.has(message.action)) {
       getAccessToken().then((token) => {
@@ -1835,6 +2006,29 @@ chrome.tabs.onRemoved.addListener((tabId) => {
   injectedTabs.delete(tabId);
 });
 
+// Option C — on tab switch: if the newly-active tab is a known report page,
+// follow it (switch active report + acquire its lock). Otherwise keep the
+// current report pinned but refresh the page-context flag so the panel can
+// show the "different page" banner instead of silently mismatching.
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  try {
+    const tab = await chrome.tabs.get(activeInfo.tabId);
+    if (!tab?.url || /^(chrome|edge|about|chrome-extension):/i.test(tab.url)) {
+      await notifyUIStateChange();
+      return;
+    }
+    const token = await getAccessToken();
+    const cached = extensionState.reportByUrl.get(tab.url);
+    if (cached && token) {
+      await getActiveReport();
+    } else {
+      await notifyUIStateChange();
+    }
+  } catch (e) {
+    console.debug("[BACKGROUND] onActivated context failed:", e.message);
+  }
+});
+
 // When the user opens or navigates to a page, check whether it is a report
 // webpage (e.g. https://app.openquire.com/reports/1809720) and match it
 // against the user reports already fetched after login. If a match is found,
@@ -1905,19 +2099,14 @@ chrome.storage.local.get(
   },
 );
 
-// On install, restore cached data and attempt to load fresh reports
+// On startup/install: restore cached data only. Do NOT eagerly hit the API —
+// a stale token + offline API would surface "Failed to fetch" before the user
+// does anything. Fresh data loads when the panel opens (action.onClicked /
+// onPanelShown) or when navigating to a known report page.
 chrome.runtime.onStartup.addListener(async () => {
-  const token = await getAccessToken();
-  if (token) {
-    await loadUserReports();
-    await getActiveReport();
-  }
+  await getActiveReport();
 });
 
 chrome.runtime.onInstalled.addListener(async () => {
-  const token = await getAccessToken();
-  if (token) {
-    await loadUserReports();
-    await getActiveReport();
-  }
+  await getActiveReport();
 });

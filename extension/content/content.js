@@ -436,85 +436,59 @@ function fillFieldBySelector(selector, fieldType, value) {
 function autoFill(mappings) {
   console.log("[CONTENT] Processing", mappings.length, "mappings");
 
-  mappings.forEach((mapping, index) => {
-    console.log(
-      `[CONTENT] Processing mapping ${index + 1}/${mappings.length}:`,
-      {
-        field_id: mapping.field_id,
-        field_name: mapping.formField,
-        value: mapping.value,
-        field_type: mapping.field_type,
-        provided_selector: mapping.selector,
-      },
-    );
+  let filledCount = 0;
+  let skippedCount = 0;
 
+  for (const mapping of mappings) {
     // Generate selector on-demand if not provided
     let selector = mapping.selector;
     if (!selector) {
-      console.log(
-        `[CONTENT] No selector provided, generating for field_id: ${mapping.field_id}`,
-      );
       selector = getSelectorByFieldId(mapping.field_id);
-      console.log(`[CONTENT] Generated selector: ${selector}`);
     }
 
     if (selector) {
-      console.log(
-        `[CONTENT] Filling field "${mapping.formField}" with value "${mapping.value}"`,
-      );
       fillFieldBySelector(selector, mapping.field_type, mapping.value);
-      console.log(`[CONTENT] Successfully filled field "${mapping.formField}"`);
-    } else {
-      console.warn(
-        `[CONTENT] Could not find selector for field "${mapping.formField}" (field_id: ${mapping.field_id})`,
-      );
+      filledCount++;
+      continue;
+    }
 
-      // Try fallback: search by field name in the DOM
-      console.log(
-        `[CONTENT] Trying fallback search for field: ${mapping.formField}`,
-      );
-      // Fallback: search for label elements containing the field name
-      const labels = Array.from(document.querySelectorAll("label"));
-      const matchingLabel = labels.find(
-        (lbl) => lbl.textContent.trim() === mapping.formField,
-      );
-      if (matchingLabel) {
-        const forAttr = matchingLabel.getAttribute("for");
-        if (forAttr) {
-          const element = document.getElementById(forAttr);
-          if (element) {
-            console.log(`[CONTENT] Found element via label for="${forAttr}"`);
-            fillFieldBySelector(
-              `#${forAttr}`,
-              mapping.field_type,
-              mapping.value,
-            );
-            console.log(
-              `[CONTENT] Successfully filled field using label fallback`,
-            );
-            return;
-          }
-        }
-        // If no for attribute, try to find the first input inside the label
-        const inputInside = matchingLabel.querySelector(
-          'input, textarea, select, [role="textbox"], [role="combobox"], [role="checkbox"], [role="radio"]',
-        );
-        if (inputInside) {
-          console.log(
-            `[CONTENT] Found input inside label for field "${mapping.formField}"`,
-          );
-          const selector = generateSelector(inputInside);
-          fillFieldBySelector(selector, mapping.field_type, mapping.value);
-          console.log(
-            `[CONTENT] Successfully filled field using label inner input fallback`,
-          );
-          return;
+    // Fallback: search by field name in the DOM
+    const labels = Array.from(document.querySelectorAll("label"));
+    const matchingLabel = labels.find(
+      (lbl) => lbl.textContent.trim() === mapping.formField,
+    );
+    if (matchingLabel) {
+      const forAttr = matchingLabel.getAttribute("for");
+      if (forAttr) {
+        const element = document.getElementById(forAttr);
+        if (element) {
+          fillFieldBySelector(`#${forAttr}`, mapping.field_type, mapping.value);
+          filledCount++;
+          continue;
         }
       }
+      // If no for attribute, try to find the first input inside the label
+      const inputInside = matchingLabel.querySelector(
+        'input, textarea, select, [role="textbox"], [role="combobox"], [role="checkbox"], [role="radio"]',
+      );
+      if (inputInside) {
+        const selector = generateSelector(inputInside);
+        fillFieldBySelector(selector, mapping.field_type, mapping.value);
+        filledCount++;
+        continue;
+      }
     }
-  });
 
-  console.log(`[CONTENT] Finished processing all mappings`);
+    skippedCount++;
+    console.warn(
+      `[CONTENT] Could not fill field "${mapping.formField}" (no element found)`,
+    );
+  }
+
+  console.log(
+    `[CONTENT] Finished: ${filledCount} filled, ${skippedCount} skipped`,
+  );
+  return { filled: filledCount, skipped: skippedCount };
 }
 
 // Merge API-derived schema with DOM-derived schema
@@ -550,24 +524,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     case "autoFill":
       try {
-        console.log(
-          "[CONTENT] autoFill received:",
-          JSON.stringify(message.mappings, null, 2),
-        );
-        console.log(
-          "[CONTENT] Number of mappings to apply:",
-          message.mappings.length,
-        );
-
         if (message.mappings.length === 0) {
           console.warn("[CONTENT] No mappings provided, nothing to fill");
-          sendResponse({ success: true, message: "No mappings provided" });
+          sendResponse({ success: true, message: "No mappings provided", data: { filled: 0, skipped: 0 } });
           return;
         }
 
-        autoFill(message.mappings);
-        console.log("[CONTENT] autoFill completed successfully");
-        sendResponse({ success: true });
+        const fillStats = autoFill(message.mappings);
+        sendResponse({ success: true, data: fillStats });
       } catch (error) {
         console.error("[CONTENT] autoFill error:", error);
         sendResponse({ success: false, error: error.message });
@@ -583,6 +547,43 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: false, error: error.message });
       }
       break;
+
+    case "showToast": {
+      try {
+        // Single transient page-level toast (no DOM structure assumptions).
+        const existing = document.getElementById("formiq-toast");
+        if (existing) existing.remove();
+        const toast = document.createElement("div");
+        toast.id = "formiq-toast";
+        toast.textContent = message.message || "Done";
+        Object.assign(toast.style, {
+          position: "fixed",
+          bottom: "24px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: "2147483647",
+          padding: "10px 18px",
+          borderRadius: "10px",
+          background: "oklch(0.45 0.16 264)",
+          color: "#fff",
+          font: "500 13px/1.4 'Geist Variable', system-ui, sans-serif",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+          pointerEvents: "none",
+          transition: "opacity 0.3s ease",
+          opacity: "0",
+        });
+        document.body.appendChild(toast);
+        requestAnimationFrame(() => (toast.style.opacity = "1"));
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          setTimeout(() => toast.remove(), 350);
+        }, 3500);
+        sendResponse({ success: true });
+      } catch (error) {
+        sendResponse({ success: false, error: error.message });
+      }
+      break;
+    }
 
     case "scanDropdownOptions":
       console.log("[CONTENT] Scanning dropdown options...");
