@@ -22,7 +22,9 @@ env/
 
 # Environment files
 .env
-.env.example
+.env.*
+# Keep the committed template (placeholders only, no secrets):
+!.env.example
 
 # Project data
 /storage/
@@ -34,6 +36,12 @@ backup_providers/
 *.bak
 *.log
 *.tmp
+
+# Log files that don't end in .log (backend writes these; never commit them)
+backend/log.txt
+backend/logs/
+testing/*.log
+tests/*.log
 
 # Node / UI
 node_modules/

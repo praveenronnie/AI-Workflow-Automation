@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Generated from docs/openapi.json by CI (npx openapi-typescript) — not source
+src/lib/api/schema.d.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,133 +1,92 @@
-# AI Report Automation
+# FormIQ
 
-## Overview
+**Intelligent filling for inspection reports.** A Chrome extension + FastAPI
+backend that captures any web form, matches your uploaded documents to its
+fields with confidence scores, and fills it after human review.
 
-AI-powered form automation for the OpenQuire TRM platform (PCA Site Assessment
-domain), built with a **pluggable platform-adapter + domain-manifest** design
-so additional platforms and domains can be added without touching the core.
-
-Two main components:
-
-1. **Python Extraction & Mapping Engine** (`inspection_ai/`) — FastAPI backend
-   that processes PDFs/images (Docling via Modal, VLM for handwritten pages),
-   indexes extracted evidence (Qdrant + BM25 hybrid retrieval), and maps form
-   fields to evidence via alias → rule → LLM pipeline.
-2. **Chrome Extension** (`openquire-ai-extension/`) — MV3 extension with a
-   React side panel (`ui/`) that scans forms (adapter-driven API + DOM),
-   requests mappings, and auto-fills reports.
+> formerly "OpenQuire AI Form Automation" / FormPilot concept
 
 ## Architecture
 
 ```
 Chrome Extension (extension/)
-├── Side Panel UI (React + Zustand)
-├── Background Service Worker (all backend API calls, JWT)
-└── Content Scripts (scanner, fillers, adapter registry, extractors)
-      └── adapters/*.adapter.json  → declarative platform config
-                │ REST + JWT
-                v
-FastAPI backend (backend/inspection_ai — package: inspection_ai)
-├── app.py                  composition root (lifespan, routers, exception handlers)
-├── features/               business features: reports/documents/mapping/domains/auth
-│   └── each owns routes → payloads → service → repository
-├── workflows/              cross-feature orchestration (report processing)
-├── ai/                     RAG capability layer (domain-agnostic)
-│   ├── extraction/         pdf (Docling/Modal) · handwritten (VLM) · image · zip
-│   ├── retrieval/          Qdrant vectors + BM25 + cross-encoder reranker
-│   ├── mapping/            alias → retrieval → rule → LLM
-│   ├── providers/          LLM client, Modal inference, Docling, intent detection
-│   └── storage/models/prompts
-├── core/                   config, logging, exceptions, DI container, paths, constants
-├── database/               ORM models + shared session (repositories inside features)
-├── tasks/ worker/          Celery + Modal workers
-└── domain_catalog/ prompts/
+├── Side panel UI (frontend/web → builds to extension/ui/dist)
+├── Background service worker — ALL backend API calls, JWT, report locks
+└── Content scripts — DOM scanner, capture mode, generic fillers
+      │ REST + JWT
+      v
+FastAPI backend (backend/, package root — run as backend.app:app)
+├── app.py            composition root (lifespan, routers, exception handlers)
+├── features/         auth · reports · domains · mapping (routes → service → repo)
+├── workflows/        cross-feature orchestration
+├── ai/               extraction (Docling/Modal, VLM) · retrieval (Qdrant+BM25) · mapping
+├── core/             config, logging (request-ID), DI container, exceptions
+├── database/         SQLAlchemy models (Postgres) + repositories
+├── tasks/ worker/    Celery worker · beat (heartbeat + stale-job sweeper) · Modal
+└── domain_catalog/   domain manifests (auto-seeded at startup)
 
-frontend/web/               React + Vite dashboard (src/features/...)
-json_extraction/            extraction output artifacts
-migrations/ scripts/ docs/  Alembic, seed tooling, documentation
-
-Infra: PostgreSQL · Redis · Qdrant · Modal (GPU inference)
-Celery worker: pdf/image/intent/embed/embed tasks
+Infra: PostgreSQL · Redis · Qdrant · Modal (GPU inference) · OmniRoute (LLM gateway, docker service)
 ```
 
-Import rule: `api → features/workflows → ai/database`. The `ai/` package never
-imports `features`, `api`, or `tasks` — it stays swappable and testable in
-isolation.
+**Privacy model:** documents/evidence are deduplicated and shared **within an
+organization**; every lookup, dedup index, and vector-search filter is
+org-scoped. Cross-org access returns 404 by design.
 
-## Project Structure
-
-```
-ai-report-automation/
-├── backend/inspection_ai/
-│   ├── app.py                  # FastAPI composition root (lifespan, routers, handlers)
-│   ├── core/                   # config, logging, DI container, exceptions, paths, constants
-│   ├── features/               # business features (routes, payloads, services, repos)
-│   ├── workflows/              # cross-feature orchestration
-│   ├── ai/                     # RAG capability layer (extraction, retrieval, mapping, providers)
-│   ├── database/               # SQLAlchemy models + shared session (Postgres)
-│   ├── tasks/ worker/          # Celery + Modal workers
-│   └── domain_catalog/ prompts/
-├── frontend/web/               # React + Vite dashboard (src/features/...)
-├── extension/                  # Chrome MV3 extension
-│   ├── adapters/               # Declarative platform adapter configs (+ index.json)
-│   ├── content/                # Scanner, fillers, adapter registry, extractors
-│   ├── background/             # Service worker (backend API + state)
-│   ├── domains/manifests/      # Domain manifest JSONs
-│   └── shared/                 # Constants + schemas
-├── json_extraction/            # Extraction output artifacts
-├── migrations/ scripts/ docs/  # Alembic, seed tooling, documentation
-└── docker-compose.yml          # Redis, Qdrant, Postgres, Celery worker, API
-```
-
-## Quick Start
+## Quick start (dev)
 
 ```bash
 # 1. Infrastructure
-docker compose up -d redis qdrant postgres worker
+docker compose up -d postgres redis qdrant
 
-# 2. Backend
+# 2. Backend (repo root on PYTHONPATH — imports are backend.*)
 pip install -r requirements.txt
-uvicorn inspection_ai.api.app:app --reload --port 8000
+python -m uvicorn backend.app:app --reload --port 8000
 
-# 3. Extension (Chrome)
-#    chrome://extensions → Developer mode → Load unpacked → openquire-ai-extension/
+# 3. Frontend → extension bundle
+cd frontend/web && npm install && npm run build   # outputs ../extension/ui/dist
+
+# 4. Chrome: chrome://extensions → Developer mode → Load unpacked → extension/
 ```
 
-## API Endpoints
+Configuration lives in `.env` — only keys actually read by the code (see
+comments in `.env`). Generate the JWT secret with
+`python -c "import secrets; print(secrets.token_urlsafe(48))"`.
+
+## API overview
 
 | Method | Path | Description |
 | ------ | ---- | ----------- |
-| GET    | /health | Health check |
-| POST   | /auth/register | Register a user (JWT auth) |
-| POST   | /auth/token | Login → access/refresh tokens |
-| POST   | /reports | Create a report (user-scoped) |
-| POST   | /reports/{id}/upload/pdf | Upload PDFs (`doc_types` = JSON array of `{contains_handwritten: bool}`) |
-| POST   | /reports/{id}/upload/image | Upload images or ZIP (bulk) |
-| POST   | /reports/{id}/form_schema | Store scanned form schema (optionally triggers intent pre-pass) |
-| POST   | /reports/{id}/map | Map extracted evidence to form fields (`domain_id` required) |
-| GET    | /reports/user | List the user's reports |
-| GET    | /reports/{id}/mapping | Mapping results + processing status |
-| GET/POST | /domains, /domains/{id}/manifests, /domains/upload | Domain & manifest CRUD |
+| GET    | /health · /ready | liveness · readiness (services + worker heartbeat) |
+| POST   | /auth/register · /auth/token · /auth/refresh · /auth/logout | JWT with refresh rotation + revocation |
+| POST   | /reports/link | create-or-link report by URL (org-scoped) |
+| POST   | /reports/{id}/lock · /lock/heartbeat · /unlock | report locks (300s TTL) |
+| POST   | /reports/{id}/upload/pdf · /upload/image | uploads (magic-byte validated, org-scoped dedup, Celery) |
+| POST/GET/PUT | /reports/{id}/form_schema | scanned/consolidated form schema |
+| POST   | /reports/{id}/map | alias → retrieval → rule → LLM mapping (domain required) |
+| GET    | /reports/{id}/mapping · /reports/{id}/documents… | results, status |
+| GET/POST | /domains/ · /domains/upload · /domains/{id}/manifests | domain registry (auto-seeded) |
 
-## Extending
+OpenAPI contract: `docs/openapi.json` (regenerate: `python scripts/export_openapi.py`).
 
-- **New domain** — upload a manifest via `POST /domains/upload` (sections →
-  fields with aliases/intents). No code changes; the mapping pipeline and UI
-  domain selector are data-driven.
-- **New platform** — add `adapters/<platform>.adapter.json` + an entry in
-  `adapters/index.json` + one extractor file registering named handlers
-  (e.g. `<platform>.buildSchema`) with `ApiExtractorRegistry`. The content
-  script and backend require no changes.
+## Testing
 
-## Design Principles
+```bash
+python testing/runner.py http://localhost:8000   # FULL battery (14 suites, incl. E2E)
+python tests/smoke_api.py http://localhost:8000   # 31-check API gate
+python tests/org_isolation_check.py               # privacy walls
+python tests/domain_map_check.py                  # domain validation
+python tests/maintenance_check.py                 # heartbeat/sweeper
+```
 
-- **Platform coupling lives only in adapter configs** — the backend and the
-  universal service hold no platform-specific logic.
-- **Domain knowledge lives in manifests** — sections, fields, aliases, intents.
-- **DOM first, API where available** — adapters declare extraction strategies.
-- **LLM for mapping only** — retrieval + rules resolve most fields; the LLM is
-  the fallback and resolves `option_id`s.
+`testing/runner.py` is the deployment gate — it runs every suite in dependency
+order and prints a pass/fail summary (`testing/TEST_CASES.md` maps ~120 cases
+to suites). `tests/pipeline_check.py` inside it needs a live worker + Modal.
 
-## License
+## Production
 
-MIT
+See `docs/PRODUCTION_PLAN.md` (rollout plan) and `docs/AUDIT_REPORT.md` (audit
+trail + resolution status); `docs/PROJECT_STATUS.md` tracks phase status.
+Deployment shape: `docker-compose.prod.yml` + `Caddyfile` (TLS via Caddy) with
+OmniRoute as an in-network LLM gateway (never `localhost` — the API refuses to
+boot with `ENV=production` and a loopback URL). Release/troubleshooting runbook:
+`docs/DEPLOYMENT.md`.

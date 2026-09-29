@@ -1,0 +1,52 @@
+# Build context excludes — keeps the image small and free of secrets.
+# NOTE: this file exists because `COPY . .` previously pulled in .venv (1.9 GB),
+# node_modules, .git, storage/uploads and the local .env (secrets in layers).
+
+# ---- Secrets & local environment (compose injects these at runtime) ----
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+env/
+
+# ---- VCS / IDE / CI ----
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+
+# ---- Node / frontend / extension (client-side, not part of the API image) ----
+node_modules/
+frontend/
+extension/
+package.json
+package-lock.json
+
+# ---- Local runtime data (named volumes / host paths in prod) ----
+storage/
+uploads/
+data/
+
+# ---- Tests & docs (run from the host or CI, never inside the image) ----
+tests/
+testing/
+docs/
+*.md
+
+# ---- Build junk ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+*.log
+*.bak
+*.tmp
+.modal/
+
+# ---- OS noise ----
+Thumbs.db
+.DS_Store
+Desktop.ini
