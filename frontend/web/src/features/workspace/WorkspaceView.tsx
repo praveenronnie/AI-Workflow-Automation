@@ -221,8 +221,9 @@ export function WorkspaceView() {
       <div className="flex-1 space-y-2 overflow-y-auto p-3">
         {apiOffline && userReports.length === 0 && (
           <div className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-3 text-center text-xs text-amber-800">
-            Can't reach the API at localhost:8000 — is the server running?
-            Start it with <span className="font-mono">docker compose up -d</span>.
+            Can't reach the API service — is the backend running?
+            In dev, start it with{" "}
+            <span className="font-mono">docker compose up -d</span>.
           </div>
         )}
         {!apiOffline && userReports.length === 0 && (

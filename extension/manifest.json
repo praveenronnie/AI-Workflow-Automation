@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FormIQ — AI Report Assistant",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Intelligent filling for inspection reports: capture any web form, match your documents, review with confidence scores, fill with one click.",
   "permissions": ["activeTab", "storage", "scripting", "sidePanel"],
   "host_permissions": [
