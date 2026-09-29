@@ -1,0 +1,1 @@
+"""Celery task package: PDF, image, intent, and embedding workers."""

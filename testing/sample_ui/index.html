@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FormIQ · Sample UI Test Harness</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">F</span>
+      <div class="brand-text">
+        <h1>FormIQ <span class="brand-sub">Sample UI Test Harness</span></h1>
+        <p class="brand-tagline">Upload → Map → Verify → Fill against your real backend</p>
+      </div>
+    </div>
+    <div class="topbar-status" id="connStatus" title="Backend connection state">
+      <span class="dot dot-gray" id="connDot"></span>
+      <span id="connText" class="conn-text">Not connected</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="wizard">
+      <nav class="steps" id="stepNav" aria-label="Pipeline steps">
+        <button class="step-btn active" data-step="0"><span class="step-num">1</span><span class="step-label">Connect</span></button>
+        <button class="step-conn" disabled aria-hidden="true"></button>
+        <button class="step-btn" data-step="1"><span class="step-num">2</span><span class="step-label">Report &amp; Form</span></button>
+        <button class="step-conn" disabled aria-hidden="true"></button>
+        <button class="step-btn" data-step="2"><span class="step-num">3</span><span class="step-label">Upload</span></button>
+        <button class="step-conn" disabled aria-hidden="true"></button>
+        <button class="step-btn" data-step="3"><span class="step-num">4</span><span class="step-label">Map</span></button>
+        <button class="step-conn" disabled aria-hidden="true"></button>
+        <button class="step-btn" data-step="4"><span class="step-num">5</span><span class="step-label">Verify</span></button>
+        <button class="step-conn" disabled aria-hidden="true"></button>
+        <button class="step-btn" data-step="5"><span class="step-num">6</span><span class="step-label">Submit</span></button>
+      </nav>
+
+      <!-- STEP 0: CONNECT -->
+      <section class="panel" id="step-0">
+        <div class="panel-head">
+          <h2>1 · Connect to backend</h2>
+          <span class="panel-tag">auth &amp; health</span>
+        </div>
+        <p class="hint">Point at your running FastAPI backend. The harness auto-creates a random test user and logs in.</p>
+        <div class="row">
+          <label for="backendUrl">Backend URL</label>
+          <input id="backendUrl" type="text" value="http://localhost:8000" placeholder="http://localhost:8000" spellcheck="false" class="field" />
+          <button id="btnConnect" class="btn-primary">Connect</button>
+        </div>
+        <div class="card" id="healthCard" hidden>
+          <div class="card-head"><h3>Backend health</h3><span class="pill pill-ok" id="healthPill">checking…</span></div>
+          <pre id="healthBody">-</pre>
+        </div>
+        <div class="card" id="authCard" hidden>
+          <div class="card-head"><h3>Authentication</h3></div>
+          <p class="auth-line" id="authInfo">-</p>
+          <button id="btnResetUser" class="btn btn-ghost">↻  New test user</button>
+        </div>
+      </section>
+      <!-- STEP 1: REPORT & FORM -->
+      <section class="panel" id="step-1" hidden>
+        <div class="panel-head">
+          <h2>2 · Report &amp; Form</h2>
+          <span class="panel-tag">link · lock · schema</span>
+        </div>
+        <p class="hint">Creates/links a report for a local URL, acquires the lock, and posts
+          <code>form_schema.json</code> to the backend exactly like the extension scanner.</p>
+        <div class="row">
+          <label for="sourceUrl">Source URL</label>
+          <input id="sourceUrl" type="text" value="http://localhost:5173/sample-pca-report" spellcheck="false" class="field" />
+        </div>
+        <div class="actions">
+          <button id="btnLinkReport" class="btn-primary">Link Report + Acquire Lock</button>
+          <button id="btnPostSchema" class="btn btn-ghost" disabled>POST form schema</button>
+        </div>
+        <div class="card" id="reportCard" hidden>
+          <div class="card-head"><h3>Report status</h3></div>
+          <pre id="reportBody">-</pre>
+        </div>
+        <div class="card" id="schemaStatsCard" hidden>
+          <div class="card-head"><h3>Loaded schema</h3></div>
+          <pre id="schemaStatsBody">-</pre>
+        </div>
+        <h3 class="section-title">Rendered form replica <span class="muted">(from form_schema.json)</span></h3>
+        <div id="formReplica" class="form-replica">
+          <p class="empty-hint">No schema loaded yet — click <strong>Link Report + Acquire Lock</strong> above.</p>
+        </div>
+      </section>
+
+      <!-- STEP 2: UPLOAD -->
+      <section class="panel" id="step-2" hidden>
+        <div class="panel-head">
+          <h2>3 · Upload documents</h2>
+          <span class="panel-tag">pdf / image / zip</span>
+        </div>
+        <p class="hint">PDFs go to <code>/upload/pdf</code> (with doc-type); images &amp; ZIPs to
+          <code>/upload/image</code>. Files auto-split by extension.</p>
+        <div class="row">
+          <label for="docType">PDF doc type</label>
+          <select id="docType" class="field">
+            <option value="scanned">Scanned (OCR)</option>
+            <option value="handwritten">Handwritten</option>
+          </select>
+        </div>
+        <div class="row">
+          <label for="fileInput">Select files</label>
+          <input id="fileInput" type="file" multiple class="file-field" />
+        </div>
+        <div class="actions">
+          <button id="btnUpload" class="btn-primary" disabled>Upload files</button>
+        </div>
+        <div id="uploadStatus" class="status-line"></div>
+        <div class="card" id="uploadResultCard" hidden>
+          <div class="card-head"><h3>Upload responses</h3></div>
+          <pre id="uploadResultBody">-</pre>
+        </div>
+        <div class="card" id="jobPollCard" hidden>
+          <div class="card-head"><h3>Job status <span class="muted">(polled)</span></h3></div>
+          <pre id="jobPollBody">Waiting…</pre>
+        </div>
+      </section>
+      <!-- STEP 3: MAP -->
+      <section class="panel" id="step-3" hidden>
+        <div class="panel-head">
+          <h2>4 · Map fields</h2>
+          <span class="panel-tag">alias → retrieval → rule → LLM</span>
+        </div>
+        <p class="hint">Calls the real <code>/map</code> endpoint. Requires uploaded evidence first.</p>
+        <div class="row">
+          <label for="domainSelect">Domain</label>
+          <select id="domainSelect" class="field"></select>
+        </div>
+        <div class="actions">
+          <button id="btnMap" class="btn-primary" disabled>Run mapping</button>
+          <button id="btnMapOverride" class="btn-secondary" hidden>Map anyway (failed jobs — negative test)</button>
+        </div>
+        <div id="mapStatus" class="status-line"></div>
+        <div class="card" id="mapResultCard" hidden>
+          <div class="card-head"><h3>Mapping summary</h3></div>
+          <pre id="mapResultBody">-</pre>
+        </div>
+      </section>
+
+      <!-- STEP 4: VERIFY -->
+      <section class="panel" id="step-4" hidden>
+        <div class="panel-head">
+          <h2>5 · Human verification</h2>
+          <span class="badge" id="acceptCounter"></span>
+        </div>
+        <p class="hint">Review mapped values per table. Auto-accept ≥ 80% confidence — edit values, then
+          accept/reject. Decisions are kept in memory and applied at Submit.</p>
+        <div class="actions">
+          <button id="btnAcceptAll" class="btn btn-ghost">Accept all reviewed</button>
+          <button id="btnClearDecisions" class="btn btn-ghost">Clear decisions</button>
+        </div>
+        <div id="emptyReview" class="empty-hint" hidden>No mappings yet — run the map step first.</div>
+        <nav class="sub-tabs" id="reviewTabs"></nav>
+        <div id="reviewTables"></div>
+      </section>
+
+      <!-- STEP 5: SUBMIT -->
+      <section class="panel" id="step-5" hidden>
+        <div class="panel-head">
+          <h2>6 · Submit — populate the webpage</h2>
+          <span class="panel-tag">DOM fill</span>
+        </div>
+        <p class="hint">Applies the accepted/edited values onto the rendered form replica
+          (real DOM fill with <code>input</code>/<code>change</code> events, mirroring the extension fillers).</p>
+        <div class="actions">
+          <button id="btnFill" class="btn-primary" disabled>Fill form (0 fields)</button>
+          <button id="btnResetForm" class="btn btn-ghost">Reset form</button>
+        </div>
+        <div class="card" id="fillResultCard" hidden>
+          <div class="card-head"><h3>Fill result</h3></div>
+          <pre id="fillResultBody">-</pre>
+        </div>
+        <h3 class="section-title">Filled form</h3>
+        <div id="formReplicaFilled" class="form-replica">
+          <p class="empty-hint">Fill the form to see the populated replica here.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- RIGHT: API LOG -->
+    <aside class="api-log">
+      <div class="api-log-head">
+        <span class="log-title"><span class="dot dot-green"></span> API Log</span>
+        <button id="btnClearLog" class="btn btn-xs btn-ghost">Clear</button>
+      </div>
+      <pre id="logBody" class="log-body">— no requests yet —</pre>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

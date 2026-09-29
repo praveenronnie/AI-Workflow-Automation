@@ -36,7 +36,7 @@ from tqdm import tqdm
 logger = logging.getLogger(__name__)
 
 MANIFEST_PATH = pathlib.Path(
-    r"backend/inspection_ai/domain_catalog/pca_site_assessment/temp.json"
+    r"backend/domain_catalog/pca_site_assessment/temp.json"
 )
 
 MAX_NEW_ALIASES = 4

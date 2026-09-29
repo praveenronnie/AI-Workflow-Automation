@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
-from backend.inspection_ai.domain_catalog import build_upload_payload  # noqa: E402
+from backend.domain_catalog import build_upload_payload  # noqa: E402
 
 
 def main() -> None:
